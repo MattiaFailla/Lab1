@@ -41,7 +41,7 @@ public class App {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         JFrame frame;
         frame = new JFrame("Appliczione");
@@ -58,16 +58,6 @@ public class App {
         frame.pack();
         frame.setVisible(true);
 
-        /*JFrame frame;
-        frame = new JFrame();
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
-        frame.setTitle("Frytree");
-
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);*/
     }
 
 }
