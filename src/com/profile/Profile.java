@@ -1,6 +1,7 @@
 package com.profile;
 
 import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,10 @@ public class Profile {
     private JTextField userFirstNameTextField;
     private JButton saveButton;
 
+    /* PROVA PER L'IMMAGINE pt.1/2
+    private JLabel Image = new JLabel();
+     */
+
     public Profile() {
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -24,10 +29,11 @@ public class Profile {
                 JOptionPane.showMessageDialog(null, "Saved!");
             }
         });
-    }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+        /* PROVA IMMAGINE pt.2/2
+        Image.setIcon(new ImageIcon("C:\\Users\\Sistema\\Desktop\\Profile.jpg"));
+        panel2.add(Image);
+         */
     }
 
     public static void main(String[] args) {
