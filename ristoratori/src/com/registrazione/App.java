@@ -35,7 +35,6 @@ public class App {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         panel1 = new JPanel();
         loginButton = new JButton();
     }
