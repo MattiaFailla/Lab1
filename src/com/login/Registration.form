@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.login.registration">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.login.Registration">
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -13,6 +13,12 @@
           <text value="Registrami nel sistema"/>
         </properties>
       </component>
+      <scrollpane id="cddac">
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </scrollpane>
     </children>
   </grid>
 </form>
