@@ -10,19 +10,11 @@ public class Login extends JDialog {
     private JButton buttonCancel;
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private Image img = Toolkit.getDefaultToolkit().getImage("./assets.img/login_background.jpg");
 
     public Login() {
-        // Setting a background image
-        JLabel background;
-        ImageIcon login_img = new ImageIcon("./assets/img/login_background.jpg");
-        background = new JLabel("", login_img, JLabel.CENTER);
-        background.setBounds(0,0,1200,700);
-
         setSize(1200,700);
         setContentPane(contentPane);
         setModal(true);
-        add(background);
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(new ActionListener() {
@@ -68,6 +60,7 @@ public class Login extends JDialog {
 
     public static void main(String[] args) {
         Login dialog = new Login();
+
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
