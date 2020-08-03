@@ -26,12 +26,12 @@ public class Profile {
         });
     }
 
-    /*private void createUIComponents() {
+    private void createUIComponents() {
         // TODO: place custom component creation code here
-    }*/
+    }
 
     public static void main(String[] args) {
-        Jframe frame = new Jframe("Profile");
+        JFrame frame = new JFrame("Profile");
         frame.setContentPane(new Profile().panel2);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
