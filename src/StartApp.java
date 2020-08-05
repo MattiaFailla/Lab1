@@ -11,6 +11,8 @@ public class StartApp {
 
         DataBase.write(1, DataBase.data_types.INFO, "App started");
 
+        DataBase.read(1);
+
         // Starting the ui
         com.login.Login.main(args);
 

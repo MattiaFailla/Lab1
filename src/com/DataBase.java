@@ -1,8 +1,6 @@
 package com;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class DataBase {
     private static final String filename = "./database.db";
@@ -34,6 +32,20 @@ public class DataBase {
 
         fos.write(payload.getBytes());
         fos.close();
+    }
+
+    public static void read(Integer id) throws IOException {
+        FileReader fr = new FileReader(filename);
+        StreamTokenizer st = new StreamTokenizer(fr);
+        while(st.nextToken() != StreamTokenizer.TT_EOF) {
+            if(st.ttype == StreamTokenizer.TT_NUMBER) {
+                System.out.println("Number: "+st.nval);
+            } else if(st.ttype == StreamTokenizer.TT_WORD) {
+                System.out.println("Word: "+st.sval);
+            }else if(st.ttype == StreamTokenizer.TT_EOL) {
+                System.out.println("--End of Line--");
+            }
+        }
     }
 
 
