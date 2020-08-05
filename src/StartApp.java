@@ -8,7 +8,7 @@ public class StartApp {
 
 
         // Creating database if not exists
-        File db_ristoratori = new File("./risotaratori.db");
+        File db_ristoratori = new File("./ristoratori.db");
         // Forcing the os to create the files
         db_ristoratori.createNewFile();
         FileOutputStream oFile = new FileOutputStream(db_ristoratori, true);
