@@ -11,7 +11,7 @@ public class StartApp {
         File db_ristoratori = new File("./risotaratori.db");
         // Forcing the os to create the files
         db_ristoratori.createNewFile();
-        FileOutputStream oFile = new FileOutputStream(db_ristoratori, false);
+        FileOutputStream oFile = new FileOutputStream(db_ristoratori, true);
 
         // Starting the ui
         com.login.Login.main(args);
