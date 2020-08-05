@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class DataBase {
-    private static final String filename = "database.db";
+    private static final String filename = "./database.db";
 
     public static void init() throws IOException {
         // Initialize the database
