@@ -1,7 +1,6 @@
 package com;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -26,10 +25,13 @@ public class DataBase {
     public static void write(Integer id, data_types type, String content) throws IOException {
         // Appending to file the content at id
         FileOutputStream fos = new FileOutputStream(filename, true);
-        String payload = "# DATA" + "\n" +
-                "id:" + id.toString() + "\n" +
-                "type:" + type + "\n" +
-                "content:" + content + "\n";
+
+        String payload =
+                "# DATA" + "\n" +
+                        "id:" + id.toString() + "\n" +
+                        "type:" + type + "\n" +
+                        "content:" + content + "\n";
+
         fos.write(payload.getBytes());
         fos.close();
     }
