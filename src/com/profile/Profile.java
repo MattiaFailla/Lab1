@@ -18,10 +18,6 @@ public class Profile {
     private JTextField userFirstNameTextField;
     private JButton saveButton;
 
-    /* PROVA PER L'IMMAGINE pt.1/2
-    private JLabel Image = new JLabel();
-     */
-
     public Profile() {
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -29,11 +25,6 @@ public class Profile {
                 JOptionPane.showMessageDialog(null, "Saved!");
             }
         });
-
-        /* PROVA IMMAGINE pt.2/2
-        Image.setIcon(new ImageIcon("C:\\Users\\Sistema\\Desktop\\Profile.jpg"));
-        panel2.add(Image);
-         */
     }
 
     public static void main(String[] args) {
