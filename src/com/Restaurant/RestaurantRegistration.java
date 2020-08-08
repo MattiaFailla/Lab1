@@ -22,9 +22,6 @@ public class RestaurantRegistration {
         });
 
         textField2.setText("Street, House Number, City, Province Abbreviation, ZIP Code");
-        String[] choices = {"Italian", "Ethnic", "Fusion"};
-        comboBox1 = new JComboBox<String>(choices);
-        comboBox1.setVisible(true);
     }
 
     public static void main(String[] args) {
