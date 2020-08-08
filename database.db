@@ -14,7 +14,10 @@ content:App started
 id:1
 type:INFO
 content:App started
+<<<<<<< Updated upstream
 # DATA
 id:1
 type:INFO
 content:App started
+=======
+>>>>>>> Stashed changes
