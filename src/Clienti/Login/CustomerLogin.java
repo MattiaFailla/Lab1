@@ -1,17 +1,17 @@
-package com.login;
+package Clienti.Login;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class Login extends JDialog {
+public class CustomerLogin extends JDialog {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
     private JTextField nicknameField;
     private JPasswordField passwordField;
-    private JLabel nicknameLabel;
 
-    public Login() {
+    public CustomerLogin() {
         setSize(1200,700);
         setContentPane(contentPane);
         setModal(true);
@@ -19,7 +19,7 @@ public class Login extends JDialog {
 
         buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                onLogin();
             }
         });
 
@@ -45,7 +45,7 @@ public class Login extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK() {
+    private void onLogin() {
         // add your code here
         System.out.println("Login verification ongoing..");
         System.out.println(nicknameField.getText());
@@ -59,7 +59,7 @@ public class Login extends JDialog {
     }
 
     public static void main(String[] args) {
-        Login dialog = new Login();
+        CustomerLogin dialog = new CustomerLogin();
 
         dialog.pack();
         dialog.setVisible(true);
