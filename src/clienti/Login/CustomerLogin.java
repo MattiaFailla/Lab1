@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class CustomerLogin extends JDialog {
-    public JPanel contentPane;
+    private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
-    private JTextField nicknameField;
+    private JLabel nicknameLabel; // @// FIXME: 09/08/20 You need to fix this component type (JtextField was wrong, but JLabel won't work
     private JPasswordField passwordField;
 
     public CustomerLogin() {
@@ -37,7 +37,7 @@ public class CustomerLogin extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        this.contentPane.registerKeyboardAction(new ActionListener() {
+        contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -47,7 +47,7 @@ public class CustomerLogin extends JDialog {
     private void onLogin() {
         // add your code here
         System.out.println("Login verification ongoing..");
-        System.out.println(nicknameField.getText());
+        System.out.println(nicknameLabel.getText());
         System.out.println(passwordField.getPassword());
         dispose();
     }
