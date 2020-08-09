@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.login"},{"l":"com.profile"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"clienti.Login"},{"l":"clienti.Registration"},{"l":"database"},{"l":"ristoratori"},{"l":"ristoratori.login"},{"l":"ristoratori.profile"},{"l":"ristoratori.Restaurant"}]
