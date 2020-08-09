@@ -4,19 +4,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
+/**
+ * DataBase is the class responsable for correct communication with the
+ * database.
+ * <p>
+ * The data are saved in the following format:
+ * --- TODO ---
+ * <p>
+ * In this class you can find helper functions to find, insert, update and delete data
+ * from the database. Since this class is in common between clienti and ristoratori our
+ * priority is to make a powerful yet simple helper class to achieve a single point of
+ * junction between these two applications.
+ */
 public class DataBase {
-    /**
-     * DataBase is the class responsable for correct communication with the
-     * database.
-     * <p>
-     * The data are saved in the following format:
-     * --- TODO ---
-     * <p>
-     * In this class you can find helper functions to find, insert, update and delete data
-     * from the database. Since this class is in common between clienti and ristoratori our
-     * priority is to make a powerful yet simple helper class to achieve a single point of
-     * junction between these two applications.
-     */
+
     private static final String filename = "./database.db";
 
     public enum data_types {
