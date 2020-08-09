@@ -1,7 +1,7 @@
-import com.DataBase;
+import ristoratori.DataBase;
+import ristoratori.login.Login;
 
 import java.io.IOException;
-import java.sql.DatabaseMetaData;
 
 public class StartApp {
     public static void main(String[] args) throws IOException {
@@ -14,7 +14,7 @@ public class StartApp {
         DataBase.read(1);
 
         // Starting the ui
-        com.login.Login.main(args);
+        Login.main(args);
 
     }
 }

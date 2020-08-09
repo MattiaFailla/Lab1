@@ -1,4 +1,4 @@
-package com.login;
+package ristoratori.login;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

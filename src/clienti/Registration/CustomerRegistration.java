@@ -1,4 +1,4 @@
-package Clienti.Registration;
+package clienti.Registration;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

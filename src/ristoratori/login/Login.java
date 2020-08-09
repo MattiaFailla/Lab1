@@ -1,17 +1,17 @@
-package Clienti.Login;
+package ristoratori.login;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
-public class CustomerLogin extends JDialog {
+public class Login extends JDialog {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
     private JTextField nicknameField;
     private JPasswordField passwordField;
+    private JLabel nicknameLabel;
 
-    public CustomerLogin() {
+    public Login() {
         setSize(1200,700);
         setContentPane(contentPane);
         setModal(true);
@@ -19,7 +19,7 @@ public class CustomerLogin extends JDialog {
 
         buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onLogin();
+                onOK();
             }
         });
 
@@ -45,7 +45,7 @@ public class CustomerLogin extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onLogin() {
+    private void onOK() {
         // add your code here
         System.out.println("Login verification ongoing..");
         System.out.println(nicknameField.getText());
@@ -59,7 +59,7 @@ public class CustomerLogin extends JDialog {
     }
 
     public static void main(String[] args) {
-        CustomerLogin dialog = new CustomerLogin();
+        Login dialog = new Login();
 
         dialog.pack();
         dialog.setVisible(true);

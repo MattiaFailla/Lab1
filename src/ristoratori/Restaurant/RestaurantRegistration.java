@@ -1,4 +1,4 @@
-package com.Restaurant;
+package ristoratori.Restaurant;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

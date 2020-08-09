@@ -1,8 +1,6 @@
-package com.profile;
+package ristoratori.profile;
 
 import javax.swing.*;
-import javax.swing.plaf.IconUIResource;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
