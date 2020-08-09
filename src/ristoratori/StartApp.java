@@ -9,6 +9,10 @@ public class StartApp {
      * @param args The args from the jvm
      */
     public static void main(String[] args){
+
+        // Starting the app
+
+        // Launching the login page
         Login.main(args);
     }
 }
