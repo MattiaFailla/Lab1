@@ -7,7 +7,7 @@ public class CustomerLogin extends JDialog {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
-    private JLabel nicknameLabel; // @// FIXME: 09/08/20 You need to fix this component type (JtextField was wrong, but JLabel won't work
+    private JLabel nicknameLabel; // @// FIXME: 09/08/20 You need to fix this component type (JTextField was wrong, but JLabel won't work
     private JPasswordField passwordField;
 
     public CustomerLogin() {
