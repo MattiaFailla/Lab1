@@ -30,7 +30,7 @@ public class RestaurantRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setSize(400,300);
+        frame.setSize(400, 300);
         frame.setResizable(true);
 
         /*
@@ -62,5 +62,6 @@ public class RestaurantRegistration {
 
          */
     }
+
 }
 

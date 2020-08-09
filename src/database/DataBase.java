@@ -50,6 +50,7 @@ public class DataBase {
     }
 
     public static void read(Integer id) throws IOException {
+        System.out.println(id);
         FileReader fr = new FileReader(filename);
         StreamTokenizer st = new StreamTokenizer(fr);
         while(st.nextToken() != StreamTokenizer.TT_EOF) {

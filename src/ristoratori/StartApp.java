@@ -5,6 +5,9 @@ import ristoratori.login.Login;
 
 import java.io.IOException;
 
+/**
+ * StartApp is the entry point for the app ristoratori
+ */
 public class StartApp {
     /**
      * This is the entry-point for the app ristoratori.

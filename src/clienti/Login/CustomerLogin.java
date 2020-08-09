@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class CustomerLogin extends JDialog {
-    private JPanel contentPane;
+    public JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
     private JTextField nicknameField;
@@ -37,7 +37,7 @@ public class CustomerLogin extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
+        this.contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }

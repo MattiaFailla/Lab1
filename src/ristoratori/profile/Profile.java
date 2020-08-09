@@ -32,4 +32,5 @@ public class Profile {
         frame.pack();
         frame.setVisible(true);
     }
+
 }

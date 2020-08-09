@@ -12,7 +12,7 @@ public class Login extends JDialog {
     private JLabel nicknameLabel;
 
     public Login() {
-        setSize(1200,700);
+        setSize(1200, 700);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonLogin);
@@ -65,4 +65,5 @@ public class Login extends JDialog {
         dialog.setVisible(true);
         System.exit(0);
     }
+
 }

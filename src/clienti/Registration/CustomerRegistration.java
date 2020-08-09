@@ -21,7 +21,8 @@ public class CustomerRegistration {
 
         registerButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {JOptionPane.showMessageDialog(null, "Registered Successfully!");
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Registered Successfully!");
             }
         });
     }
@@ -32,6 +33,7 @@ public class CustomerRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+
 }
 
 
