@@ -1,4 +1,4 @@
-package ristoratori;
+package database;
 
 import java.io.*;
 
@@ -12,12 +12,13 @@ public class DataBase {
         INTERNAL_DATA
     }
 
-    public static void init() throws IOException {
+    public static Boolean init() throws IOException {
         // Initialize the database
         // Creating database if not exists
         File db_ristoratori = new File(filename);
         // Forcing the os to create the files
-        db_ristoratori.createNewFile();
+        Boolean created = db_ristoratori.createNewFile();
+        return created;
     }
 
     public static void write(Integer id, data_types type, String content) throws IOException {
