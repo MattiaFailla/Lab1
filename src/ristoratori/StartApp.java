@@ -19,7 +19,7 @@ public class StartApp {
         try {
             DataBase.init();
             // Writing some log
-            DataBase.write(1, DataBase.data_types.INFO, "App started");
+            //DataBase.write(1, DataBase.data_types.INFO, "App started");
             // @todo: remove this testing line
             DataBase.read(1);
         } catch (IOException e) {

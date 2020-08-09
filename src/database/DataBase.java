@@ -1,8 +1,22 @@
 package database;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 
 public class DataBase {
+    /**
+     * DataBase is the class responsable for correct communication with the
+     * database.
+     * <p>
+     * The data are saved in the following format:
+     * --- TODO ---
+     * <p>
+     * In this class you can find helper functions to find, insert, update and delete data
+     * from the database. Since this class is in common between clienti and ristoratori our
+     * priority is to make a powerful yet simple helper class to achieve a single point of
+     * junction between these two applications.
+     */
     private static final String filename = "./database.db";
 
     public enum data_types {
@@ -17,11 +31,10 @@ public class DataBase {
         // Creating database if not exists
         File db_ristoratori = new File(filename);
         // Forcing the os to create the files
-        Boolean created = db_ristoratori.createNewFile();
-        return created;
+        return db_ristoratori.createNewFile();
     }
 
-    public static void write(Integer id, data_types type, String content) throws IOException {
+    public static void write(@NotNull Integer id, data_types type, String content) throws IOException {
         // Appending to file the content at id
         FileOutputStream fos = new FileOutputStream(filename, true);
 
