@@ -22,8 +22,8 @@ public class DataBase {
     public enum data_types {
         INFO,
         LOGGING,
-        USER_DATA,
-        INTERNAL_DATA
+        RESTAURANT_DATA,
+        CLIENTS_DATA
     }
 
     public static Boolean init() throws IOException {
