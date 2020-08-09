@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.*;
 
 /**
- * DataBase is the class responsable for correct communication with the
+ * DataBase is the class responsible for correct communication with the
  * database.
  * <p>
  * The data are saved in the following format:
