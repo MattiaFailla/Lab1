@@ -14,6 +14,8 @@ public class RestaurantRegistration {
     private JComboBox<String> comboBox1;
 
     public RestaurantRegistration() {
+        panel1.setSize(700, 120);
+
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

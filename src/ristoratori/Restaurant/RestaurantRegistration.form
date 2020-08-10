@@ -5,7 +5,10 @@
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-1311492"/>
+      <foreground color="-131587"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="8d179" class="javax.swing.JTextField" binding="textField1" default-binding="true">
@@ -45,6 +48,7 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <foreground color="-15855857"/>
           <text value="Restaurant Name"/>
         </properties>
       </component>
@@ -53,6 +57,7 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <foreground color="-15855857"/>
           <text value="Address"/>
         </properties>
       </component>
@@ -61,6 +66,7 @@
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <foreground color="-15855857"/>
           <text value="Telephone Number"/>
         </properties>
       </component>
@@ -69,6 +75,7 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <foreground color="-15855857"/>
           <text value="Web Site"/>
         </properties>
       </component>
@@ -77,6 +84,7 @@
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <foreground color="-15855857"/>
           <text value="Typology"/>
         </properties>
       </component>
