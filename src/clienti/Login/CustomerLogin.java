@@ -7,10 +7,12 @@ public class CustomerLogin extends JDialog {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonCancel;
-    private JLabel nicknameLabel; // @// FIXME: 09/08/20 You need to fix this component type (JTextField was wrong, but JLabel won't work
+    private JLabel nicknameLabel;
     private JPasswordField passwordField;
+    private JTextField nicknameField;
 
     public CustomerLogin() {
+
         setSize(1200,700);
         setContentPane(contentPane);
         setModal(true);
@@ -58,8 +60,8 @@ public class CustomerLogin extends JDialog {
     }
 
     public static void main(String[] args) {
-        CustomerLogin dialog = new CustomerLogin();
 
+        CustomerLogin dialog = new CustomerLogin();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
