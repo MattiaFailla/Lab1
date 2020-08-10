@@ -1,6 +1,5 @@
 package database;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
@@ -35,7 +34,7 @@ public class DataBase {
         return db_ristoratori.createNewFile();
     }
 
-    public static void write(@NotNull Integer id, data_types type, String content) throws IOException {
+    public static void write(Integer id, data_types type, String content) throws IOException {
         // Appending to file the content at id
         FileOutputStream fos = new FileOutputStream(filename, true);
 
