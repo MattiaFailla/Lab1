@@ -15,9 +15,7 @@ public class StartApp {
      * @param args The args from the jvm
      */
     public static void main(String[] args) {
-
         // Starting the app
-
         // Init the database
         try {
             DataBase.init();
@@ -30,7 +28,6 @@ public class StartApp {
         }
 
         System.out.println("App started");
-
 
         // Starting the ui
         Login.main(args);

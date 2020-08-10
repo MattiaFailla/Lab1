@@ -34,12 +34,6 @@ public class DataBase {
     }
 
     public static void write(Integer id, data_types type, String content) throws IOException {
-
-    }
-
-    /*
-    public static void write(@NotNull Integer id, data_types type, String content) throws IOException {
->>>>>>> Stashed changes
         // Appending to file the content at id
         FileOutputStream fos = new FileOutputStream(filename, true);
 
@@ -52,8 +46,6 @@ public class DataBase {
         fos.write(payload.getBytes());
         fos.close();
     }
-
-     */
 
     public static void read(Integer id) throws IOException {
         System.out.println(id);
