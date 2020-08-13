@@ -30,6 +30,6 @@ public class StartApp {
 
 		// Starting the UI
 		CustomerRegistration.main(args);
-		CustomerLogin.main(args);
+		//CustomerLogin.main(args);
 	}
 }

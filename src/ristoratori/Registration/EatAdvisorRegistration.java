@@ -104,8 +104,6 @@ public class EatAdvisorRegistration extends JDialog {
 }
 
 /*
-package ristoratori;
-
 		import javax.imageio.ImageIO;
 		import javax.swing.*;
 		import java.awt.*;
@@ -128,13 +126,4 @@ public class Registration {
 				// Setting the background with custom dimensions
 				g.drawImage(backgroundImage, 0, 0, 860, 540, this);
 			}
-		};
-		//JFrame frame = new JFrame();
-		frame.setPreferredSize(new Dimension(860, 540));
-		frame.setContentPane(new ristoratori.Registration().panel1);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
 }*/
