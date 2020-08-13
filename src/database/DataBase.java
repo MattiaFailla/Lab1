@@ -1,6 +1,7 @@
 package database;
 
 import java.io.*;
+import java.nio.file.Path;
 
 /**
  * DataBase is the class responsible for correct communication with the
@@ -14,7 +15,7 @@ import java.io.*;
  * priority is to make a powerful yet simple helper class to achieve a single point of
  * junction between these two applications.
  */
-public class DataBase {
+public class Database {
 
     private static final String filename = "./database.db";
 
@@ -56,11 +57,9 @@ public class DataBase {
                 System.out.println("Number: "+st.nval);
             } else if(st.ttype == StreamTokenizer.TT_WORD) {
                 System.out.println("Word: "+st.sval);
-            }else if(st.ttype == StreamTokenizer.TT_EOL) {
+            } else if(st.ttype == StreamTokenizer.TT_EOL) {
                 System.out.println("--End of Line--");
             }
         }
     }
-
-
 }

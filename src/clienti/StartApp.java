@@ -1,17 +1,17 @@
-package ristoratori;
+package clienti;
 
 import database.Database;
-import ristoratori.Login.EatAdvisorLogin;
-import ristoratori.Registration.EatAdvisorRegistration;
+import clienti.Login.CustomerLogin;
+import clienti.Registration.CustomerRegistration;
 
 import java.io.IOException;
 
 /**
- * StartApp is the entry point for the app ristoratori
+ * StartApp is the entry point for the app clienti
  */
 public class StartApp {
 	/**
-	 * This is the entry-point for the app ristoratori.
+	 * This is the entry-point for the app clienti.
 	 *
 	 * @param args The args from the jvm
 	 */
@@ -29,7 +29,7 @@ public class StartApp {
 		System.out.println("App started");
 
 		// Starting the UI
-		EatAdvisorRegistration.main(args);
-		EatAdvisorLogin.main(args);
+		CustomerRegistration.main(args);
+		CustomerLogin.main(args);
 	}
 }

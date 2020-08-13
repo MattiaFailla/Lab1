@@ -22,18 +22,14 @@ public class CustomerRegistration extends JDialog{
 
         registerButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Registered Successfully!"));
         registerButton.addMouseListener(new MouseListener() {
-            @Override
             public void mouseClicked(MouseEvent e) { }
 
-            @Override
             public void mousePressed(MouseEvent e) { }
 
-            @Override
             public void mouseReleased(MouseEvent e) { }
 
             public void mouseEntered(MouseEvent e) { onEnabled(); }
 
-            @Override
             public void mouseExited(MouseEvent e) { }
         });
 
@@ -76,7 +72,6 @@ public class CustomerRegistration extends JDialog{
             public void focusLost(FocusEvent e) { onEnabled(); }
         });
         //endregion
-
     }
 
     private void onCancel() {

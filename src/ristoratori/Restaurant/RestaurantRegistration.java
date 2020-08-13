@@ -10,11 +10,11 @@ public class RestaurantRegistration {
     private JTextField textField3;
     private JTextField textField4;
     private JButton registerButton;
-    private JPanel panel1;
+    private JPanel contentPane;
     private JComboBox<String> comboBox1;
 
     public RestaurantRegistration() {
-        panel1.setSize(700, 120);
+        contentPane.setSize(700, 120);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -28,7 +28,7 @@ public class RestaurantRegistration {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("RestaurantRegistration");
-        frame.setContentPane(new RestaurantRegistration().panel1);
+        frame.setContentPane(new RestaurantRegistration().contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
