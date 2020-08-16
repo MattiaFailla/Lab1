@@ -25,19 +25,6 @@ public class Database {
     private static final String restaurant_db = "./EatAdvisor.dati";
     private static final String client_db = "./Utenti.dati";
 
-    public enum data_types {
-        INFO,
-        LOGGING,
-        RESTAURANT_DATA,
-        CLIENTS_DATA
-    }
-
-    public enum recordType {
-        RISTORANTE,
-        CLIENTE,
-        RECENSIONE
-    }
-
     public static Boolean init() {
         // Initialize the database
         // Creating database if not exists
@@ -49,17 +36,17 @@ public class Database {
             if (!db_ristoratori.exists()) {
                 success = db_clienti.createNewFile();
             }
-            if(!db_clienti.exists()) {
+            if (!db_clienti.exists()) {
                 success = db_ristoratori.createNewFile();
             }
             return success;
-        } catch (IOException ignored){
+        } catch (IOException ignored) {
             return false;
         }
     }
 
     /*      WRITERS       */
-    public static void insertClient(String name, String surname, String cityName, String province, String emailAddress, String nickName, String password){
+    public static void insertClient(String name, String surname, String cityName, String province, String emailAddress, String nickName, String password) {
         Client cli = new Client(name, surname, cityName, province, emailAddress, nickName, password);
         // Saving the Customer
         try {
@@ -92,7 +79,7 @@ public class Database {
         }
     }
 
-    public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement){
+    public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
         Judgement jud = new Judgement(username, restaurantName, rating, judgement);
         try {
             File file = new File(restaurant_db);
@@ -120,7 +107,7 @@ public class Database {
         // Reading objects from file
         ArrayList<Client> clients = new ArrayList<>();
 
-        while(oi.readObject() != null){
+        while (oi.readObject() != null) {
             if (oi.readObject() instanceof Client) {
                 clients.add((Client) oi.readObject());
             }
@@ -139,7 +126,7 @@ public class Database {
         // Reading objects from file
         ArrayList<Restaurant> restaurants = new ArrayList<>();
 
-        while(oi.readObject() != null){
+        while (oi.readObject() != null) {
             if (oi.readObject() instanceof Restaurant) {
                 restaurants.add((Restaurant) oi.readObject());
             }
@@ -158,7 +145,7 @@ public class Database {
         // Reading objects from file
         ArrayList<Judgement> judgements = new ArrayList<>();
 
-        while(oi.readObject() != null){
+        while (oi.readObject() != null) {
             if (oi.readObject() instanceof Judgement) {
                 judgements.add((Judgement) oi.readObject());
             }
@@ -181,5 +168,18 @@ public class Database {
 
         fos.write(payload.getBytes());
         fos.close();
+    }
+
+    public enum data_types {
+        INFO,
+        LOGGING,
+        RESTAURANT_DATA,
+        CLIENTS_DATA
+    }
+
+    public enum recordType {
+        RISTORANTE,
+        CLIENTE,
+        RECENSIONE
     }
 }
