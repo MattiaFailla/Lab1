@@ -59,6 +59,7 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Utente inserito con successo.");
     }
 
     public static void insertRestaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, Restaurant.types type) {
@@ -100,21 +101,23 @@ public class Database {
     /*      GETTER       */
     public static Object[] getClients() throws IOException, ClassNotFoundException {
         // Returning every client in the file
-        File file = new File(restaurant_db);
+        File file = new File(client_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
         ArrayList<Client> clients = new ArrayList<>();
 
-        while (oi.readObject() != null) {
-            if (oi.readObject() instanceof Client) {
-                clients.add((Client) oi.readObject());
+        while(true){
+            try {
+                Object obj = oi.readObject();
+                if (obj instanceof Client) {
+                    clients.add((Client) obj);
+                }
+            } catch (EOFException e){
+                return clients.toArray();
             }
         }
-        oi.close();
-        fi.close();
-        return clients.toArray();
     }
 
     public static Object[] getRestaurants() throws IOException, ClassNotFoundException {
@@ -126,14 +129,16 @@ public class Database {
         // Reading objects from file
         ArrayList<Restaurant> restaurants = new ArrayList<>();
 
-        while (oi.readObject() != null) {
-            if (oi.readObject() instanceof Restaurant) {
-                restaurants.add((Restaurant) oi.readObject());
+        while(true){
+            try {
+                Object obj = oi.readObject();
+                if (obj instanceof Restaurant) {
+                    restaurants.add((Restaurant) obj);
+                }
+            } catch (EOFException e){
+                return restaurants.toArray();
             }
         }
-        oi.close();
-        fi.close();
-        return restaurants.toArray();
     }
 
     public static Object[] getJudgments() throws IOException, ClassNotFoundException {
@@ -145,14 +150,16 @@ public class Database {
         // Reading objects from file
         ArrayList<Judgement> judgements = new ArrayList<>();
 
-        while (oi.readObject() != null) {
-            if (oi.readObject() instanceof Judgement) {
-                judgements.add((Judgement) oi.readObject());
+        while(true){
+            try {
+                Object obj = oi.readObject();
+                if (obj instanceof Judgement) {
+                    judgements.add((Judgement) obj);
+                }
+            } catch (EOFException e){
+                return judgements.toArray();
             }
         }
-        oi.close();
-        fi.close();
-        return judgements.toArray();
     }
 
     // Normal write function for debug purposes

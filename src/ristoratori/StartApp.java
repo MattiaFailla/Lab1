@@ -4,7 +4,9 @@ import database.Database;
 import ristoratori.Login.EatAdvisorLogin;
 import ristoratori.Registration.EatAdvisorRegistration;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * StartApp is the entry point for the app ristoratori
@@ -23,6 +25,12 @@ public class StartApp {
 		// Database.write(1, DataBase.data_types.INFO, "App started");
 
 		System.out.println("App started");
+
+		try {
+			System.out.println(Arrays.toString(Database.getClients()));
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		// Starting the UI
 		EatAdvisorRegistration.main(args);
