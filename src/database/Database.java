@@ -1,6 +1,7 @@
 package database;
 
 import database.objects.Client;
+import database.objects.Judgement;
 import database.objects.Restaurant;
 
 import java.io.*;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  */
 public class Database {
 
+    private static final String debug_db = "./debug.txt";
     private static final String restaurant_db = "./EatAdvisor.dati";
     private static final String client_db = "./Utenti.dati";
 
@@ -36,20 +38,21 @@ public class Database {
         RECENSIONE
     }
 
-    public static Boolean init() throws IOException {
+    public static Boolean init() {
         // Initialize the database
         // Creating database if not exists
         File db_ristoratori = new File(restaurant_db);
         File db_clienti = new File(client_db);
         // Forcing the os to create the files
         try {
+            boolean success = true;
             if (!db_ristoratori.exists()) {
-                db_clienti.createNewFile();
+                success = db_clienti.createNewFile();
             }
             if(!db_clienti.exists()) {
-                db_ristoratori.createNewFile();
+                success = db_ristoratori.createNewFile();
             }
-            return true;
+            return success;
         } catch (IOException ignored){
             return false;
         }
@@ -89,9 +92,27 @@ public class Database {
         }
     }
 
+    public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement){
+        Judgement jud = new Judgement(username, restaurantName, rating, judgement);
+        try {
+            File file = new File(restaurant_db);
+            FileOutputStream f = new FileOutputStream(file, true);
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            o.writeObject(jud);
+            o.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("IO Exception. File not accessible?");
+        }
+    }
+
     /*      GETTER       */
     public static Object[] getClients() throws IOException, ClassNotFoundException {
-        // Returning every restaurant in the file
+        // Returning every client in the file
         File file = new File(restaurant_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
@@ -100,7 +121,9 @@ public class Database {
         ArrayList<Client> clients = new ArrayList<>();
 
         while(oi.readObject() != null){
-            clients.add((Client) oi.readObject());
+            if (oi.readObject() instanceof Client) {
+                clients.add((Client) oi.readObject());
+            }
         }
         oi.close();
         fi.close();
@@ -117,17 +140,38 @@ public class Database {
         ArrayList<Restaurant> restaurants = new ArrayList<>();
 
         while(oi.readObject() != null){
-            restaurants.add((Restaurant) oi.readObject());
+            if (oi.readObject() instanceof Restaurant) {
+                restaurants.add((Restaurant) oi.readObject());
+            }
         }
         oi.close();
         fi.close();
         return restaurants.toArray();
     }
 
+    public static Object[] getJudgments() throws IOException, ClassNotFoundException {
+        // Returning every jud in the file
+        File file = new File(restaurant_db);
+        FileInputStream fi = new FileInputStream(file);
+        ObjectInputStream oi = new ObjectInputStream(fi);
 
+        // Reading objects from file
+        ArrayList<Judgement> judgements = new ArrayList<>();
+
+        while(oi.readObject() != null){
+            if (oi.readObject() instanceof Judgement) {
+                judgements.add((Judgement) oi.readObject());
+            }
+        }
+        oi.close();
+        fi.close();
+        return judgements.toArray();
+    }
+
+    // Normal write function for debug purposes
     public static void write(Integer id, data_types type, String content) throws IOException {
         // Appending to file the content at id
-        FileOutputStream fos = new FileOutputStream(restaurant_db, true);
+        FileOutputStream fos = new FileOutputStream(debug_db, true);
 
         String payload =
                 "# DATA" + "\n" +
@@ -137,20 +181,5 @@ public class Database {
 
         fos.write(payload.getBytes());
         fos.close();
-    }
-
-    public static void read(Integer id) throws IOException {
-        System.out.println(id);
-        FileReader fr = new FileReader(restaurant_db);
-        StreamTokenizer st = new StreamTokenizer(fr);
-        while(st.nextToken() != StreamTokenizer.TT_EOF) {
-            if(st.ttype == StreamTokenizer.TT_NUMBER) {
-                System.out.println("Number: "+st.nval);
-            } else if(st.ttype == StreamTokenizer.TT_WORD) {
-                System.out.println("Word: "+st.sval);
-            } else if(st.ttype == StreamTokenizer.TT_EOL) {
-                System.out.println("--End of Line--");
-            }
-        }
     }
 }
