@@ -1,5 +1,7 @@
 package clienti.Registration;
 
+import database.Database;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -21,7 +23,22 @@ public class CustomerRegistration extends JDialog{
         //getRootPane().setDefaultButton(buttonLogin);
 
         // @todo: Add the customer to the database on action listening
-        registerButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Registered Successfully!"));
+        registerButton.addActionListener(e -> {
+            // Lambda has been expanded to interact with the database
+
+            // Getting data from the form
+            String name = this.nameField.getText();
+            String surname = this.surnameField.getText();
+            String cityName = this.municipalityField.getText();
+            String province = this.provinceField.getText();
+            String emailAddress = this.emailField.getText();
+            String nickName = this.nicknameField.getText();
+            String password = String.valueOf(this.passwordField.getPassword());
+            // Saving the username in the database
+            Database.insertClient(name, surname, cityName, province, emailAddress, nickName, password);
+
+            JOptionPane.showMessageDialog(null, "Registered Successfully!");
+        });
         registerButton.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) { }
 
