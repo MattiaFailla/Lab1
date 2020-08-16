@@ -1,5 +1,6 @@
 package database;
 
+import database.objects.Client;
 import database.objects.Restaurant;
 
 import java.io.*;
@@ -55,11 +56,26 @@ public class Database {
     }
 
     /*      WRITERS       */
+    public static void insertClient(String name, String surname, String cityName, String province, String emailAddress, String nickName, String password){
+        Client cli = new Client(name, surname, cityName, province, emailAddress, nickName, password);
+        // Saving the Customer
+        try {
+            File file = new File(client_db);
+            FileOutputStream f = new FileOutputStream(file, true);
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            o.writeObject(cli);
+            o.close();
+            f.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void insertRestaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, Restaurant.types type) {
         Restaurant res = new Restaurant(name, qualifier, streetName, civicNumber, city, province, CAP, phoneNumber, url, type);
         try {
             File file = new File(restaurant_db);
-            FileOutputStream f = new FileOutputStream(file);
+            FileOutputStream f = new FileOutputStream(file, true);
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeObject(res);
             o.close();
