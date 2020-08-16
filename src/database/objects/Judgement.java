@@ -14,7 +14,7 @@ public class Judgement implements Serializable {
         this.username = username;
         this.restaurantName = restaurantName;
         this.rating = rating;
-        this.judgement = judgement;
+        this.judgement = judgement.substring(0, 256);
     }
 
     public String toString(){
