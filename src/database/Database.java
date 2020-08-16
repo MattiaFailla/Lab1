@@ -6,6 +6,8 @@ import database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * DataBase is the class responsible for correct communication with the
@@ -114,16 +116,12 @@ public class Database {
         // Reading objects from file
         ArrayList<Client> clients = new ArrayList<>();
 
-        while(true){
-            try {
-                Object obj = oi.readObject();
-                if (obj instanceof ArrayList) {
-                    clients = (ArrayList<Client>) obj;
-                }
-            } catch (EOFException e){
-                return clients.toArray();
-            }
+        Object obj = oi.readObject();
+        if (obj instanceof List) {
+            clients.addAll((Collection<? extends Client>) obj);
         }
+
+        return clients.toArray();
     }
 
     public static Object[] getRestaurants() throws IOException, ClassNotFoundException {
