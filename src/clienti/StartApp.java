@@ -18,11 +18,9 @@ public class StartApp {
 	public static void main(String[] args) {
 		// Starting the app
 		// Init the database
-		try {
-			Database.init();
-			// Writing some log
-			// Database.write(1, DataBase.data_types.INFO, "App started");
-		} catch (IOException e) { e.printStackTrace(); }
+		Database.init();
+		// Writing some log
+		// Database.write(1, DataBase.data_types.INFO, "App started");
 
 		System.out.println("App started");
 

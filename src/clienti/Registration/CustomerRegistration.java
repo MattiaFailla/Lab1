@@ -20,6 +20,7 @@ public class CustomerRegistration extends JDialog{
         setModal(true);
         //getRootPane().setDefaultButton(buttonLogin);
 
+        // @todo: Add the customer to the database on action listening
         registerButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Registered Successfully!"));
         registerButton.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) { }
