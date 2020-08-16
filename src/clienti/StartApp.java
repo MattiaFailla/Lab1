@@ -22,8 +22,6 @@ public class StartApp {
 			Database.init();
 			// Writing some log
 			// Database.write(1, DataBase.data_types.INFO, "App started");
-			// @todo: remove this testing line
-			Database.read(1);
 		} catch (IOException e) { e.printStackTrace(); }
 
 		System.out.println("App started");
