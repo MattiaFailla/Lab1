@@ -90,6 +90,23 @@ public class Database {
     }
 
     /*      GETTER       */
+    public static Object[] getClients() throws IOException, ClassNotFoundException {
+        // Returning every restaurant in the file
+        File file = new File(restaurant_db);
+        FileInputStream fi = new FileInputStream(file);
+        ObjectInputStream oi = new ObjectInputStream(fi);
+
+        // Reading objects from file
+        ArrayList<Client> clients = new ArrayList<>();
+
+        while(oi.readObject() != null){
+            clients.add((Client) oi.readObject());
+        }
+        oi.close();
+        fi.close();
+        return clients.toArray();
+    }
+
     public static Object[] getRestaurants() throws IOException, ClassNotFoundException {
         // Returning every restaurant in the file
         File file = new File(restaurant_db);
@@ -102,12 +119,9 @@ public class Database {
         while(oi.readObject() != null){
             restaurants.add((Restaurant) oi.readObject());
         }
-
         oi.close();
         fi.close();
-
         return restaurants.toArray();
-
     }
 
 
