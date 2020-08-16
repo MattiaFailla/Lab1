@@ -50,10 +50,16 @@ public class Database {
         Client cli = new Client(name, surname, cityName, province, emailAddress, nickName, password);
         // Saving the Customer
         try {
+            // Before saving the new customer we need to extract the old customers
+            ArrayList entries = readFile(client_db);
+            entries.add(cli);
+            System.out.println(entries);
+
             File file = new File(client_db);
-            FileOutputStream f = new FileOutputStream(file, true);
+            FileOutputStream f = new FileOutputStream(file);
             ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(cli);
+
+            o.writeObject(entries);
             o.close();
             f.close();
         } catch (IOException e) {
@@ -111,8 +117,8 @@ public class Database {
         while(true){
             try {
                 Object obj = oi.readObject();
-                if (obj instanceof Client) {
-                    clients.add((Client) obj);
+                if (obj instanceof ArrayList) {
+                    clients = (ArrayList<Client>) obj;
                 }
             } catch (EOFException e){
                 return clients.toArray();
@@ -160,6 +166,29 @@ public class Database {
                 return judgements.toArray();
             }
         }
+    }
+
+    // HELPER FUNCT
+    //Reads the file and returns all entries in a list
+    public static ArrayList<?> readFile (String filename)
+    {
+        ArrayList<?> persistedEntries = new ArrayList<>();
+
+        FileInputStream fileIn;
+        ObjectInputStream objIn;
+        try
+        {
+            fileIn = new FileInputStream(filename);
+            objIn = new ObjectInputStream(fileIn);
+            persistedEntries = (ArrayList<?>) objIn.readObject();
+            objIn.close();
+        }
+        catch(IOException | ClassNotFoundException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return persistedEntries;
     }
 
     // Normal write function for debug purposes
