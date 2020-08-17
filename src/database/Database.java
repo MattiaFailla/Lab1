@@ -114,11 +114,11 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        ArrayList<Client> clients = new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
 
         Object obj = oi.readObject();
         if (obj instanceof List) {
-            clients.addAll((Collection<? extends Client>) obj);
+            clients.addAll((List<? extends Client>) obj);
         }
 
         return clients.toArray();
