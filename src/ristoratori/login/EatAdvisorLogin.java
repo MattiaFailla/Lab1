@@ -1,5 +1,7 @@
 package ristoratori.Login;
 
+import database.Database;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -13,8 +15,8 @@ public class EatAdvisorLogin extends JDialog {
 	public EatAdvisorLogin() {
 		setContentPane(contentPane);
 		setModal(true);
-		//getRootPane().setDefaultButton(loginButton);
 
+		// region loginButton events
 		loginButton.addActionListener(e -> onLogin());
 		loginButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
@@ -27,18 +29,20 @@ public class EatAdvisorLogin extends JDialog {
 
 			public void mouseExited(MouseEvent e) { }
 		});
+		// endregion
 
+		// region cancelButton events
 		cancelButton.addActionListener(e -> onCancel());
-		// call onCancel() on ESCAPE
-		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
 		// call onCancel() when cross is clicked
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { onCancel(); }
 		});
+		// call onCancel() on ESCAPE
+		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		// endregion
 
-		// region FOCUS
+		// region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
@@ -47,28 +51,26 @@ public class EatAdvisorLogin extends JDialog {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
-		// endregion
+		// endregion events
 	}
 
 	private void onLogin() {
-		// add your code here if necessary
 		System.out.println("Login verification ongoing..");
+
+		//@todo: Add code to connect the database
+
 		loginButton.setText(".. verifying ..");
-		System.out.println(nicknameField.getText());
-		System.out.println(passwordField.getPassword());
 		dispose();
 	}
 
 	private void onCancel() {
-		// add your code here if necessary
 		System.out.println("Closing app..");
 		dispose();
 	}
 
 	private void onEnabled() {
-		// add your code here if necessary
 		boolean checkNick = nicknameField.getText().length() > 0;
-		boolean checkPass = passwordField.getText().length() > 0;
+		boolean checkPass = String.valueOf(passwordField.getPassword()).length() > 0;
 		loginButton.setEnabled(checkNick && checkPass);
 	}
 

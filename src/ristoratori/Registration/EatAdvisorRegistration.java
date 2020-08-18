@@ -1,5 +1,7 @@
 package ristoratori.Registration;
 
+import database.Database;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -7,7 +9,7 @@ public class EatAdvisorRegistration extends JDialog {
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField surnameField;
-	private JTextField municipalityField;
+	private JTextField cityField;
 	private JTextField provinceField;
 	private JTextField emailField;
 	private JTextField nicknameField;
@@ -19,9 +21,8 @@ public class EatAdvisorRegistration extends JDialog {
 	public EatAdvisorRegistration() {
 		setContentPane(contentPane);
 		setModal(true);
-		//getRootPane().setDefaultButton(buttonLogin);
 
-		registerButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Registered Successfully!"));
+		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
 
@@ -34,9 +35,31 @@ public class EatAdvisorRegistration extends JDialog {
 			public void mouseExited(MouseEvent e) { }
 		});
 
-		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
+		// @todo: Add the customer to the database on action listening
+		registerButton.addActionListener(e -> {
+			// Lambda has been expanded to interact with the database
 
-		cancelButton.addActionListener(e -> onCancel());
+			// Getting data from the form
+			String name = this.nameField.getText();
+			String surname = this.surnameField.getText();
+			String city = this.cityField.getText();
+			String province = this.provinceField.getText();
+			String emailAddress = this.emailField.getText();
+			String nickname = this.nicknameField.getText();
+			String password = String.valueOf(this.passwordField.getPassword());
+			// Saving the username in the database
+			Database.insertClient(name, surname, city, province, emailAddress, nickname, password);
+
+			JOptionPane.showMessageDialog(null, "Registered Successfully!");
+		});
+		// endregion
+
+		// region registerRestaurantButton events
+		// @todo: error, close the main window after close the RestaurantRegistration
+		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
+		// endregion
+
+		// region cancelButton events
 		cancelButton.addActionListener(e -> onCancel());
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -45,8 +68,9 @@ public class EatAdvisorRegistration extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { onCancel(); }
 		});
+		// endregion
 
-		//region FOCUS
+		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
@@ -55,8 +79,8 @@ public class EatAdvisorRegistration extends JDialog {
 			public void focusGained(FocusEvent e) { surnameField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
-		municipalityField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { municipalityField.selectAll(); }
+		cityField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { cityField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
 		provinceField.addFocusListener(new FocusListener() {
@@ -79,22 +103,20 @@ public class EatAdvisorRegistration extends JDialog {
 	}
 
 	private void onCancel() {
-		// add your code here if necessary
 		System.out.println("Closing app..");
 		dispose();
 	}
 
 	private void onEnabled() {
-		// add your code here if necessary
 		boolean checkName = nameField.getText().length() > 0;
 		boolean checkSurname = surnameField.getText().length() > 0;
-		boolean checkMunicipality = municipalityField.getText().length() > 0;
+		boolean checkCity = cityField.getText().length() > 0;
 		boolean checkProvince = provinceField.getText().length() > 0;
 		boolean checkEmail = emailField.getText().length() > 0;
 		boolean checkNickname = nicknameField.getText().length() > 0;
-		boolean checkPassword = passwordField.getText().length() > 0;
+		boolean checkPassword = String.valueOf(passwordField.getPassword()).length() > 0;
 		boolean firstCouple = checkName && checkSurname;
-		boolean secondCouple = checkMunicipality && checkProvince;
+		boolean secondCouple = checkCity && checkProvince;
 		boolean thirdCouple = checkNickname && checkPassword;
 		registerButton.setEnabled(firstCouple && secondCouple && checkEmail && thirdCouple);
 	}

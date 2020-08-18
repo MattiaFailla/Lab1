@@ -19,9 +19,12 @@ public class RestaurantRegistration extends JDialog {
 	public RestaurantRegistration() {
 		setContentPane(contentPane);
 		setModal(true);
-		//getRootPane().setDefaultButton();
 
-		registerButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Registered Successfully!"));
+		// region registerButton events
+		registerButton.addActionListener(e -> {
+			JOptionPane.showMessageDialog(null, "Registered Successfully!");
+			onCancel();
+		});
 		registerButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
 
@@ -33,7 +36,9 @@ public class RestaurantRegistration extends JDialog {
 
 			public void mouseExited(MouseEvent e) { }
 		});
+		// endregion
 
+		// region cancelButton events
 		cancelButton.addActionListener(e -> onCancel());
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -42,6 +47,38 @@ public class RestaurantRegistration extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { onCancel(); }
 		});
+		// endregion
+
+		//region Focus events
+		nameField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { nameField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		websiteField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { websiteField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		phoneField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		cityField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { cityField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		provinceField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		placeField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { placeField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		capField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { capField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		//endregion
 	}
 
 	private void onCancel() {
@@ -51,7 +88,6 @@ public class RestaurantRegistration extends JDialog {
 	}
 
 	private void onEnabled() {
-		// add your code here if necessary
 		boolean checkName = nameField.getText().length() > 0;
 		boolean checkWebsite = websiteField.getText().length() > 0;
 		boolean checkPhone = phoneField.getText().length() > 0;
