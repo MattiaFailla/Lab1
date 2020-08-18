@@ -6,7 +6,6 @@ import database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,7 +52,7 @@ public class Database {
         // Saving the Customer
         try {
             // Before saving the new customer we need to extract the old customers
-            ArrayList entries = readFile(client_db);
+            ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
             entries.add(cli);
             System.out.println(entries);
 
@@ -117,9 +116,10 @@ public class Database {
         List<Client> clients = new ArrayList<>();
 
         Object obj = oi.readObject();
-        if (obj instanceof List) {
-            clients.addAll((List<? extends Client>) obj);
-        }
+        clients = (List<Client>) obj;
+        /*if (obj instanceof List) {
+            //clients.addAll((List<? extends Client>) obj);
+        }*/
 
         return clients.toArray();
     }
