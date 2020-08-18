@@ -24,24 +24,19 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class Database {
 
-    private static final String debug_db = "./debug.txt";
     private static final String restaurant_db = "./EatAdvisor.dati";
     private static final String client_db = "./Utenti.dati";
 
     public static Boolean init() {
         // Initialize the database
         // Creating database if not exists
-        File db_ristoratori = new File(restaurant_db);
         File db_clienti = new File(client_db);
         // Forcing the os to create the files
         try {
             boolean success = true;
-            if (!db_ristoratori.exists()) {
-                success = db_clienti.createNewFile();
-            }
-            if (!db_clienti.exists()) {
-                success = db_ristoratori.createNewFile();
-            }
+            File db_ristoratori = new File(restaurant_db);
+            if (!db_ristoratori.exists()) success = db_clienti.createNewFile();
+            if (!db_clienti.exists()) success = db_ristoratori.createNewFile();
             return success;
         } catch (IOException ignored) {
             return false;
@@ -54,7 +49,7 @@ public class Database {
         // Saving the Customer
         try {
             // Before saving the new customer we need to extract the old customers
-            ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
+            var entries = (ArrayList<Client>) readFile(client_db);
             entries.add(cli);
 
             File file = new File(client_db);
@@ -74,7 +69,7 @@ public class Database {
         Restaurant res = new Restaurant(name, qualifier, streetName, civicNumber, city, province, CAP, phoneNumber, url, type);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
-            ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+            var entries = (ArrayList<Restaurant>) readFile(restaurant_db);
             entries.add(res);
 
             File file = new File(restaurant_db);
@@ -94,7 +89,7 @@ public class Database {
         Judgement jud = new Judgement(username, restaurantName, rating, judgement);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
-            ArrayList<Judgement> entries = (ArrayList<Judgement>) readFile(restaurant_db);
+            var entries = (ArrayList<Judgement>) readFile(restaurant_db);
             entries.add(jud);
 
             File file = new File(restaurant_db);
@@ -120,14 +115,12 @@ public class Database {
 
         // Reading objects from file
         if (oi.readObject() instanceof List) return (List<Client>) oi.readObject();
-        else return Collections.emptyList();
+        return Collections.emptyList();
     }
 
     public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
         // Return true if fieldData exists in any field of clients
-        for (Client client : getClients()) {
-            if (client.toString().contains(fieldData)) return true;
-        }
+        for (Client client : getClients()) if (client.toString().contains(fieldData)) return true;
         return false;
     }
 
@@ -138,7 +131,7 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        List<?> data = (List<?>) oi.readObject();
+        var data = (List<?>) oi.readObject();
         data.parallelStream()
                 .filter(x -> x instanceof Restaurant)
                 .map(x -> (Restaurant) x);
@@ -152,7 +145,7 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        List<?> data = (List<?>) oi.readObject();
+        var data = (List<?>) oi.readObject();
         data.stream()
                 .filter(x -> x instanceof Judgement)
                 .map(x -> (Judgement) x);
@@ -163,29 +156,35 @@ public class Database {
     //Reads the file and returns all entries in a list
     public static ArrayList<?> readFile(String filename) {
         AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<ArrayList<?>>();
-
         try {
             FileInputStream fileIn = new FileInputStream(filename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
             persistedEntries.set((ArrayList<?>) objIn.readObject());
             objIn.close();
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return persistedEntries.get();
     }
 
+    /**
+     * This types are typically used to insert debug messages into the database
+     */
     public enum data_types {
+        CLIENTS_DATA,
         INFO,
         LOGGING,
-        RESTAURANT_DATA,
-        CLIENTS_DATA
+        RESTAURANT_DATA
+
     }
 
+    /**
+     * RecordType is the type of record that will be inserted into the database
+     */
     public enum recordType {
-        RISTORANTE,
         CLIENTE,
-        RECENSIONE
+        RECENSIONE,
+        RISTORANTE
+
     }
 }
