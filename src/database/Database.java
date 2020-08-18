@@ -132,18 +132,16 @@ public class Database {
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
-        // Reading objects from file
-        Object read = oi.readObject();
-        List<?> result = new ArrayList<>();
-        if (!(read instanceof List)) return (List<Restaurant>) result;
-        List<?> data = (List<?>) read;
-
-        result = data.stream()
-                .filter(x -> x instanceof Restaurant)
-                .map(x -> (Restaurant) x)
-                .collect(Collectors.toList());
-
-        return (List<Restaurant>) result;
+        // Getting data
+        Object data = oi.readObject();
+        List<?> list = new ArrayList<>();
+        if (data instanceof List) {
+            list = ((List<?>) data).stream()
+                    .filter(x -> x instanceof Restaurant)
+                    .map(x -> (Restaurant) x)
+                    .collect(Collectors.toList());
+        }
+        return (List<Restaurant>) list;
     }
 
     public static List<Judgement> getJudgments() throws IOException, ClassNotFoundException {
@@ -151,19 +149,17 @@ public class Database {
         File file = new File(restaurant_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
-
-        // Reading objects from file
-        Object read = oi.readObject();
-        List<?> result = new ArrayList<>();
-        if (!(read instanceof List)) return (List<Judgement>) result;
-        List<?> data = (List<?>) read;
-
-        result = data.stream()
-                .filter(x -> x instanceof Judgement)
-                .map(x -> (Judgement) x)
-                .collect(Collectors.toList());
-
-        return (List<Judgement>) result;
+        
+        // Getting data
+        Object data = oi.readObject();
+        List<?> list = new ArrayList<>();
+        if (data instanceof List) {
+            list = ((List<?>) data).stream()
+                    .filter(x -> x instanceof Judgement)
+                    .map(x -> (Judgement) x)
+                    .collect(Collectors.toList());
+        }
+        return (List<Judgement>) list;
     }
 
     // HELPER FUNCT
