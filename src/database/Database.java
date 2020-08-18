@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * DataBase is the class responsible for correct communication with the
@@ -49,7 +50,7 @@ public class Database {
         // Saving the Customer
         try {
             // Before saving the new customer we need to extract the old customers
-            var entries = (ArrayList<Client>) readFile(client_db);
+            ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
             entries.add(cli);
 
             File file = new File(client_db);
@@ -69,7 +70,7 @@ public class Database {
         Restaurant res = new Restaurant(name, qualifier, streetName, civicNumber, city, province, CAP, phoneNumber, url, type);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
-            var entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+            ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
             entries.add(res);
 
             File file = new File(restaurant_db);
@@ -89,7 +90,7 @@ public class Database {
         Judgement jud = new Judgement(username, restaurantName, rating, judgement);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
-            var entries = (ArrayList<Judgement>) readFile(restaurant_db);
+            ArrayList<Judgement> entries = (ArrayList<Judgement>) readFile(restaurant_db);
             entries.add(jud);
 
             File file = new File(restaurant_db);
@@ -113,9 +114,11 @@ public class Database {
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
-        // Reading objects from file
-        if (oi.readObject() instanceof List) return (List<Client>) oi.readObject();
-        return Collections.emptyList();
+        Object data = oi.readObject();
+        List<Client> list = new ArrayList<>();
+        if (data instanceof List) list = (List<Client>) data;
+        return list;
+
     }
 
     public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
@@ -131,11 +134,17 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        var data = (List<?>) oi.readObject();
-        data.parallelStream()
+        Object read = oi.readObject();
+        List<?> result = new ArrayList<>();
+        if (!(read instanceof List)) return (List<Restaurant>) result;
+        List<?> data = (List<?>) read;
+
+        result = data.stream()
                 .filter(x -> x instanceof Restaurant)
-                .map(x -> (Restaurant) x);
-        return (List<Restaurant>) data;
+                .map(x -> (Restaurant) x)
+                .collect(Collectors.toList());
+
+        return (List<Restaurant>) result;
     }
 
     public static List<Judgement> getJudgments() throws IOException, ClassNotFoundException {
@@ -145,7 +154,7 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        var data = (List<?>) oi.readObject();
+        List<?> data = (List<?>) oi.readObject();
         data.stream()
                 .filter(x -> x instanceof Judgement)
                 .map(x -> (Judgement) x);
