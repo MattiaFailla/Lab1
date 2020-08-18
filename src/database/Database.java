@@ -6,6 +6,7 @@ import database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -55,7 +56,6 @@ public class Database {
             // Before saving the new customer we need to extract the old customers
             ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
             entries.add(cli);
-            System.out.println(entries);
 
             File file = new File(client_db);
             FileOutputStream f = new FileOutputStream(file);
@@ -119,7 +119,8 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        return (List<Client>) oi.readObject();
+        if (oi.readObject() instanceof List) return (List<Client>) oi.readObject();
+        else return Collections.emptyList();
     }
 
     public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
