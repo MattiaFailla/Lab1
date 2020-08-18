@@ -25,7 +25,7 @@ public class StartApp {
 		System.out.println("App started");
 
 		// Starting the UI
-		CustomerRegistration.main(args);
 		//CustomerLogin.main(args);
+		CustomerRegistration.main(args);
 	}
 }

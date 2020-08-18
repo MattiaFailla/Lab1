@@ -33,7 +33,7 @@ public class StartApp {
 		}
 
 		// Starting the UI
+		//EatAdvisorLogin.main(args);
 		EatAdvisorRegistration.main(args);
-		EatAdvisorLogin.main(args);
 	}
 }

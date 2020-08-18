@@ -14,13 +14,25 @@ public class CustomerRegistration extends JDialog{
     private JTextField emailField;
     private JTextField nicknameField;
     private JPasswordField passwordField;
+    private JButton cancelButton;
     private JButton registerButton;
-    private JButton buttonCancel;
 
     public CustomerRegistration() {
         setContentPane(contentPane);
         setModal(true);
         //getRootPane().setDefaultButton(buttonLogin);
+
+        registerButton.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent e) { }
+
+            public void mousePressed(MouseEvent e) { }
+
+            public void mouseReleased(MouseEvent e) { }
+
+            public void mouseEntered(MouseEvent e) { onEnabled(); }
+
+            public void mouseExited(MouseEvent e) { }
+        });
 
         // @todo: Add the customer to the database on action listening
         registerButton.addActionListener(e -> {
@@ -39,19 +51,8 @@ public class CustomerRegistration extends JDialog{
 
             JOptionPane.showMessageDialog(null, "Registered Successfully!");
         });
-        registerButton.addMouseListener(new MouseListener() {
-            public void mouseClicked(MouseEvent e) { }
 
-            public void mousePressed(MouseEvent e) { }
-
-            public void mouseReleased(MouseEvent e) { }
-
-            public void mouseEntered(MouseEvent e) { onEnabled(); }
-
-            public void mouseExited(MouseEvent e) { }
-        });
-
-        buttonCancel.addActionListener(e -> onCancel());
+        cancelButton.addActionListener(e -> onCancel());
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         // call onCancel() when cross is clicked
@@ -118,13 +119,6 @@ public class CustomerRegistration extends JDialog{
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
-
-        /*
-        JFrame frame = new JFrame("Customer Registration");
-        frame.setContentPane(new CustomerRegistration().contentPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        */
     }
 }
 

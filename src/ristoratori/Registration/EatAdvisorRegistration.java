@@ -12,8 +12,9 @@ public class EatAdvisorRegistration extends JDialog {
 	private JTextField emailField;
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
+	private JButton cancelButton;
 	private JButton registerButton;
-	private JButton buttonCancel;
+	private JButton registerRestaurantButton;
 
 	public EatAdvisorRegistration() {
 		setContentPane(contentPane);
@@ -33,7 +34,10 @@ public class EatAdvisorRegistration extends JDialog {
 			public void mouseExited(MouseEvent e) { }
 		});
 
-		buttonCancel.addActionListener(e -> onCancel());
+		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
+
+		cancelButton.addActionListener(e -> onCancel());
+		cancelButton.addActionListener(e -> onCancel());
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		// call onCancel() when cross is clicked
@@ -102,28 +106,3 @@ public class EatAdvisorRegistration extends JDialog {
 		System.exit(0);
 	}
 }
-
-/*
-		import javax.imageio.ImageIO;
-		import javax.swing.*;
-		import java.awt.*;
-		import java.io.File;
-		import java.io.IOException;
-
-public class Registration {
-	private JPanel panel1;
-	private JTextField marioRossiTextField;
-	private JPasswordField passwordField1;
-	private JButton registramiEInserisciInformazioniButton;
-
-	public static void main(String[] args) throws IOException {
-		// @fixme: This need to be fixed. The drawImage show some strange behaviour with the content of the frame
-		JFrame frame = new JFrame("Registrazione Ristoratori") {
-			private final Image backgroundImage = ImageIO.read(new File("/home/mat/Progetti/Lab1/assets/img/login_background.jpg"));
-
-			public void paint(Graphics g) {
-				super.paint(g);
-				// Setting the background with custom dimensions
-				g.drawImage(backgroundImage, 0, 0, 860, 540, this);
-			}
-}*/
