@@ -1,6 +1,7 @@
 package ristoratori;
 
 import database.Database;
+import database.objects.Client;
 import ristoratori.Login.EatAdvisorLogin;
 import ristoratori.Registration.EatAdvisorRegistration;
 
@@ -27,7 +28,9 @@ public class StartApp {
 		System.out.println("App started");
 
 		try {
-			System.out.println(Arrays.toString(Database.getClients()));
+			System.out.println(Database.getClients());
+			System.out.println(Database.checkClient("Mattia"));
+
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

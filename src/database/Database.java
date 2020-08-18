@@ -7,6 +7,7 @@ import database.objects.Restaurant;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * DataBase is the class responsible for correct communication with the
@@ -72,136 +73,106 @@ public class Database {
     public static void insertRestaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, Restaurant.types type) {
         Restaurant res = new Restaurant(name, qualifier, streetName, civicNumber, city, province, CAP, phoneNumber, url, type);
         try {
+            // Before saving the new restaurant we need to extract the old restaurant data
+            ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+            entries.add(res);
+
             File file = new File(restaurant_db);
-            FileOutputStream f = new FileOutputStream(file, true);
+            FileOutputStream f = new FileOutputStream(file);
             ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(res);
+
+            o.writeObject(entries);
             o.close();
             f.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IO Exception. File not accessible?");
         }
+        System.out.println("Ristorante inserito con successo.");
     }
 
     public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
         Judgement jud = new Judgement(username, restaurantName, rating, judgement);
         try {
+            // Before saving the new restaurant we need to extract the old restaurant data
+            ArrayList<Judgement> entries = (ArrayList<Judgement>) readFile(restaurant_db);
+            entries.add(jud);
+
             File file = new File(restaurant_db);
-            FileOutputStream f = new FileOutputStream(file, true);
+            FileOutputStream f = new FileOutputStream(file);
             ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(jud);
+
+            o.writeObject(entries);
             o.close();
             f.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IO Exception. File not accessible?");
         }
+        System.out.println("Giudizio inserito con successo.");
+
     }
 
     /*      GETTER       */
-    public static Object[] getClients() throws IOException, ClassNotFoundException {
+    public static List<Client> getClients() throws IOException, ClassNotFoundException {
         // Returning every client in the file
         File file = new File(client_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        List<Client> clients = new ArrayList<>();
-
-        Object obj = oi.readObject();
-        clients = (List<Client>) obj;
-        /*if (obj instanceof List) {
-            //clients.addAll((List<? extends Client>) obj);
-        }*/
-
-        return clients.toArray();
+        return (List<Client>) oi.readObject();
     }
 
-    public static Object[] getRestaurants() throws IOException, ClassNotFoundException {
+    public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
+        // Return true if fieldData exists in any field of clients
+        for (Client client : getClients()) {
+            if (client.toString().contains(fieldData)) return true;
+        }
+        return false;
+    }
+
+    public static List<Restaurant> getRestaurants() throws IOException, ClassNotFoundException {
         // Returning every restaurant in the file
         File file = new File(restaurant_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        ArrayList<Restaurant> restaurants = new ArrayList<>();
-
-        while(true){
-            try {
-                Object obj = oi.readObject();
-                if (obj instanceof Restaurant) {
-                    restaurants.add((Restaurant) obj);
-                }
-            } catch (EOFException e){
-                return restaurants.toArray();
-            }
-        }
+        List<?> data = (List<?>) oi.readObject();
+        data.parallelStream()
+                .filter(x -> x instanceof Restaurant)
+                .map(x -> (Restaurant) x);
+        return (List<Restaurant>) data;
     }
 
-    public static Object[] getJudgments() throws IOException, ClassNotFoundException {
+    public static List<Judgement> getJudgments() throws IOException, ClassNotFoundException {
         // Returning every jud in the file
         File file = new File(restaurant_db);
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        ArrayList<Judgement> judgements = new ArrayList<>();
-
-        while(true){
-            try {
-                Object obj = oi.readObject();
-                if (obj instanceof Judgement) {
-                    judgements.add((Judgement) obj);
-                }
-            } catch (EOFException e){
-                return judgements.toArray();
-            }
-        }
+        List<?> data = (List<?>) oi.readObject();
+        data.stream()
+                .filter(x -> x instanceof Judgement)
+                .map(x -> (Judgement) x);
+        return (List<Judgement>) data;
     }
 
     // HELPER FUNCT
     //Reads the file and returns all entries in a list
-    public static ArrayList<?> readFile (String filename)
-    {
-        ArrayList<?> persistedEntries = new ArrayList<>();
+    public static ArrayList<?> readFile(String filename) {
+        AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<ArrayList<?>>();
 
-        FileInputStream fileIn;
-        ObjectInputStream objIn;
-        try
-        {
-            fileIn = new FileInputStream(filename);
-            objIn = new ObjectInputStream(fileIn);
-            persistedEntries = (ArrayList<?>) objIn.readObject();
+        try {
+            FileInputStream fileIn = new FileInputStream(filename);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            persistedEntries.set((ArrayList<?>) objIn.readObject());
             objIn.close();
-        }
-        catch(IOException | ClassNotFoundException ex)
-        {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 
-        return persistedEntries;
-    }
-
-    // Normal write function for debug purposes
-    public static void write(Integer id, data_types type, String content) throws IOException {
-        // Appending to file the content at id
-        FileOutputStream fos = new FileOutputStream(debug_db, true);
-
-        String payload =
-                "# DATA" + "\n" +
-                        "id:" + id.toString() + "\n" +
-                        "type:" + type + "\n" +
-                        "content:" + content + "\n";
-
-        fos.write(payload.getBytes());
-        fos.close();
+        return persistedEntries.get();
     }
 
     public enum data_types {
