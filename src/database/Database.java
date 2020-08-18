@@ -6,7 +6,6 @@ import database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -154,11 +153,17 @@ public class Database {
         ObjectInputStream oi = new ObjectInputStream(fi);
 
         // Reading objects from file
-        List<?> data = (List<?>) oi.readObject();
-        data.stream()
+        Object read = oi.readObject();
+        List<?> result = new ArrayList<>();
+        if (!(read instanceof List)) return (List<Judgement>) result;
+        List<?> data = (List<?>) read;
+
+        result = data.stream()
                 .filter(x -> x instanceof Judgement)
-                .map(x -> (Judgement) x);
-        return (List<Judgement>) data;
+                .map(x -> (Judgement) x)
+                .collect(Collectors.toList());
+
+        return (List<Judgement>) result;
     }
 
     // HELPER FUNCT
