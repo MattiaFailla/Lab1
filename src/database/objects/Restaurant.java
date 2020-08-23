@@ -33,17 +33,23 @@ public class Restaurant implements Serializable {
         this.city = city;
         this.province = province;
         this.CAP = CAP;
-        this.fullAddress = qualifier+" "+streetName+" "+civicNumber.toString()+" "+city+" "+province+" "+CAP.toString();
+        this.fullAddress = qualifier + " " + streetName + ", " + civicNumber.toString() + ", " + city + " (" + province + ") " + CAP.toString();
         this.phoneNumber = phoneNumber;
         this.url = url;
         this.type = type;
     }
 
     public String toString(){
-        return "Name:" +name+ "\nqualifier:"+qualifier+"\nstreetName:"+streetName+"\ncivicNumber:"+civicNumber+"\ncity:"+
-                city+"\nprovince:"+province+"\nCAP:"+CAP+"\nfullAddress:"+fullAddress+"\nphoneNumber:"+phoneNumber.toString()+
-                "\nurl:"+url+"\ntype:"+type.toString();
-
+        return "Name: " + name +
+                "\nqualifier: " + qualifier +
+                "\nstreetName: " + streetName +
+                "\ncivicNumber: " + civicNumber +
+                "\ncity: " + city +
+                "\nprovince: " + province +
+                "\nCAP :" + CAP +
+                "\nfullAddress: " + fullAddress +
+                "\nphoneNumber: " + phoneNumber.toString() +
+                "\nurl: " + url +
+                "\ntype: " + type.toString();
     }
-
 }

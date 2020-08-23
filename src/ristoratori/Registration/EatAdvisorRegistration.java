@@ -34,8 +34,6 @@ public class EatAdvisorRegistration extends JDialog {
 
 			public void mouseExited(MouseEvent e) { }
 		});
-
-		// @todo: Add the customer to the database on action listening
 		registerButton.addActionListener(e -> {
 			// Lambda has been expanded to interact with the database
 
@@ -44,11 +42,11 @@ public class EatAdvisorRegistration extends JDialog {
 			String surname = this.surnameField.getText();
 			String city = this.cityField.getText();
 			String province = this.provinceField.getText();
-			String emailAddress = this.emailField.getText();
+			String email = this.emailField.getText();
 			String nickname = this.nicknameField.getText();
 			String password = String.valueOf(this.passwordField.getPassword());
 			// Saving the username in the database
-			Database.insertClient(name, surname, city, province, emailAddress, nickname, password);
+			Database.insertClient(name, surname, city, province, email, nickname, password);
 
 			JOptionPane.showMessageDialog(null, "Registered Successfully!");
 		});

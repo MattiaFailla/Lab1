@@ -33,8 +33,6 @@ public class CustomerRegistration extends JDialog{
 
             public void mouseExited(MouseEvent e) { }
         });
-
-        // @todo: Add the customer to the database on action listening
         registerButton.addActionListener(e -> {
             // Lambda has been expanded to interact with the database
 
@@ -43,11 +41,11 @@ public class CustomerRegistration extends JDialog{
             String surname = this.surnameField.getText();
             String city = this.cityField.getText();
             String province = this.provinceField.getText();
-            String emailAddress = this.emailField.getText();
+            String email = this.emailField.getText();
             String nickname = this.nicknameField.getText();
             String password = String.valueOf(this.passwordField.getPassword());
             // Saving the username in the database
-            Database.insertClient(name, surname, city, province, emailAddress, nickname, password);
+            Database.insertClient(name, surname, city, province, email, nickname, password);
 
             JOptionPane.showMessageDialog(null, "Registered Successfully!");
         });
@@ -64,7 +62,7 @@ public class CustomerRegistration extends JDialog{
         });
         // endregion
 
-        //region FOCUS
+        //region Focus events
         nameField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { nameField.selectAll(); }
             public void focusLost(FocusEvent e) { onEnabled(); }
@@ -104,13 +102,13 @@ public class CustomerRegistration extends JDialog{
     private void onEnabled() {
         boolean checkName = nameField.getText().length() > 0;
         boolean checkSurname = surnameField.getText().length() > 0;
-        boolean checkMunicipality = cityField.getText().length() > 0;
+        boolean checkCity = cityField.getText().length() > 0;
         boolean checkProvince = provinceField.getText().length() > 0;
         boolean checkEmail = emailField.getText().length() > 0;
         boolean checkNickname = nicknameField.getText().length() > 0;
         boolean checkPassword = String.valueOf(passwordField.getPassword()).length() > 0;
         boolean firstCouple = checkName && checkSurname;
-        boolean secondCouple = checkMunicipality && checkProvince;
+        boolean secondCouple = checkCity && checkProvince;
         boolean thirdCouple = checkNickname && checkPassword;
         registerButton.setEnabled(firstCouple && secondCouple && checkEmail && thirdCouple);
     }

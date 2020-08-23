@@ -1,18 +1,23 @@
 package ristoratori.Registration;
 
+import database.Database;
+import database.objects.Restaurant;
+
 import javax.swing.*;
 import java.awt.event.*;
 
 public class RestaurantRegistration extends JDialog {
 	private JPanel contentPane;
 	private JTextField nameField;
-	private JTextField websiteField;
 	private JTextField phoneField;
+	private JTextField websiteField;
+	private JComboBox qualifierComboBox;
+	private JTextField streetNameField;
+	private JTextField civicNumberField;
 	private JTextField cityField;
 	private JTextField provinceField;
-	private JTextField placeField;
 	private JTextField capField;
-	private JComboBox tipologyBox;
+	private JComboBox typologyBox;
 	private JButton cancelButton;
 	private JButton registerButton;
 
@@ -21,10 +26,6 @@ public class RestaurantRegistration extends JDialog {
 		setModal(true);
 
 		// region registerButton events
-		registerButton.addActionListener(e -> {
-			JOptionPane.showMessageDialog(null, "Registered Successfully!");
-			onCancel();
-		});
 		registerButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
 
@@ -35,6 +36,25 @@ public class RestaurantRegistration extends JDialog {
 			public void mouseEntered(MouseEvent e) { onEnabled(); }
 
 			public void mouseExited(MouseEvent e) { }
+		});
+		registerButton.addActionListener(e -> {
+			// Lambda has been expanded to interact with the database
+
+			// Getting data from the form
+			String name = this.nameField.getText();
+			Integer phoneNumber = Integer.valueOf(this.phoneField.getText());
+			String url = this.websiteField.getText();
+			String qualifier = this.qualifierComboBox.getSelectedItem().toString();
+			String street = this.streetNameField.getText();
+			Integer civicNumber = Integer.valueOf(this.civicNumberField.getText());
+			String city = this.cityField.getText();
+			String province = this.provinceField.getText();
+			Integer CAP = Integer.valueOf(this.capField.getText());
+			Restaurant.types type = (Restaurant.types) this.typologyBox.getSelectedItem(); // convert to string ? ask by Lori
+			// Saving the username in the database
+			Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+
+			JOptionPane.showMessageDialog(null, "Registered Successfully!");
 		});
 		// endregion
 
@@ -54,12 +74,20 @@ public class RestaurantRegistration extends JDialog {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
+		phoneField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
 		websiteField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { websiteField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
-		phoneField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
+		streetNameField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { streetNameField.selectAll(); }
+			public void focusLost(FocusEvent e) { onEnabled(); }
+		});
+		civicNumberField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) { civicNumberField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
 		cityField.addFocusListener(new FocusListener() {
@@ -70,10 +98,6 @@ public class RestaurantRegistration extends JDialog {
 			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
-		placeField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { placeField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
-		});
 		capField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { capField.selectAll(); }
 			public void focusLost(FocusEvent e) { onEnabled(); }
@@ -82,23 +106,23 @@ public class RestaurantRegistration extends JDialog {
 	}
 
 	private void onCancel() {
-		// add your code here if necessary
 		System.out.println("Closing app..");
 		dispose();
 	}
 
 	private void onEnabled() {
 		boolean checkName = nameField.getText().length() > 0;
-		boolean checkWebsite = websiteField.getText().length() > 0;
 		boolean checkPhone = phoneField.getText().length() > 0;
+		boolean checkWebsite = websiteField.getText().length() > 0;
+		boolean checkStreet = streetNameField.getText().length() > 0;
+		boolean checkCivic = civicNumberField.getText().length() > 0;
 		boolean checkCity = cityField.getText().length() > 0;
 		boolean checkProvince = provinceField.getText().length() > 0;
-		boolean checkPlace = placeField.getText().length() > 0;
-		boolean checkCap = capField.getText().length() > 0;
+		boolean checkCAP = capField.getText().length() > 0;
 		boolean firstCouple = checkName && checkPhone;
-		boolean secondCouple = checkCity && checkCap;
-		boolean thirdCouple = checkProvince && checkPlace;
-		registerButton.setEnabled(firstCouple && secondCouple && checkWebsite && thirdCouple);
+		boolean secondCouple = checkStreet && checkCivic;
+		boolean thirdCouple = checkCity && checkProvince && checkCAP;
+		registerButton.setEnabled(firstCouple && checkWebsite && secondCouple && thirdCouple);
 	}
 
 	public static void main() {

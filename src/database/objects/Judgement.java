@@ -3,23 +3,23 @@ package database.objects;
 import java.io.Serializable;
 
 public class Judgement implements Serializable {
-    private String username;
-    private String restaurantName;
-    private Integer rating;
-    private String judgement;
+	private String username;
+	private String restaurantName;
+	private Integer rating;
+	private String judgement;
 
-    Judgement(){}
+	Judgement(){}
 
-    public Judgement(String username, String restaurantName, Integer rating, String judgement){
-        this.username = username;
-        this.restaurantName = restaurantName;
-        this.rating = rating;
-        this.judgement = judgement.substring(0, 256);
-    }
+	public Judgement(String username, String restaurantName, Integer rating, String judgement){
+		this.username = username;
+		this.restaurantName = restaurantName;
+		this.rating = rating;
+		this.judgement = judgement.substring(0, 256);
+	}
 
-    public String toString(){
-        return "L'utente: "+username
-                +"\n"+" ha valutato il ristorante "+restaurantName + "con "+rating.toString()+" stelle.\n"+
-                "Commento:\n"+judgement;
-    }
+	public String toString(){
+		return "L'utente " + username + " ha valutato il ristorante " + restaurantName +
+				" con " + rating.toString() + " stelle.\n" +
+				"Commento:\n" + judgement;
+	}
 }

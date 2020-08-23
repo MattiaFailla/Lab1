@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 /**
- * DataBase is the class responsible for correct communication with the
+ * Database is the class responsible for correct communication with the
  * database.
  * <p>
  * The data are saved in the following format:
@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
  * junction between these two applications.
  */
 public class Database {
-
     private static final String restaurant_db = "./EatAdvisor.dati";
     private static final String client_db = "./Utenti.dati";
 
@@ -44,41 +43,41 @@ public class Database {
     }
 
     /*      WRITERS       */
-    public static void insertClient(String name, String surname, String cityName, String province, String emailAddress, String nickName, String password) {
-        Client cli = new Client(name, surname, cityName, province, emailAddress, nickName, password);
+    public static void insertClient(String name, String surname, String city, String province, String email, String nickname, String password) {
+        Client clt = new Client(name, surname, city, province, email, nickname, password);
         // Saving the Customer
         try {
             // Before saving the new customer we need to extract the old customers
             ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
-            entries.add(cli);
+            entries.add(clt);
 
             File file = new File(client_db);
-            FileOutputStream f = new FileOutputStream(file);
-            ObjectOutputStream o = new ObjectOutputStream(f);
+            FileOutputStream fOut = new FileOutputStream(file);
+            ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 
-            o.writeObject(entries);
-            o.close();
-            f.close();
+            oOut.writeObject(entries);
+            oOut.close();
+            fOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Utente inserito con successo.");
     }
 
-    public static void insertRestaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, Restaurant.types type) {
-        Restaurant res = new Restaurant(name, qualifier, streetName, civicNumber, city, province, CAP, phoneNumber, url, type);
+    public static void insertRestaurant(String name, Integer phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
+        Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
             ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
-            entries.add(res);
+            entries.add(rst);
 
             File file = new File(restaurant_db);
-            FileOutputStream f = new FileOutputStream(file);
-            ObjectOutputStream o = new ObjectOutputStream(f);
+            FileOutputStream fOut = new FileOutputStream(file);
+            ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 
-            o.writeObject(entries);
-            o.close();
-            f.close();
+            oOut.writeObject(entries);
+            oOut.close();
+            fOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,54 +85,53 @@ public class Database {
     }
 
     public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
-        Judgement jud = new Judgement(username, restaurantName, rating, judgement);
+        Judgement jdg = new Judgement(username, restaurantName, rating, judgement);
         try {
             // Before saving the new restaurant we need to extract the old restaurant data
             ArrayList<Judgement> entries = (ArrayList<Judgement>) readFile(restaurant_db);
-            entries.add(jud);
+            entries.add(jdg);
 
             File file = new File(restaurant_db);
-            FileOutputStream f = new FileOutputStream(file);
-            ObjectOutputStream o = new ObjectOutputStream(f);
+            FileOutputStream fOut = new FileOutputStream(file);
+            ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 
-            o.writeObject(entries);
-            o.close();
-            f.close();
+            oOut.writeObject(entries);
+            oOut.close();
+            fOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Giudizio inserito con successo.");
-
     }
 
     /*      GETTER       */
-    public static List<Client> getClients() throws IOException, ClassNotFoundException {
-        // Returning every client in the file
-        File file = new File(client_db);
-        FileInputStream fi = new FileInputStream(file);
-        ObjectInputStream oi = new ObjectInputStream(fi);
-
-        Object data = oi.readObject();
-        List<Client> list = new ArrayList<>();
-        if (data instanceof List) list = (List<Client>) data;
-        return list;
-
-    }
-
     public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
         // Return true if fieldData exists in any field of clients
         for (Client client : getClients()) if (client.toString().contains(fieldData)) return true;
         return false;
     }
 
+    public static List<Client> getClients() throws IOException, ClassNotFoundException {
+        // Returning every client in the file
+        File file = new File(client_db);
+        FileInputStream fIn = new FileInputStream(file);
+        ObjectInputStream oIn = new ObjectInputStream(fIn);
+
+        // Getting data
+        Object data = oIn.readObject();
+        List<Client> list = new ArrayList<>();
+        if (data instanceof List) list = (List<Client>) data;
+        return list;
+    }
+
     public static List<Restaurant> getRestaurants() throws IOException, ClassNotFoundException {
         // Returning every restaurant in the file
         File file = new File(restaurant_db);
-        FileInputStream fi = new FileInputStream(file);
-        ObjectInputStream oi = new ObjectInputStream(fi);
+        FileInputStream fIn = new FileInputStream(file);
+        ObjectInputStream oIn = new ObjectInputStream(fIn);
 
         // Getting data
-        Object data = oi.readObject();
+        Object data = oIn.readObject();
         List<?> list = new ArrayList<>();
         if (data instanceof List) {
             list = ((List<?>) data).stream()
@@ -145,13 +143,13 @@ public class Database {
     }
 
     public static List<Judgement> getJudgments() throws IOException, ClassNotFoundException {
-        // Returning every jud in the file
+        // Returning every judgement in the file
         File file = new File(restaurant_db);
-        FileInputStream fi = new FileInputStream(file);
-        ObjectInputStream oi = new ObjectInputStream(fi);
+        FileInputStream fIn = new FileInputStream(file);
+        ObjectInputStream oIn = new ObjectInputStream(fIn);
         
         // Getting data
-        Object data = oi.readObject();
+        Object data = oIn.readObject();
         List<?> list = new ArrayList<>();
         if (data instanceof List) {
             list = ((List<?>) data).stream()
