@@ -92,6 +92,10 @@ public class CustomerRegistration extends JDialog{
             public void focusLost(FocusEvent e) { onEnabled(); }
         });
         //endregion
+
+        // region Regex
+        
+        // endregion
     }
 
     private void onCancel() {

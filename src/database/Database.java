@@ -55,6 +55,11 @@ public class Database {
             FileOutputStream fOut = new FileOutputStream(file);
             ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 
+            /*
+            FileWriter fileWriter = new FileWriter(client_db);
+            fileWriter.append(clt.toString());
+            */
+
             oOut.writeObject(entries);
             oOut.close();
             fOut.close();
@@ -81,7 +86,7 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Ristorante inserito con successo.");
+        System.out.println("Restaurant succesfully inserito con successo.");
     }
 
     public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {

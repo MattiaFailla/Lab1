@@ -92,6 +92,31 @@
           <selectionColor color="-3355444"/>
         </properties>
       </component>
+      <component id="24435" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-723724"/>
+          <foreground color="-15658735"/>
+          <text value="Prov."/>
+        </properties>
+      </component>
+      <component id="fe96f" class="javax.swing.JTextField" binding="provinceField">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-723724"/>
+          <caretColor color="-15658735"/>
+          <disabledTextColor color="-10066330"/>
+          <foreground color="-15658735"/>
+          <selectedTextColor color="-15658735"/>
+          <selectionColor color="-3355444"/>
+        </properties>
+      </component>
       <component id="63866" class="javax.swing.JLabel">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -142,31 +167,6 @@
           <selectionColor color="-3355444"/>
         </properties>
       </component>
-      <component id="24435" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-723724"/>
-          <foreground color="-15658735"/>
-          <text value="Prov."/>
-        </properties>
-      </component>
-      <component id="fe96f" class="javax.swing.JTextField" binding="provinceField">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-723724"/>
-          <caretColor color="-15658735"/>
-          <disabledTextColor color="-10066330"/>
-          <foreground color="-15658735"/>
-          <selectedTextColor color="-15658735"/>
-          <selectionColor color="-3355444"/>
-        </properties>
-      </component>
       <component id="ce726" class="javax.swing.JLabel">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -192,18 +192,6 @@
           <selectionColor color="-3355444"/>
         </properties>
       </component>
-      <component id="97bcb" class="javax.swing.JButton" binding="registerButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-723724"/>
-          <contentAreaFilled value="false"/>
-          <enabled value="false"/>
-          <foreground color="-15658735"/>
-          <text value="Register "/>
-        </properties>
-      </component>
       <component id="99573" class="javax.swing.JButton" binding="cancelButton">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -216,6 +204,18 @@
           <foreground color="-15658735"/>
           <label value="Cancel"/>
           <text value="Cancel"/>
+        </properties>
+      </component>
+      <component id="97bcb" class="javax.swing.JButton" binding="registerButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-723724"/>
+          <contentAreaFilled value="false"/>
+          <enabled value="false"/>
+          <foreground color="-15658735"/>
+          <text value="Register "/>
         </properties>
       </component>
     </children>

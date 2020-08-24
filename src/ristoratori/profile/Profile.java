@@ -1,10 +1,7 @@
 package ristoratori.Profile;
 
-import database.Database;
-
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.*;
 
 public class Profile extends JDialog {
     private JPanel contentPane;
@@ -39,24 +36,6 @@ public class Profile extends JDialog {
     }
 
     public void WriteInfo() {
-        Connection connect = null;
-        try {
-            // create a connection to the database
-            String url = "address";
-            connect = DriverManager.getConnection(url);
-
-            System.out.println("Connection to database has been established.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (connect != null) {
-                    connect.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
     }
 
     private void onCancel() {

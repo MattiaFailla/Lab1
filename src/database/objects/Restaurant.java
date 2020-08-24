@@ -10,7 +10,6 @@ public class Restaurant implements Serializable {
     }
 
     private String name;
-    /* Address data */
     private String qualifier; // example: via or piazza
     private String streetName;
     private Integer civicNumber;
@@ -18,7 +17,6 @@ public class Restaurant implements Serializable {
     private String province;
     private Integer CAP;
     private String fullAddress; // this will be auto generated
-
     private Integer phoneNumber;
     private String url;
     private types type;
