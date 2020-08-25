@@ -125,6 +125,7 @@
         <properties>
           <background color="-723724"/>
           <foreground color="-15658735"/>
+          <model/>
         </properties>
       </component>
       <component id="9ac6e" class="javax.swing.JButton" binding="cancelButton">

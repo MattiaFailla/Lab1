@@ -3,6 +3,8 @@ package clienti.Registration;
 import database.Database;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 
 public class CustomerRegistration extends JDialog{
@@ -65,31 +67,70 @@ public class CustomerRegistration extends JDialog{
         //region Focus events
         nameField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { nameField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateName();
+                if(!validate) {
+                    nameField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { nameField.setBorder(new LineBorder(Color.red)); }
+            }
         });
         surnameField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { surnameField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateSurname();
+                if(!validate) { surnameField.setBorder(new LineBorder(Color.green));
+                onEnabled();
+                }
+                else { surnameField.setBorder(new LineBorder(Color.red)); }
+            }
         });
         cityField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { cityField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateCity();
+                if(!validate) { cityField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { cityField.setBorder(new LineBorder(Color.red)); }}
         });
         provinceField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateProvince();
+                if(!validate) { provinceField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { provinceField.setBorder(new LineBorder(Color.red)); }}
         });
         emailField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { emailField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateEmail();
+                if(!validate) { emailField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { emailField.setBorder(new LineBorder(Color.red)); }}
         });
         nicknameField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidateNick();
+                if(!validate) { nicknameField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { nicknameField.setBorder(new LineBorder(Color.red)); }}
         });
         passwordField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-            public void focusLost(FocusEvent e) { onEnabled(); }
+            public void focusLost(FocusEvent e) {
+                boolean validate = notValidatePass();
+                if(!validate) { passwordField.setBorder(new LineBorder(Color.green));
+                    onEnabled();
+                }
+                else { passwordField.setBorder(new LineBorder(Color.red)); }
+            }
         });
         //endregion
 
@@ -102,6 +143,21 @@ public class CustomerRegistration extends JDialog{
         System.out.println("Closing app..");
         dispose();
     }
+
+    private boolean notValidateName() { return nameField.getText().matches("\\W+|\\d+"); }
+
+    private boolean notValidateSurname() { return surnameField.getText().matches("\\W+|\\d+"); }
+
+    private boolean notValidateCity() {return cityField.getText().matches("\\W+|\\d+"); }
+
+    private boolean notValidateProvince() { return provinceField.getText().matches("\\W+|\\d+"); } // regex must be changed
+
+    private boolean notValidateEmail() { return emailField.getText().matches("\\W+|\\d+"); } // regex must be changed
+
+    private boolean notValidateNick() { return nicknameField.getText().matches("\\W+|\\d+"); }
+
+    private boolean notValidatePass() { return String.valueOf(passwordField.getPassword()).matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"); }
+
 
     private void onEnabled() {
         boolean checkName = nameField.getText().length() > 0;

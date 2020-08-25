@@ -1,4 +1,4 @@
-package ristoratori.Profile;
+package clienti.Profile;
 
 import javax.swing.*;
 import java.awt.event.*;

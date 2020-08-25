@@ -56,8 +56,8 @@ public class CustomerLogin extends JDialog {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) {
 				boolean validate = notValidateNick();
-				if(!validate) {
-					nicknameField.setBorder(new LineBorder(Color.getColor("BBBBBB"))); // colore sbagliato
+					if(!validate) {
+						nicknameField.setBorder(new LineBorder(Color.getColor("BBBBBB"))); // colore sbagliato
 					onEnabled();
 				}
 				else { nicknameField.setBorder(new LineBorder(Color.red)); }
