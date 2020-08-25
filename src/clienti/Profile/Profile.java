@@ -12,6 +12,7 @@ public class Profile extends JDialog {
     private JComboBox restaurantComboBox;
     private JButton saveButton;
     private JButton cancelButton;
+    private JTextField textField1;
 
     public Profile() {
         setContentPane(contentPane);
