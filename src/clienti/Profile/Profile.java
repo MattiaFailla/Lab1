@@ -79,13 +79,13 @@ public class Profile extends JDialog {
 
     }
 
-    private boolean notValidateNick() { return NicknameField.getText().matches("\\W+|\\d+"); }
+    private boolean notValidateNick() { return NicknameField.getText().matches("\\W+|\\d+"); } //should not allow blank field
 
     private boolean notValidatePass() { return String.valueOf(passwordField.getPassword()).matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"); }
 
-    private boolean notValidateEmail() { return emailField.getText().matches("\\W+|\\d+"); } // regex must be changed
+    private boolean notValidateEmail() { return emailField.getText().matches("\\W+|\\d+"); } // regex must be changed, same as nickname
 
-    private boolean notValidateFname() { return fullNameField.getText().matches("\\W+|\\d+"); }
+    private boolean notValidateFname() { return fullNameField.getText().matches("\\W+|\\d+"); } // same as nickname
 
     public void WriteInfo() {
     }

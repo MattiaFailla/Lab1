@@ -18,8 +18,8 @@ public class Judgement implements Serializable {
 	}
 
 	public String toString(){
-		return "L'utente " + username + " ha valutato il ristorante " + restaurantName +
-				" con " + rating.toString() + " stelle.\n" +
-				"Commento:\n" + judgement;
+		return "The user" + username + " has rated the restaurant " + restaurantName +
+				" with " + rating.toString() + " stars.\n" +
+				"Comment:\n" + judgement;
 	}
 }
