@@ -86,7 +86,7 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Restaurant succesfully inserito con successo.");
+        System.out.println("Restaurant succesfully inserted.");
     }
 
     public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
@@ -106,7 +106,7 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Giudizio inserito con successo.");
+        System.out.println("Judgement successfully inserted.");
     }
 
     /*      GETTER       */

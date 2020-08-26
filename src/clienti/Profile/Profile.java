@@ -85,8 +85,7 @@ public class Profile extends JDialog {
 
     private boolean notValidateEmail() { return emailField.getText().matches("\\W+|\\d+"); } // regex must be changed
 
-    private boolean notValidateFname() { return NicknameField.getText().matches("\\W+|\\d+"); }
-
+    private boolean notValidateFname() { return fullNameField.getText().matches("\\W+|\\d+"); }
 
     public void WriteInfo() {
     }
