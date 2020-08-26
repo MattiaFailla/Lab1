@@ -103,6 +103,41 @@ public class RestaurantRegistration extends JDialog {
 			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
 		//endregion
+
+		//region Input Validation
+		nameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+				if(Database.insertInput(e)) nameField.setText(nameField.getText());
+				else nameField.setText(Database.deleteLastInput(nameField.getText()));
+			}
+		});
+		streetNameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+				if(Database.insertInput(e)) streetNameField.setText(streetNameField.getText());
+				else streetNameField.setText(Database.deleteLastInput(streetNameField.getText()));
+			}
+		});
+		cityField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+				if(Database.insertInput(e)) cityField.setText(cityField.getText());
+				else cityField.setText(Database.deleteLastInput(cityField.getText()));
+			}
+		});
+		provinceField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+				if(Database.insertInput(e) && provinceField.getText().matches("^.{0,2}$")) provinceField.setText(provinceField.getText());
+				else provinceField.setText(Database.deleteLastInput(provinceField.getText()));
+			}
+		});
+		//endregion
 	}
 
 	private void onCancel() {

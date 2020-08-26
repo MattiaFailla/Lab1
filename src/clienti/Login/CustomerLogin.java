@@ -1,8 +1,8 @@
 package clienti.Login;
 
+import database.Database;
+
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 import java.awt.event.*;
 
 public class CustomerLogin extends JDialog {
@@ -19,13 +19,9 @@ public class CustomerLogin extends JDialog {
 		// region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
-
 			public void mousePressed(MouseEvent e) { }
-
 			public void mouseReleased(MouseEvent e) { }
-
 			public void mouseEntered(MouseEvent e) { onEnabled(); }
-
 			public void mouseExited(MouseEvent e) { }
 		});
 		loginButton.addActionListener(e -> {
@@ -54,27 +50,24 @@ public class CustomerLogin extends JDialog {
 		// region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				boolean validate = notValidateNick();
-					if(!validate) {
-						nicknameField.setBorder(new LineBorder(Color.getColor("BBBBBB"))); // colore sbagliato
-					onEnabled();
-				}
-				else { nicknameField.setBorder(new LineBorder(Color.red)); }
-			}
+			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				boolean validate = notValidatePass();
-				if(!validate) {
-					passwordField.setBorder(new LineBorder(Color.getColor("BBB")));
-					onEnabled();
-				}
-				else { passwordField.setBorder(new LineBorder(Color.red));	}
-			}
+			public void focusLost(FocusEvent e) { onEnabled(); }
 		});
 		// endregion
+
+		//region Input Validation
+		nicknameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+				if(Database.insertInput(e)) nicknameField.setText(nicknameField.getText());
+				else nicknameField.setText(Database.deleteLastInput(nicknameField.getText()));
+			}
+		});
+		//endregion
 	}
 
 	private void onLogin() {
@@ -97,11 +90,16 @@ public class CustomerLogin extends JDialog {
 		loginButton.setEnabled(checkNick && checkPass);
 	}
 
-	private boolean notValidateNick() { return nicknameField.getText().matches("\\W+|\\d+"); }
-
 	private boolean notValidatePass() { return String.valueOf(passwordField.getPassword()).matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"); }
 
-/*  Example of REGEX
+	public static void main(String[] args) {
+		CustomerLogin dialog = new CustomerLogin();
+		dialog.pack();
+		dialog.setVisible(true);
+		System.exit(0);
+	}
+
+	/*  Example of REGEX
 	Minimum eight characters, at least one letter and one number:
 	"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
 
@@ -117,10 +115,4 @@ public class CustomerLogin extends JDialog {
 	Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character:
 	"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
 */
-	public static void main(String[] args) {
-		CustomerLogin dialog = new CustomerLogin();
-		dialog.pack();
-		dialog.setVisible(true);
-		System.exit(0);
-	}
 }
