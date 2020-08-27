@@ -1,9 +1,13 @@
 package clienti.Login;
 
 import database.Database;
+import ristoratori.Registration.EatAdvisorRegistration;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
+import java.util.EventListener;
 
 public class CustomerLogin extends JDialog {
 	private JPanel contentPane;
@@ -59,15 +63,31 @@ public class CustomerLogin extends JDialog {
 		// endregion
 
 		//region Input Validation
-		nicknameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) {
-				if(Database.insertInput(e)) nicknameField.setText(nicknameField.getText());
-				else nicknameField.setText(Database.deleteLastInput(nicknameField.getText()));
+		nicknameField.addInputMethodListener(new InputMethodListener() {
+			public void inputMethodTextChanged(InputMethodEvent event) {
+				textFieldIsWritten(nicknameField);
+			}
+			public void caretPositionChanged(InputMethodEvent event) {
+			}
+		});
+		passwordField.addInputMethodListener(new InputMethodListener() {
+			public void inputMethodTextChanged(InputMethodEvent event) {
+				textFieldIsWritten(nicknameField);
+			}
+			public void caretPositionChanged(InputMethodEvent event) {
 			}
 		});
 		//endregion
+
+		/*
+		if(Database.insertInput(e)) nicknameField.setText(text);
+		else nicknameField.setText(text + "");
+		*/
+	}
+
+	private void textFieldIsWritten (JTextField sender) {
+		StringBuilder text = new StringBuilder(sender.getText());
+
 	}
 
 	private void onLogin() {
@@ -90,8 +110,6 @@ public class CustomerLogin extends JDialog {
 		loginButton.setEnabled(checkNick && checkPass);
 	}
 
-	private boolean notValidatePass() { return String.valueOf(passwordField.getPassword()).matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"); }
-
 	public static void main(String[] args) {
 		CustomerLogin dialog = new CustomerLogin();
 		dialog.pack();
@@ -100,6 +118,9 @@ public class CustomerLogin extends JDialog {
 	}
 
 	/*  Example of REGEX
+
+	^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$
+
 	Minimum eight characters, at least one letter and one number:
 	"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
 
