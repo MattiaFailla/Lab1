@@ -16,71 +16,71 @@ public class Profile extends JDialog {
 	private JComboBox restaurantComboBox;
 	private JButton saveButton;
 	private JButton cancelButton;
-	private JTextField NicknameField;
 
 	public Profile() {
 		setContentPane(contentPane);
 		setModal(true);
 
-		WriteInfo();
-
+		//region saveButton events
+		saveButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { }
+			public void mouseExited(MouseEvent e) { }
+		});
 		saveButton.addActionListener(e -> {
 			JOptionPane.showMessageDialog(null, "Saved!");
 		});
+		//endregion
 
 		// region cancelButton events
-		cancelButton.addActionListener(e -> onCancel());
-		// call onCancel() on ESCAPE
-		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		// call onCancel() when cross is clicked
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { onCancel(); }
+			public void windowClosing(WindowEvent e) { dispose(); }
 		});
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // call onCancel() when cross is clicked
+		cancelButton.addActionListener(e -> dispose());
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
-		NicknameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { NicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
-		});
+		// region Focus events
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+
+			}
 		});
 		emailField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { emailField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+
+			}
 		});
 		fullNameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { fullNameField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+
+			}
 		});
-	}
+		// endregion
 
-	private boolean notValidateNick() { return NicknameField.getText().matches("\\W+|\\d+"); } //should not allow blank field
-
-	private boolean notValidatePass() { return String.valueOf(passwordField.getPassword()).matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"); }
-
-	private boolean notValidateEmail() { return emailField.getText().matches("\\W+|\\d+"); } // regex must be changed, same as nickname
-
-	private boolean notValidateFname() { return fullNameField.getText().matches("\\W+|\\d+"); } // same as nickname
-
-	public void WriteInfo() {
-	}
-
-	private void onCancel() {
-		System.out.println("Closing app..");
-		dispose();
-	}
-
-	private void onEnabled() {
-		boolean checkName = NicknameField.getText().length() > 0;
-		boolean checkFullName = fullNameField.getText().length() > 0;
-		boolean checkEmail = emailField.getText().length() > 0;
-		boolean checkPassword = String.valueOf(passwordField.getPassword()).length() > 0;
-		boolean firstCouple = checkName && checkFullName;
-		boolean secondCouple = checkEmail && checkPassword;
-		saveButton.setEnabled(firstCouple && secondCouple);
+		//region Input Validation
+		passwordField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { passwordField.setEditable(Database.regexPassword(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		emailField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { emailField.setEditable(Database.regexNickname(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		fullNameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { fullNameField.setEditable(Database.regexStandard(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		//endregion
 	}
 
 	public static void main(String[] args) {

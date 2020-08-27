@@ -4,7 +4,6 @@ import database.objects.Client;
 import database.objects.Judgement;
 import database.objects.Restaurant;
 
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -163,7 +162,7 @@ public class Database {
 	}
 	//endregion
 
-	// HELPER FUNCT
+	//region HELPER FUNCT
 	//Reads the file and returns all entries in a list
 	public static ArrayList<?> readFile(String filename) {
 		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<ArrayList<?>>();
@@ -198,17 +197,19 @@ public class Database {
 		RISTORANTE
 
 	}
+	//endregion
 
 	//region INPUT VALIDATION
-	private static boolean validateSymbol(Integer e) {
-		Integer[] symbol = {8, 10, 16, 17, 18}; // 37, 38, 39, 40
-		for(Integer i : symbol)
-			if(e == i) return true;
-		return false;
-	}
+	public static boolean regexStandard(Character c) { return c.toString().matches("^[a-zA-Zàèéìòù]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$") || isISOControl(c); }
 
-	public static boolean insertInput(KeyEvent e) { return String.valueOf(e.getKeyChar()).matches("[a-zA-Z]") || validateSymbol(e.getKeyCode()); }
+	public static boolean regexNickname(Character c) { return c.toString().matches("^[a-z0-9_-]{3,15}$") || isISOControl(c); }
 
-	public static String deleteLastInput(String text) { return text.substring(0, text.length() - 1); }
+	public static boolean regexPassword(Character c) { return c.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$") || isISOControl(c); }
+
+	public static boolean regexPhoneNum(Character c) { return c.toString().matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$") || isISOControl(c); }
+
+	public static boolean regexURL(Character c) { return c.toString().matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)") || isISOControl(c); }
+
+	private static boolean isISOControl(Character c) { return Character.isISOControl(c); }
 	//endregion
 }

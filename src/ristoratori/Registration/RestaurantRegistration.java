@@ -28,13 +28,9 @@ public class RestaurantRegistration extends JDialog {
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
-
 			public void mousePressed(MouseEvent e) { }
-
 			public void mouseReleased(MouseEvent e) { }
-
-			public void mouseEntered(MouseEvent e) { onEnabled(); }
-
+			public void mouseEntered(MouseEvent e) { }
 			public void mouseExited(MouseEvent e) { }
 		});
 		registerButton.addActionListener(e -> {
@@ -51,6 +47,7 @@ public class RestaurantRegistration extends JDialog {
 			String province = this.provinceField.getText();
 			Integer CAP = Integer.valueOf(this.capField.getText());
 			Restaurant.types type = (Restaurant.types) this.typologyBox.getSelectedItem(); // convert to string ? ask by Lori
+
 			// Saving the username in the database
 			Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
 
@@ -59,14 +56,12 @@ public class RestaurantRegistration extends JDialog {
 		// endregion
 
 		// region cancelButton events
-		cancelButton.addActionListener(e -> onCancel());
-		// call onCancel() on ESCAPE
-		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		// call onCancel() when cross is clicked
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { onCancel(); }
+			public void windowClosing(WindowEvent e) { dispose(); }
 		});
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // call onCancel() when cross is clicked
+		cancelButton.addActionListener(e -> dispose());
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
 		//region Focus events
@@ -106,36 +101,44 @@ public class RestaurantRegistration extends JDialog {
 
 		//region Input Validation
 		nameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
+			public void keyTyped(KeyEvent e) { nameField.setEditable(Database.regexStandard(e.getKeyChar())); }
 			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) {
-				if(Database.insertInput(e)) nameField.setText(nameField.getText());
-				else nameField.setText(Database.deleteLastInput(nameField.getText()));
-			}
+			public void keyReleased(KeyEvent e) { }
+		});
+		phoneField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { phoneField.setEditable(Database.regexPhoneNum(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		websiteField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { websiteField.setEditable(Database.regexURL(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
 		});
 		streetNameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { streetNameField.setEditable(Database.regexStandard(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		civicNumberField.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) { }
 			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) {
-				if(Database.insertInput(e)) streetNameField.setText(streetNameField.getText());
-				else streetNameField.setText(Database.deleteLastInput(streetNameField.getText()));
-			}
+			public void keyReleased(KeyEvent e) { }
 		});
 		cityField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
+			public void keyTyped(KeyEvent e) { cityField.setEditable(Database.regexStandard(e.getKeyChar())); }
 			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) {
-				if(Database.insertInput(e)) cityField.setText(cityField.getText());
-				else cityField.setText(Database.deleteLastInput(cityField.getText()));
-			}
+			public void keyReleased(KeyEvent e) { }
 		});
 		provinceField.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) { }
 			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) {
-				if(Database.insertInput(e) && provinceField.getText().matches("^.{0,2}$")) provinceField.setText(provinceField.getText());
-				else provinceField.setText(Database.deleteLastInput(provinceField.getText()));
-			}
+			public void keyReleased(KeyEvent e) { }
+		});
+		capField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
 		});
 		//endregion
 	}

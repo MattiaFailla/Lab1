@@ -17,61 +17,54 @@ public class EatAdvisorLogin extends JDialog {
 		setModal(true);
 
 		// region loginButton events
-		loginButton.addActionListener(e -> onLogin());
 		loginButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) { }
-
 			public void mousePressed(MouseEvent e) { }
-
 			public void mouseReleased(MouseEvent e) { }
-
-			public void mouseEntered(MouseEvent e) { onEnabled(); }
-
+			public void mouseEntered(MouseEvent e) { }
 			public void mouseExited(MouseEvent e) { }
+		});
+		loginButton.addActionListener(e -> {
+
 		});
 		// endregion
 
 		// region cancelButton events
-		cancelButton.addActionListener(e -> onCancel());
-		// call onCancel() when cross is clicked
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { onCancel(); }
+			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		// call onCancel() on ESCAPE
-		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // call onCancel() when cross is clicked
+		cancelButton.addActionListener(e -> dispose());
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
 		// region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+
+			}
 		});
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+
+			}
 		});
-		// endregion events
-	}
+		// endregion
 
-	private void onLogin() {
-		System.out.println("Login verification ongoing..");
-
-		//@todo: Add code to connect the database
-
-		loginButton.setText(".. verifying ..");
-		dispose();
-	}
-
-	private void onCancel() {
-		System.out.println("Closing app..");
-		dispose();
-	}
-
-	private void onEnabled() {
-		boolean checkNick = nicknameField.getText().length() > 0;
-		boolean checkPass = String.valueOf(passwordField.getPassword()).length() > 0;
-		loginButton.setEnabled(checkNick && checkPass);
+		// region Input Validation
+		nicknameField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { nicknameField.setEditable(Database.regexNickname(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		passwordField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) { passwordField.setEditable(Database.regexPassword(e.getKeyChar())); }
+			public void keyPressed(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) { }
+		});
+		// endregion
 	}
 
 	public static void main(String[] args) {
