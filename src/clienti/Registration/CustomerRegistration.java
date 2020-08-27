@@ -3,6 +3,9 @@ package clienti.Registration;
 import database.Database;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 
 public class CustomerRegistration extends JDialog{
@@ -61,7 +64,10 @@ public class CustomerRegistration extends JDialog{
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusLost(FocusEvent e) {
+				Color color = nameField.getText().length() > 3 ? Color.green : Color.red;
+				nameField.setBorder(new LineBorder(color));
+			}
 		});
 		surnameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { surnameField.selectAll(); }
@@ -131,13 +137,13 @@ public class CustomerRegistration extends JDialog{
 		}
 
 		private void onEnabled() {
-			boolean checkName = nameField.getText().length() > 0;
-			boolean checkSurname = surnameField.getText().length() > 0;
-			boolean checkCity = cityField.getText().length() > 0;
-			boolean checkProvince = provinceField.getText().length() > 0;
-			boolean checkEmail = emailField.getText().length() > 0;
-			boolean checkNickname = nicknameField.getText().length() > 0;
-			boolean checkPassword = String.valueOf(passwordField.getPassword()).length() > 0;
+			boolean checkName = nameField.getText().length() > 3;
+			boolean checkSurname = surnameField.getText().length() > 3;
+			boolean checkCity = cityField.getText().length() > 3;
+			boolean checkProvince = provinceField.getText().length() > 1;
+			boolean checkEmail = emailField.getText().length() > 5;
+			boolean checkNickname = nicknameField.getText().length() > 3;
+			boolean checkPassword = String.valueOf(passwordField.getPassword()).length() > 4;
 			boolean firstCouple = checkName && checkSurname;
 			boolean secondCouple = checkCity && checkProvince;
 			boolean thirdCouple = checkNickname && checkPassword;

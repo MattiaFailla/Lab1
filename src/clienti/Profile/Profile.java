@@ -5,6 +5,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+import database.Database;
+
 public class Profile extends JDialog {
     private JPanel contentPane;
     private JLabel nicknameLabel;
