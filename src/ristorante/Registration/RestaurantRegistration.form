@@ -230,16 +230,12 @@
         </constraints>
         <properties>
           <background color="-723724"/>
-          <focusable value="true"/>
           <foreground color="-15658735"/>
-          <lightWeightPopupEnabled value="true"/>
           <model>
             <item value="Italian"/>
             <item value="Etnic"/>
             <item value="Fusion"/>
           </model>
-          <requestFocusEnabled value="true"/>
-          <visible value="true"/>
         </properties>
       </component>
       <component id="99573" class="javax.swing.JButton" binding="cancelButton">
