@@ -1,13 +1,8 @@
 package ristoratori;
 
-import database.Database;
-import database.objects.Client;
-import ristoratori.Login.EatAdvisorLogin;
-import ristoratori.Registration.EatAdvisorRegistration;
+import _database.Database;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * StartApp is the entry point for the app ristoratori
@@ -36,7 +31,6 @@ public class StartApp {
 		}
 
 		// Starting the UI
-		//EatAdvisorLogin.main(args);
-		EatAdvisorRegistration.main(args);
-	}
+
+		}
 }

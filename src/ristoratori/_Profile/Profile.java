@@ -1,11 +1,11 @@
-package clienti.Profile;
+package ristoratori._Profile;
 
-import database.Database;
+import _database.Database;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
-
-import database.Database;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
@@ -30,6 +30,13 @@ public class Profile extends JDialog {
 			public void mouseExited(MouseEvent e) { }
 		});
 		saveButton.addActionListener(e -> {
+			// Lambda has been expanded to interact with the database
+
+			// Getting data from the form
+			String password = String.valueOf(this.passwordField.getPassword());
+			String email = this.emailField.getText();
+
+
 			JOptionPane.showMessageDialog(null, "Saved!");
 		});
 		//endregion
@@ -43,47 +50,32 @@ public class Profile extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
-		// region Focus events
+		//region Focus events
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-
+				Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+				passwordField.setBorder(new LineBorder(color));
 			}
 		});
 		emailField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { emailField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-
+				Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
+				emailField.setBorder(new LineBorder(color));
 			}
 		});
 		fullNameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { fullNameField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-
+				Color color = Database.regexStandard(fullNameField.getText()) ? Color.green : Color.red;
+				fullNameField.setBorder(new LineBorder(color));
 			}
-		});
-		// endregion
-
-		//region Input Validation
-		passwordField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { passwordField.setEditable(Database.regexPassword(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		emailField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { emailField.setEditable(Database.regexNickname(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		fullNameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { fullNameField.setEditable(Database.regexStandard(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
 		});
 		//endregion
 	}
 
-	public static void main(String[] args) {
+	public static void main() {
 		Profile dialog = new Profile();
 		dialog.pack();
 		dialog.setVisible(true);

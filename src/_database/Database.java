@@ -1,8 +1,8 @@
-package database;
+package _database;
 
-import database.objects.Client;
-import database.objects.Judgement;
-import database.objects.Restaurant;
+import _database.objects.Client;
+import _database.objects.Judgement;
+import _database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Database {
 	private static final String restaurant_db = "./EatAdvisor.dati";
 	private static final String client_db = "./Utenti.dati";
 
-	public static Boolean init() {
+	public static boolean init() {
 		// Initialize the database
 		// Creating database if not exists
 		File db_clienti = new File(client_db);
@@ -44,8 +44,8 @@ public class Database {
 
 	//region WRITERS
 	public static void insertClient(String name, String surname, String city, String province, String email, String nickname, String password) {
-		Client clt = new Client(name, surname, city, province, email, nickname, password);
 		// Saving the Customer
+		Client clt = new Client(name, surname, city, province, email, nickname, password);
 		try {
 			// Before saving the new customer we need to extract the old customers
 			ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
@@ -58,13 +58,12 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("Utente inserito con successo.");
+		} catch (IOException e) { e.printStackTrace(); }
+		System.out.println("Client succesfully inserted.");
 	}
 
 	public static void insertRestaurant(String name, Integer phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
+		// Saving the EatAdvisor
 		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type);
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
@@ -78,13 +77,12 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {  e.printStackTrace(); }
 		System.out.println("Restaurant succesfully inserted.");
 	}
 
 	public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
+		// Saving the Judgment
 		Judgement jdg = new Judgement(username, restaurantName, rating, judgement);
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
@@ -98,15 +96,13 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { e.printStackTrace(); }
 		System.out.println("Judgement successfully inserted.");
 	}
 	//endregion
 
 	//region GETTER
-	public static Boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
+	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of clients
 		for (Client client : getClients()) if (client.toString().contains(fieldData)) return true;
 		return false;
@@ -163,53 +159,49 @@ public class Database {
 	//endregion
 
 	//region HELPER FUNCT
-	//Reads the file and returns all entries in a list
+	// Reads the file and returns all entries in a list
 	public static ArrayList<?> readFile(String filename) {
-		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<ArrayList<?>>();
+		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<>();
 		try {
 			FileInputStream fileIn = new FileInputStream(filename);
 			ObjectInputStream objIn = new ObjectInputStream(fileIn);
 			persistedEntries.set((ArrayList<?>) objIn.readObject());
 			objIn.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		} catch (Exception ex) { ex.printStackTrace(); }
 		return persistedEntries.get();
 	}
 
-	/**
-	 * This types are typically used to insert debug messages into the database
-	 */
+	// This types are typically used to insert debug messages into the db
 	public enum data_types {
 		CLIENTS_DATA,
 		INFO,
 		LOGGING,
-		RESTAURANT_DATA
-
+		RESTAURANT_DATA;
 	}
 
-	/**
-	 * RecordType is the type of record that will be inserted into the database
-	 */
+	// RecordType is the type of record that will be inserted into the db
 	public enum recordType {
 		CLIENTE,
 		RECENSIONE,
 		RISTORANTE
-
 	}
 	//endregion
 
-	//region INPUT VALIDATION
-	public static boolean regexStandard(Character c) { return c.toString().matches("^[a-zA-Zàèéìòù]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$") || isISOControl(c); }
+	//region REGEX
+	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$"); }
 
-	public static boolean regexNickname(Character c) { return c.toString().matches("^[a-z0-9_-]{3,15}$") || isISOControl(c); }
+	public static boolean regexProvince(String text) { return text.matches("^[a-zA-Z]{2}$"); }
 
-	public static boolean regexPassword(Character c) { return c.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$") || isISOControl(c); }
+	public static boolean regexEmail(String text) { return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"); }
 
-	public static boolean regexPhoneNum(Character c) { return c.toString().matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$") || isISOControl(c); }
+	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); }
 
-	public static boolean regexURL(Character c) { return c.toString().matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)") || isISOControl(c); }
+	public static boolean regexPassword(String text) { return text.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"); }
 
-	private static boolean isISOControl(Character c) { return Character.isISOControl(c); }
+	public static boolean regexNumber(String text, String quantifier) { return text.matches("^[\\d]" + quantifier + "$"); }
+
+	public static boolean regexPhone(String text) { return text.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"); }
+
+	public static boolean regexURL(String text) { return text.matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)"); }
 	//endregion
 }

@@ -1,8 +1,7 @@
 package clienti;
 
-import database.Database;
-import clienti.Login.CustomerLogin;
-import clienti.Registration.CustomerRegistration;
+import _database.Database;
+import clienti.Research.CustomerResearch;
 
 import java.io.IOException;
 
@@ -25,7 +24,6 @@ public class StartApp {
 		System.out.println("App started");
 
 		// Starting the UI
-		//CustomerLogin.main(args);
-		CustomerRegistration.main(args);
+		//CustomerResearch.main();
 	}
 }

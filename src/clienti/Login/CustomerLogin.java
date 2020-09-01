@@ -1,8 +1,10 @@
 package clienti.Login;
 
-import database.Database;
+import _database.Database;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 
 public class CustomerLogin extends JDialog {
@@ -21,7 +23,7 @@ public class CustomerLogin extends JDialog {
 			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
 		loginButton.addActionListener(e -> {
@@ -31,7 +33,9 @@ public class CustomerLogin extends JDialog {
 			String nickname = this.nicknameField.getText();
 			String password = String.valueOf(this.passwordField.getPassword());
 
-			JOptionPane.showMessageDialog(null, "Registered Successfully!");
+			// @todo: Ask to db about this client
+
+			JOptionPane.showMessageDialog(null, "Registered successfully!");
 		});
 		// endregion
 
@@ -44,36 +48,31 @@ public class CustomerLogin extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
-		// region Focus events
+		//region Focus Events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-
+				Color color = Database.regexStandard(nicknameField.getText()) ? Color.green : Color.red;
+				nicknameField.setBorder(new LineBorder(color));
 			}
 		});
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-
+				Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+				passwordField.setBorder(new LineBorder(color));
 			}
-		});
-		// endregion
-
-		//region Input Validation
-		nicknameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { nicknameField.setEditable(Database.regexNickname(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		passwordField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { passwordField.setEditable(Database.regexPassword(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
 		});
 		//endregion
 	}
 
-	public static void main(String[] args) {
+	private boolean allFieldValid() {
+		Color colorNick = ((LineBorder)nicknameField.getBorder()).getLineColor();
+		Color colorPass = ((LineBorder)passwordField.getBorder()).getLineColor();
+		return colorNick == Color.green && colorPass == Color.green;
+	}
+
+	public static void main() {
 		CustomerLogin dialog = new CustomerLogin();
 		dialog.pack();
 		dialog.setVisible(true);

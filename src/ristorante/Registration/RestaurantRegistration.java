@@ -1,9 +1,11 @@
-package ristoratori.Registration;
+package ristorante.Registration;
 
-import database.Database;
-import database.objects.Restaurant;
+import _database.Database;
+import _database.objects.Restaurant;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 
 public class RestaurantRegistration extends JDialog {
@@ -30,17 +32,17 @@ public class RestaurantRegistration extends JDialog {
 			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
 		registerButton.addActionListener(e -> {
-			// Lambda has been expanded to interact with the database
+			// Lambda has been expanded to interact with the
 
 			// Getting data from the form
 			String name = this.nameField.getText();
 			Integer phoneNumber = Integer.valueOf(this.phoneField.getText());
 			String url = this.websiteField.getText();
-			String qualifier = this.qualifierComboBox.getSelectedItem().toString();
+			String qualifier = String.valueOf(this.qualifierComboBox.getSelectedItem());
 			String street = this.streetNameField.getText();
 			Integer civicNumber = Integer.valueOf(this.civicNumberField.getText());
 			String city = this.cityField.getText();
@@ -50,7 +52,6 @@ public class RestaurantRegistration extends JDialog {
 
 			// Saving the username in the database
 			Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
-
 			JOptionPane.showMessageDialog(null, "Registered Successfully!");
 		});
 		// endregion
@@ -67,100 +68,77 @@ public class RestaurantRegistration extends JDialog {
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
+				nameField.setBorder(new LineBorder(color));
+			}
 		});
 		phoneField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexPhone(phoneField.getText()) ? Color.green : Color.red;
+				phoneField.setBorder(new LineBorder(color));
+			}
 		});
 		websiteField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { websiteField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexURL(websiteField.getText()) ? Color.green : Color.red;
+				websiteField.setBorder(new LineBorder(color));
+			}
 		});
 		streetNameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { streetNameField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexStandard(streetNameField.getText()) ? Color.green : Color.red;
+				streetNameField.setBorder(new LineBorder(color));
+			}
 		});
 		civicNumberField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { civicNumberField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexNumber(civicNumberField.getText(), "{1,3}") ? Color.green : Color.red;
+				civicNumberField.setBorder(new LineBorder(color));
+			}
 		});
 		cityField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { cityField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
+				cityField.setBorder(new LineBorder(color));
+			}
 		});
 		provinceField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
+				provinceField.setBorder(new LineBorder(color));
+			}
 		});
 		capField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { capField.selectAll(); }
-			public void focusLost(FocusEvent e) { onEnabled(); }
-		});
-		//endregion
-
-		//region Input Validation
-		nameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { nameField.setEditable(Database.regexStandard(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		phoneField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { phoneField.setEditable(Database.regexPhoneNum(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		websiteField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { websiteField.setEditable(Database.regexURL(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		streetNameField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { streetNameField.setEditable(Database.regexStandard(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		civicNumberField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		cityField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { cityField.setEditable(Database.regexStandard(e.getKeyChar())); }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		provinceField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
-		});
-		capField.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) { }
-			public void keyPressed(KeyEvent e) { }
-			public void keyReleased(KeyEvent e) { }
+			public void focusLost(FocusEvent e) {
+				Color color = Database.regexNumber(capField.getText(), "{5}") ? Color.green : Color.red;
+				capField.setBorder(new LineBorder(color));
+			}
 		});
 		//endregion
 	}
 
-	private void onCancel() {
-		System.out.println("Closing app..");
-		dispose();
-	}
+	private boolean allFieldValid() {
+		Color[] colorArray = {
+				((LineBorder)nameField.getBorder()).getLineColor(),
+				((LineBorder)phoneField.getBorder()).getLineColor(),
+				((LineBorder)websiteField.getBorder()).getLineColor(),
+				((LineBorder)streetNameField.getBorder()).getLineColor(),
+				((LineBorder)civicNumberField.getBorder()).getLineColor(),
+				((LineBorder)cityField.getBorder()).getLineColor(),
+				((LineBorder)provinceField.getBorder()).getLineColor(),
+				((LineBorder)capField.getBorder()).getLineColor()
+		};
 
-	private void onEnabled() {
-		boolean checkName = nameField.getText().length() > 0;
-		boolean checkPhone = phoneField.getText().length() > 0;
-		boolean checkWebsite = websiteField.getText().length() > 0;
-		boolean checkStreet = streetNameField.getText().length() > 0;
-		boolean checkCivic = civicNumberField.getText().length() > 0;
-		boolean checkCity = cityField.getText().length() > 0;
-		boolean checkProvince = provinceField.getText().length() > 0;
-		boolean checkCAP = capField.getText().length() > 0;
-		boolean firstCouple = checkName && checkPhone;
-		boolean secondCouple = checkStreet && checkCivic;
-		boolean thirdCouple = checkCity && checkProvince && checkCAP;
-		registerButton.setEnabled(firstCouple && checkWebsite && secondCouple && thirdCouple);
+		for(Color color : colorArray) if(color == Color.red) return false;
+		return true;
 	}
 
 	public static void main() {

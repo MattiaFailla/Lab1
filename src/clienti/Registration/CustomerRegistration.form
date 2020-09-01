@@ -40,6 +40,7 @@
           <foreground color="-15658735"/>
           <selectedTextColor color="-15658735"/>
           <selectionColor color="-3355444"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="c10dd" class="javax.swing.JLabel">
