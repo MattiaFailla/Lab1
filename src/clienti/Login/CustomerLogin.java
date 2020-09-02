@@ -43,8 +43,8 @@ public class CustomerLogin extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // call onCancel() when cross is clicked
-		cancelButton.addActionListener(e -> dispose());
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		cancelButton.addActionListener(e -> dispose()); // call onCancel() when cross is clicked
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
@@ -52,7 +52,7 @@ public class CustomerLogin extends JDialog {
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) {
-				Color color = Database.regexStandard(nicknameField.getText()) ? Color.green : Color.red;
+				Color color = Database.regexNickname(nicknameField.getText()) ? Color.green : Color.red;
 				nicknameField.setBorder(new LineBorder(color));
 			}
 		});

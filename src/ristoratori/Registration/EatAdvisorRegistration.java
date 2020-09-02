@@ -50,6 +50,12 @@ public class EatAdvisorRegistration extends JDialog {
 		});
 		// endregion
 
+		registerRestaurantButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
 		// region cancelButton events
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }

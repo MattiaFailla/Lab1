@@ -1,14 +1,12 @@
 package clienti.Research;
 
-import _database.Database;
 import _database.objects.*;
 import clienti.Registration.*;
 import clienti.Login.*;
 
+
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class CustomerResearch extends JDialog {
 	private JPanel contentPane;

@@ -1,13 +1,14 @@
 package ristoratori;
 
 import _database.Database;
+import ristoratori.Login.EatAdvisorLogin;
 
 import java.io.IOException;
 
 /**
  * StartApp is the entry point for the app ristoratori
  */
-public class StartApp {
+public class RestaurantStartApp {
 	/**
 	 * This is the entry-point for the app ristoratori.
 	 *
@@ -31,6 +32,6 @@ public class StartApp {
 		}
 
 		// Starting the UI
-
+		EatAdvisorLogin.main();
 		}
 }

@@ -3,12 +3,10 @@ package clienti;
 import _database.Database;
 import clienti.Research.CustomerResearch;
 
-import java.io.IOException;
-
 /**
  * StartApp is the entry point for the app clienti
  */
-public class StartApp {
+public class CustomerStartApp {
 	/**
 	 * This is the entry-point for the app clienti.
 	 *
@@ -24,6 +22,6 @@ public class StartApp {
 		System.out.println("App started");
 
 		// Starting the UI
-		//CustomerResearch.main();
+		CustomerResearch.main();
 	}
 }
