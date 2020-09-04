@@ -69,59 +69,73 @@ public class RestaurantRegistration extends JDialog {
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
-				nameField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		nameField.addCaretListener(e->{
+			Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
+			nameField.setBorder(new LineBorder(color));
+		});
+
 		phoneField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexPhone(phoneField.getText()) ? Color.green : Color.red;
-				phoneField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		phoneField.addCaretListener(e->{
+			Color color = Database.regexPhone(phoneField.getText()) ? Color.green : Color.red;
+			phoneField.setBorder(new LineBorder(color));
+		});
+
 		websiteField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { websiteField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexURL(websiteField.getText()) ? Color.green : Color.red;
-				websiteField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		websiteField.addCaretListener(e->{
+			Color color = Database.regexURL(websiteField.getText()) ? Color.green : Color.red;
+			websiteField.setBorder(new LineBorder(color));
+		});
+
 		streetNameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { streetNameField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexStandard(streetNameField.getText()) ? Color.green : Color.red;
-				streetNameField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
+		});
+		streetNameField.addCaretListener(e->{
+			Color color = Database.regexStandard(streetNameField.getText()) ? Color.green : Color.red;
+			streetNameField.setBorder(new LineBorder(color));
 		});
 		civicNumberField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { civicNumberField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexNumber(civicNumberField.getText(), "{1,3}") ? Color.green : Color.red;
-				civicNumberField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		civicNumberField.addCaretListener(e->{
+			Color color = Database.regexNumber(civicNumberField.getText(), "{1,3}") ? Color.green : Color.red;
+			civicNumberField.setBorder(new LineBorder(color));
+		});
+
 		cityField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { cityField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
-				cityField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		cityField.addCaretListener(e->{
+			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
+			cityField.setBorder(new LineBorder(color));
+		});
+
 		provinceField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
-				provinceField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		provinceField.addCaretListener(e->{
+			Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
+			provinceField.setBorder(new LineBorder(color));
+		});
+
 		capField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { capField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexNumber(capField.getText(), "{5}") ? Color.green : Color.red;
-				capField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
+		});
+		capField.addCaretListener(e->{
+			Color color = Database.regexNumber(capField.getText(), "{5}") ? Color.green : Color.red;
+			capField.setBorder(new LineBorder(color));
 		});
 		//endregion
 	}

@@ -51,17 +51,20 @@ public class CustomerLogin extends JDialog {
 		//region Focus Events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexNickname(nicknameField.getText()) ? Color.green : Color.red;
-				nicknameField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		nicknameField.addCaretListener(e -> {
+			Color color = Database.regexNickname(nicknameField.getText()) ? Color.green : Color.red;
+			nicknameField.setBorder(new LineBorder(color));
+		});
+
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
-				passwordField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
+		});
+		passwordField.addCaretListener(e-> {
+			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+			passwordField.setBorder(new LineBorder(color));
 		});
 		//endregion
 	}

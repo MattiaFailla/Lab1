@@ -53,24 +53,29 @@ public class Profile extends JDialog {
 		//region Focus events
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
-				passwordField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		passwordField.addCaretListener(e->{
+			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+			passwordField.setBorder(new LineBorder(color));
+		});
+
 		emailField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { emailField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
-				emailField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
 		});
+		emailField.addCaretListener(e->{
+			Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
+			emailField.setBorder(new LineBorder(color));
+		});
+
 		fullNameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { fullNameField.selectAll(); }
-			public void focusLost(FocusEvent e) {
-				Color color = Database.regexStandard(fullNameField.getText()) ? Color.green : Color.red;
-				fullNameField.setBorder(new LineBorder(color));
-			}
+			public void focusLost(FocusEvent e) {}
+		});
+		fullNameField.addCaretListener(e->{
+			Color color = Database.regexStandard(fullNameField.getText()) ? Color.green : Color.red;
+			fullNameField.setBorder(new LineBorder(color));
 		});
 		//endregion
 	}
