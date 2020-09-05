@@ -242,6 +242,10 @@ public class Database {
 		return result;
 	}
 
+	public static Restaurant getRestaurantByIndex(ArrayList<Restaurant> restaurants, int index) {
+		return restaurants.get(index);
+	}
+
 
 	//region HELPER FUNCT
 	// Reads the file and returns all entries in a list
