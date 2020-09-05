@@ -156,7 +156,26 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
-	public static List<Judgement> getJudgements(String restaurantName) throws IOException, ClassNotFoundException {
+	// Single elements
+	public static Client getClient(String name) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Client> clientArrayList = getClients();
+		// Finding the restaurant by restaurantName
+		int restInt = getIndexByClientName(clientArrayList, name);
+		// Getting the list of judgements
+		return clientArrayList.get(restInt);
+	}
+
+	public static Restaurant getRestaurant(String restaurantName) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Finding the restaurant by restaurantName
+		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
+		// Getting the list of judgements
+		return restaurantArrayList.get(restInt);
+	}
+
+	public static List<Judgement> getJudgement(String restaurantName) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Finding the restaurant by restaurantName
@@ -166,6 +185,7 @@ public class Database {
 	}
 
 	//endregion
+
 
 	//region HELPER FUNCT
 	// Reads the file and returns all entries in a list
@@ -187,6 +207,16 @@ public class Database {
 		for (int index = 0; index < restList.size(); index++) {
 			Restaurant restaurant = restList.get(index);
 			if (restaurant.name.equals(name)) {
+				return index;
+			}
+		}
+		return -1;// not there is list
+	}
+
+	private static int getIndexByClientName(List<Client> restList, String name) {
+		for (int index = 0; index < restList.size(); index++) {
+			Client client = restList.get(index);
+			if (client.name.equals(name)) {
 				return index;
 			}
 		}
