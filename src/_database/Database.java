@@ -64,7 +64,8 @@ public class Database {
 
 	public static void insertRestaurant(String name, Integer phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		// Saving the EatAdvisor
-		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type);
+
+		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<Judgement>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
 			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
@@ -77,18 +78,31 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {  e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Restaurant succesfully inserted.");
 	}
 
-	public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) {
-		// Saving the Judgment
+	public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Finding the restaurant by restaurantName
+		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
+		// Getting the list of judgements
+		ArrayList<Judgement> judgementList = restaurantArrayList.get(restInt).judgement;
+		// Updating the judjement list with the new judgement
 		Judgement jdg = new Judgement(username, restaurantName, rating, judgement);
-		try {
-			// Before saving the new restaurant we need to extract the old restaurant data
-			ArrayList<Judgement> entries = (ArrayList<Judgement>) readFile(restaurant_db);
-			entries.add(jdg);
+		judgementList.add(jdg);
+		// Creating the new restaurant object
+		Restaurant newRestaurant = restaurantArrayList.get(restInt);
 
+		// Overriding the restuarant element in order to save the new list of judgements
+		ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+		entries.set(restInt, newRestaurant);
+
+		// Saving to file
+		try {
 			File file = new File(restaurant_db);
 			FileOutputStream fOut = new FileOutputStream(file);
 			ObjectOutputStream oOut = new ObjectOutputStream(fOut);
@@ -96,7 +110,10 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		System.out.println("Judgement successfully inserted.");
 	}
 	//endregion
@@ -139,23 +156,6 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
-	public static List<Judgement> getJudgments() throws IOException, ClassNotFoundException {
-		// Returning every judgement in the file
-		File file = new File(restaurant_db);
-		FileInputStream fIn = new FileInputStream(file);
-		ObjectInputStream oIn = new ObjectInputStream(fIn);
-
-		// Getting data
-		Object data = oIn.readObject();
-		List<?> list = new ArrayList<>();
-		if (data instanceof List) {
-			list = ((List<?>) data).stream()
-					.filter(x -> x instanceof Judgement)
-					.map(x -> (Judgement) x)
-					.collect(Collectors.toList());
-		}
-		return (List<Judgement>) list;
-	}
 	//endregion
 
 	//region HELPER FUNCT
@@ -167,16 +167,21 @@ public class Database {
 			ObjectInputStream objIn = new ObjectInputStream(fileIn);
 			persistedEntries.set((ArrayList<?>) objIn.readObject());
 			objIn.close();
-		} catch (Exception ex) { ex.printStackTrace(); }
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		return persistedEntries.get();
 	}
 
-	// This types are typically used to insert debug messages into the db
-	public enum data_types {
-		CLIENTS_DATA,
-		INFO,
-		LOGGING,
-		RESTAURANT_DATA;
+	// Get the index of an element in an array based on specific propert
+	private static int getIndexByRestaurantName(List<Restaurant> restList, String name) {
+		for (int index = 0; index < restList.size(); index++) {
+			Restaurant restaurant = restList.get(index);
+			if (restaurant.name.equals(name)) {
+				return index;
+			}
+		}
+		return -1;// not there is list
 	}
 
 	// RecordType is the type of record that will be inserted into the db
@@ -185,16 +190,32 @@ public class Database {
 		RECENSIONE,
 		RISTORANTE
 	}
+
+	// This types are typically used to insert debug messages into the db
+	public enum data_types {
+		CLIENTS_DATA,
+		INFO,
+		LOGGING,
+		RESTAURANT_DATA
+	}
 	//endregion
 
 	//region REGEX
-	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$"); }
+	public static boolean regexStandard(String text) {
+		return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$");
+	}
 
-	public static boolean regexProvince(String text) { return text.matches("^[a-zA-Z]{2}$"); }
+	public static boolean regexProvince(String text) {
+		return text.matches("^[a-zA-Z]{2}$");
+	}
 
-	public static boolean regexEmail(String text) { return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"); }
+	public static boolean regexEmail(String text) {
+		return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+");
+	}
 
-	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); }
+	public static boolean regexNickname(String text) {
+		return text.matches("^[a-z0-9_-]{3,15}$");
+	}
 
 	public static boolean regexPassword(String text) { return text.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"); }
 
