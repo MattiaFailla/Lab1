@@ -156,6 +156,16 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
+	public static List<Judgement> getJudgements(String restaurantName) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Finding the restaurant by restaurantName
+		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
+		// Getting the list of judgements
+		ArrayList<Judgement> judgementList = restaurantArrayList.get(restInt).judgement;
+		return judgementList;
+	}
+
 	//endregion
 
 	//region HELPER FUNCT
