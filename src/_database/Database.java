@@ -228,6 +228,20 @@ public class Database {
 		return result;
 	}
 
+	public static List<Restaurant> getRestaurantByCityAndType(String city, Restaurant.types resType) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Building the list of restaurants based on city name
+		List<Restaurant> result = new ArrayList<>();
+		for (Restaurant restaurant :
+				restaurantArrayList) {
+			if (restaurant.city.equals(city) || restaurant.type.equals(resType)) {
+				result.add(restaurant);
+			}
+		}
+		return result;
+	}
+
 
 	//region HELPER FUNCT
 	// Reads the file and returns all entries in a list
