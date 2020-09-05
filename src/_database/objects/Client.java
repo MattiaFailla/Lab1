@@ -3,15 +3,16 @@ package _database.objects;
 import java.io.Serializable;
 
 public class Client implements Serializable {
-    private String name;
-    private String surname;
-    private String city;
-    private String province;
-    private String email;
-    private String nickname;
-    private String password;
+    public String name;
+    public String surname;
+    public String city;
+    public String province;
+    public String email;
+    public String nickname;
+    public String password;
 
-    Client(){}
+    Client() {
+    }
 
     public Client(String name, String surname, String city, String province, String email, String nickname, String password) {
         this.name = name;
