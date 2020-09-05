@@ -162,8 +162,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
 		// Getting the list of judgements
-		ArrayList<Judgement> judgementList = restaurantArrayList.get(restInt).judgement;
-		return judgementList;
+		return restaurantArrayList.get(restInt).judgement;
 	}
 
 	//endregion
