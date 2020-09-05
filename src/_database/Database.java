@@ -157,11 +157,11 @@ public class Database {
 	}
 
 	// Single elements
-	public static Client getClient(String name) throws IOException, ClassNotFoundException {
+	public static Client getClient(String nickname) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Client> clientArrayList = getClients();
 		// Finding the restaurant by restaurantName
-		int restInt = getIndexByClientName(clientArrayList, name);
+		int restInt = getIndexByClientNickname(clientArrayList, nickname);
 		// Getting the list of judgements
 		return clientArrayList.get(restInt);
 	}
@@ -213,10 +213,10 @@ public class Database {
 		return -1;// not there is list
 	}
 
-	private static int getIndexByClientName(List<Client> restList, String name) {
+	private static int getIndexByClientNickname(List<Client> restList, String nickname) {
 		for (int index = 0; index < restList.size(); index++) {
 			Client client = restList.get(index);
-			if (client.name.equals(name)) {
+			if (client.nickname.equals(nickname)) {
 				return index;
 			}
 		}
