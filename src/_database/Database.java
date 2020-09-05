@@ -183,8 +183,22 @@ public class Database {
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt).judgement;
 	}
-
 	//endregion
+
+	// SEARCH
+	public static List<Restaurant> getRestaurantByCity(String city) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Building the list of restaurants based on city name
+		List<Restaurant> result = new ArrayList<>();
+		for (Restaurant restaurant :
+				restaurantArrayList) {
+			if (restaurant.city.equals(city)) {
+				result.add(restaurant);
+			}
+		}
+		return result;
+	}
 
 
 	//region HELPER FUNCT
@@ -207,6 +221,16 @@ public class Database {
 		for (int index = 0; index < restList.size(); index++) {
 			Restaurant restaurant = restList.get(index);
 			if (restaurant.name.equals(name)) {
+				return index;
+			}
+		}
+		return -1;// not there is list
+	}
+
+	private static int getIndexByRestaurantCity(List<Restaurant> restList, String city) {
+		for (int index = 0; index < restList.size(); index++) {
+			Restaurant restaurant = restList.get(index);
+			if (restaurant.city.equals(city)) {
 				return index;
 			}
 		}
