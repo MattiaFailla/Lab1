@@ -106,7 +106,7 @@
           <background color="-723724"/>
           <contentAreaFilled value="false"/>
           <foreground color="-15658735"/>
-          <text value="run search"/>
+          <text value="Run search"/>
         </properties>
       </component>
       <component id="44689" class="javax.swing.JButton" binding="registrationButton">
