@@ -73,6 +73,7 @@
           <foreground color="-15658735"/>
           <lightWeightPopupEnabled value="true"/>
           <model>
+            <item value="- nothing -"/>
             <item value="Italian"/>
             <item value="Ethnic"/>
             <item value="Fusion"/>

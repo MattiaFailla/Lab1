@@ -7,6 +7,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+import static java.lang.String.valueOf;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class CustomerRegistration extends JDialog{
 	private JPanel contentPane;
 	private JTextField nameField;
@@ -16,46 +19,46 @@ public class CustomerRegistration extends JDialog{
 	private JTextField emailField;
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
-	private JButton cancelButton;
 	private JButton registerButton;
 
 	public CustomerRegistration() {
 		setContentPane(contentPane);
 		setModal(true);
 
+		// region cancelButton events
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) { dispose(); }
+		});
+		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		// endregion
+
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
+			public void mouseClicked(MouseEvent e) {
+				// Getting data from the form
+				try {
+					String name = nameField.getText();
+					String surname = surnameField.getText();
+					String city = cityField.getText();
+					String province = provinceField.getText();
+					String email = emailField.getText();
+					String nickname = nicknameField.getText();
+					String password = valueOf(passwordField.getPassword());
+
+					// Trying to register the customer
+					Database.insertClient(name, surname, city, province, email, nickname, password);
+				}
+				finally {
+					// Saving the username in the database
+					showMessageDialog(null, "Registered successfully!");
+				}
+			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
-		registerButton.addActionListener(e -> {
-			// Lambda has been expanded to interact with the database
-
-			// Getting data from the form
-			String name = this.nameField.getText();
-			String surname = this.surnameField.getText();
-			String city = this.cityField.getText();
-			String province = this.provinceField.getText();
-			String email = this.emailField.getText();
-			String nickname = this.nicknameField.getText();
-			String password = String.valueOf(this.passwordField.getPassword());
-
-			// Saving the username in the database
-			Database.insertClient(name, surname, city, province, email, nickname, password);
-			JOptionPane.showMessageDialog(null, "Registered successfully!");
-		});
-		// endregion
-
-		// region cancelButton events
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
-			});
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		cancelButton.addActionListener(e -> dispose()); // call onCancel() when cross is clicked
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		// endregion
 
 		//region Action events
@@ -118,7 +121,7 @@ public class CustomerRegistration extends JDialog{
 			public void focusLost(FocusEvent e) { }
 		});
 		passwordField.addCaretListener(e -> {
-			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+			Color color = Database.regexPassword(valueOf(passwordField.getPassword())) ? Color.green : Color.red;
 			passwordField.setBorder(new LineBorder(color));
 		});
 		//endregion

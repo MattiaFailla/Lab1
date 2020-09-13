@@ -33,5 +33,5 @@ public class RestaurantStartApp {
 
 		// Starting the UI
 		EatAdvisorLogin.main();
-		}
+	}
 }

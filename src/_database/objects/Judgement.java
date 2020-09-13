@@ -3,12 +3,10 @@ package _database.objects;
 import java.io.Serializable;
 
 public class Judgement implements Serializable {
-	private String username;
-	private String restaurantName;
-	private Integer rating;
-	private String judgement;
-
-	Judgement(){}
+	public String username;
+	public String restaurantName;
+	public Integer rating;
+	public String judgement;
 
 	public Judgement(String username, String restaurantName, Integer rating, String judgement){
 		this.username = username;

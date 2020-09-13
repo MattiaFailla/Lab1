@@ -15,40 +15,34 @@ public class Profile extends JDialog {
 	private JTextField fullNameField;
 	private JComboBox restaurantComboBox;
 	private JButton saveButton;
-	private JButton cancelButton;
 
 	public Profile() {
 		setContentPane(contentPane);
 		setModal(true);
 
+		// region cancelButton events
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) { dispose(); }
+		});
+		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		// endregion
+
 		//region saveButton events
 		saveButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
+			public void mouseClicked(MouseEvent e) {
+				// Getting data from the form
+				String password = String.valueOf(passwordField.getPassword());
+				String email = emailField.getText();
+
+				JOptionPane.showMessageDialog(null, "Saved!");
+			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { }
 			public void mouseExited(MouseEvent e) { }
 		});
-		saveButton.addActionListener(e -> {
-			// Lambda has been expanded to interact with the database
-
-			// Getting data from the form
-			String password = String.valueOf(this.passwordField.getPassword());
-			String email = this.emailField.getText();
-
-
-			JOptionPane.showMessageDialog(null, "Saved!");
-		});
 		//endregion
-
-		// region cancelButton events
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
-		});
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // call onCancel() when cross is clicked
-		cancelButton.addActionListener(e -> dispose());
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		// endregion
 
 		//region Focus events
 		passwordField.addFocusListener(new FocusListener() {
@@ -78,6 +72,16 @@ public class Profile extends JDialog {
 			fullNameField.setBorder(new LineBorder(color));
 		});
 		//endregion
+	}
+
+	//todo: plus validate
+	private boolean allFieldValid() {
+		Color[] colorArray = {
+				((LineBorder)passwordField.getBorder()).getLineColor()
+		};
+
+		for(Color color : colorArray) if(color == Color.red) return false;
+		return true;
 	}
 
 	public static void main() {

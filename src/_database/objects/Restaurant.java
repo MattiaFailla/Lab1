@@ -10,18 +10,18 @@ public class Restaurant implements Serializable {
         FUSION
     }
 
-    public final String name;
-    public final String qualifier; // example: via or piazza
-    public final String streetName;
-    public final Integer civicNumber;
-    public final String city;
-    public final String province;
-    public final Integer CAP;
-    public final String fullAddress; // this will be auto generated
-    public final Integer phoneNumber;
-    public final String url;
-    public final types type;
-    public final ArrayList<Judgement> judgement;
+    public String name;
+    public String qualifier; // example: via or piazza
+    public String streetName;
+    public Integer civicNumber;
+    public String city;
+    public String province;
+    public Integer CAP;
+    public String fullAddress; // this will be auto generated
+    public Integer phoneNumber;
+    public String url;
+    public types type;
+    public ArrayList<Judgement> judgement;
 
     public Restaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
         this.name = name;

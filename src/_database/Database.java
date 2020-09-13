@@ -65,7 +65,7 @@ public class Database {
 	public static void insertRestaurant(String name, Integer phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		// Saving the EatAdvisor
 
-		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<Judgement>());
+		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
 			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
@@ -119,6 +119,8 @@ public class Database {
 	//endregion
 
 	//region GETTER
+
+	// Get all objects
 	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of clients
 		for (Client client : getClients()) if (client.toString().contains(fieldData)) return true;
@@ -156,7 +158,7 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
-	// Single elements
+	// Get single object
 	public static Client getClient(String nickname) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Client> clientArrayList = getClients();
@@ -185,18 +187,22 @@ public class Database {
 	}
 	//endregion
 
-	// SEARCH
+	//region SEARCH
+	public static List<Restaurant> getRestaurantByName(String name) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Building the list of restaurants based on city name
+		List<Restaurant> result = new ArrayList<>();
+		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.name.equals(name)) result.add(restaurant); }
+		return result;
+	}
+
 	public static List<Restaurant> getRestaurantByCity(String city) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant :
-				restaurantArrayList) {
-			if (restaurant.city.equals(city)) {
-				result.add(restaurant);
-			}
-		}
+		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.city.equals(city)) result.add(restaurant); }
 		return result;
 	}
 
@@ -205,26 +211,7 @@ public class Database {
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant :
-				restaurantArrayList) {
-			if (restaurant.type.equals(resType)) {
-				result.add(restaurant);
-			}
-		}
-		return result;
-	}
-
-	public static List<Restaurant> getRestaurantByName(String name) throws IOException, ClassNotFoundException {
-		// Getting the list of restaurants
-		List<Restaurant> restaurantArrayList = getRestaurants();
-		// Building the list of restaurants based on city name
-		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant :
-				restaurantArrayList) {
-			if (restaurant.name.equals(name)) {
-				result.add(restaurant);
-			}
-		}
+		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.type.equals(resType)) result.add(restaurant); }
 		return result;
 	}
 
@@ -233,18 +220,14 @@ public class Database {
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant :
-				restaurantArrayList) {
-			if (restaurant.city.equals(city) || restaurant.type.equals(resType)) {
-				result.add(restaurant);
-			}
-		}
+		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.city.equals(city) || restaurant.type.equals(resType)) result.add(restaurant); }
 		return result;
 	}
 
 	public static Restaurant getRestaurantByIndex(ArrayList<Restaurant> restaurants, int index) {
 		return restaurants.get(index);
 	}
+	//endregion
 
 
 	//region HELPER FUNCT
@@ -310,21 +293,13 @@ public class Database {
 	//endregion
 
 	//region REGEX
-	public static boolean regexStandard(String text) {
-		return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$");
-	}
+	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$"); }
 
-	public static boolean regexProvince(String text) {
-		return text.matches("^[a-zA-Z]{2}$");
-	}
+	public static boolean regexProvince(String text) { return text.matches("^[a-zA-Z]{2}$"); }
 
-	public static boolean regexEmail(String text) {
-		return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+");
-	}
+	public static boolean regexEmail(String text) { return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"); }
 
-	public static boolean regexNickname(String text) {
-		return text.matches("^[a-z0-9_-]{3,15}$");
-	}
+	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); }
 
 	public static boolean regexPassword(String text) { return text.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"); }
 
