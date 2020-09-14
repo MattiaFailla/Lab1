@@ -3,6 +3,9 @@ package _database.objects;
 import java.io.Serializable;
 
 public class Client implements Serializable {
+
+    private static final long serialVersionUID = -5537382712246477714L;
+
     public String name;
     public String surname;
     public String city;
@@ -10,6 +13,8 @@ public class Client implements Serializable {
     public String email;
     public String nickname;
     public String password;
+
+    public Client(){}
 
     public Client(String name, String surname, String city, String province, String email, String nickname, String password) {
         this.name = name;

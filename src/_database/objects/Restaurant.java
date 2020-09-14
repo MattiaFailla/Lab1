@@ -1,9 +1,12 @@
 package _database.objects;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Restaurant implements Serializable {
+    private static final long serialVersionUID = -6075801231078042820L;
+
     public enum types {
         ITALIANO,
         ETNICO,
@@ -22,6 +25,8 @@ public class Restaurant implements Serializable {
     public String url;
     public types type;
     public ArrayList<Judgement> judgement;
+
+    public Restaurant(){}
 
     public Restaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
         this.name = name;
