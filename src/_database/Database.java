@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
  *  * junction between these two applications.
  */
 public class Database {
-	private static final String restaurant_db = "./EatAdvisor.dati";
-	private static final String client_db = "./Utenti.dati";
+	private static final String restaurant_db = "./datafile/EatAdvisor.dati";
+	private static final String client_db = "./datafile/Utenti.dati";
 
 	public static boolean init() {
 		// Initialize the database
@@ -34,10 +34,15 @@ public class Database {
 		try {
 			boolean success = true;
 			File db_ristoratori = new File(restaurant_db);
-			if (!db_ristoratori.exists()) success = db_clienti.createNewFile();
-			if (!db_clienti.exists()) success = db_ristoratori.createNewFile();
+			if (!db_ristoratori.exists() || !db_clienti.exists()) {
+				// Ensuring the existence of the directory
+				success = db_clienti.getParentFile().mkdirs();
+				success = db_clienti.createNewFile();
+				success = db_ristoratori.createNewFile();
+			}
 			return success;
-		} catch (IOException ignored) {
+		} catch (Exception e) {
+			System.out.println("Errore:" + e.toString());
 			return false;
 		}
 	}
@@ -129,9 +134,12 @@ public class Database {
 
 	public static List<Client> getClients() throws IOException, ClassNotFoundException {
 		// Returning every client in the file
+		System.out.println("Getting clients");
 		File file = new File(client_db);
+
 		FileInputStream fIn = new FileInputStream(file);
 		ObjectInputStream oIn = new ObjectInputStream(fIn);
+
 
 		// Getting data
 		Object data = oIn.readObject();
