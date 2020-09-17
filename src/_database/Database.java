@@ -23,17 +23,17 @@ import java.util.stream.Collectors;
  *  * junction between these two applications.
  */
 public class Database {
-	private static final String restaurant_db = "./datafile/EatAdvisor.dati";
-	private static final String client_db = "./datafile/Utenti.dati";
+	private static final String restaurant_db = "./src/_database/db/EatAdvisor.dati";
+	private static final String client_db = "./src/_database/db/Utenti.dati";
 
 	public static boolean init() {
 		// Initialize the database
 		// Creating database if not exists
 		File db_clienti = new File(client_db);
+		File db_ristoratori = new File(restaurant_db);
 		// Forcing the os to create the files
 		try {
 			boolean success = true;
-			File db_ristoratori = new File(restaurant_db);
 			if (!db_ristoratori.exists() || !db_clienti.exists()) {
 				// Ensuring the existence of the directory
 				success = db_clienti.getParentFile().mkdirs();
@@ -240,14 +240,23 @@ public class Database {
 
 	//region HELPER FUNCT
 	// Reads the file and returns all entries in a list
-	public static ArrayList<?> readFile(String filename) {
+	private static ArrayList<?> readFile(String filename) {
 		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<>();
 		try {
+			init();
 			FileInputStream fileIn = new FileInputStream(filename);
-			ObjectInputStream objIn = new ObjectInputStream(fileIn);
-			persistedEntries.set((ArrayList<?>) objIn.readObject());
-			objIn.close();
+			if (fileIn.available() > 0){
+				ObjectInputStream objIn = new ObjectInputStream(fileIn);
+				var obj = objIn.readObject();
+				if (obj == null) {
+					obj = new ArrayList();
+				}
+				persistedEntries.set((ArrayList<?>) obj);
+				objIn.close();
+			}
+			return new ArrayList();
 		} catch (Exception ex) {
+			System.out.println("ERRORE NELLA LETTURA FILE");
 			ex.printStackTrace();
 		}
 		return persistedEntries.get();
