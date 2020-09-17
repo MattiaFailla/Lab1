@@ -80,6 +80,5 @@ public class EatAdvisorLogin extends JDialog {
 		EatAdvisorLogin dialog = new EatAdvisorLogin();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }

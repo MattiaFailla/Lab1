@@ -88,6 +88,5 @@ public class Profile extends JDialog {
 		Profile dialog = new Profile();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }

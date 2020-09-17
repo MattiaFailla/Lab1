@@ -89,6 +89,5 @@ public class CustomerResearch extends JDialog {
 		CustomerResearch dialog = new CustomerResearch();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }

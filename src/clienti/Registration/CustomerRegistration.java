@@ -146,6 +146,5 @@ public class CustomerRegistration extends JDialog{
 		CustomerRegistration dialog = new CustomerRegistration();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }

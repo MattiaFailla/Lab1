@@ -144,6 +144,5 @@ public class EatAdvisorRegistration extends JDialog {
 		EatAdvisorRegistration dialog = new EatAdvisorRegistration();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }

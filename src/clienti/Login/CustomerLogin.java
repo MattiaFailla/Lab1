@@ -80,6 +80,5 @@ public class CustomerLogin extends JDialog {
 		CustomerLogin dialog = new CustomerLogin();
 		dialog.pack();
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 }
