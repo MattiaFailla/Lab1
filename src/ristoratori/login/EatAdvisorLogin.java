@@ -1,11 +1,13 @@
 package ristoratori.Login;
 
 import _database.Database;
+import _database.objects.Client;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class EatAdvisorLogin extends JDialog {
 	private JPanel contentPane;
@@ -17,33 +19,38 @@ public class EatAdvisorLogin extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-		// region cancelButton events
+		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		// endregion
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
 
-		// region loginButton events
+		//region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				// Lambda has been expanded to interact with the database
-
 				// Getting data from the form
 				String nickname = nicknameField.getText();
 				String password = String.valueOf(passwordField.getPassword());
 
 				// @todo: Ask to db about this client
+				try {
+					Client client = Database.getClient(nickname);
+					if(client.nickname.equals(nickname) && client.password.equals(password))
+						JOptionPane.showMessageDialog(null, "Login successfully");
+					else
+						JOptionPane.showMessageDialog(null, "Client not found");
 
-				JOptionPane.showMessageDialog(null, "Login successfully!");
+				} catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
+				finally { dispose(); }
 			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
-		// endregion
+		//endregion
 
 		//region Focus Events
 		nicknameField.addFocusListener(new FocusListener() {
