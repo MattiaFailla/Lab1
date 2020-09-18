@@ -39,7 +39,9 @@ public class EatAdvisorLogin extends JDialog {
 					Client client = Database.getClient(nickname);
 					if(client.nickname.equals(nickname) && client.password.equals(password)) {
 						JOptionPane.showMessageDialog(null, "Login successfully");
-						Profile.main(client);
+						Profile.client = client;
+						dispose();
+						Profile.main();
 					}
 					else
 						JOptionPane.showMessageDialog(null, "Client not found");

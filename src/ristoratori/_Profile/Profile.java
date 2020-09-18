@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
-	private static JLabel nicknameLabel;
+	private JLabel nicknameLabel;
 	private JPasswordField passwordField;
 	private JTextField emailField;
 	private JTextField fullNameField;
@@ -19,8 +19,10 @@ public class Profile extends JDialog {
 	public static Client client;
 
 	public Profile() {
+		nicknameLabel.setText(client.nickname);
 		setContentPane(contentPane);
 		setModal(true);
+
 
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -36,6 +38,12 @@ public class Profile extends JDialog {
 				// Getting data from the form
 				String password = String.valueOf(passwordField.getPassword());
 				String email = emailField.getText();
+				String fullname = fullNameField.getText();
+
+				//regex to split fullname in name and surname
+
+
+
 
 				JOptionPane.showMessageDialog(null, "Saved!");
 			}
@@ -76,10 +84,9 @@ public class Profile extends JDialog {
 		//endregion
 	}
 
-	public static void main(Client client) {
+	public static void main() {
 		Profile dialog = new Profile();
 		dialog.pack();
-		nicknameLabel.setText(client.nickname);
 		dialog.setVisible(true);
 	}
 }
