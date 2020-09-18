@@ -7,9 +7,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import static java.lang.String.valueOf;
-import static javax.swing.JOptionPane.showMessageDialog;
-
 public class CustomerRegistration extends JDialog{
 	private JPanel contentPane;
 	private JTextField nameField;
@@ -25,34 +22,38 @@ public class CustomerRegistration extends JDialog{
 		setContentPane(contentPane);
 		setModal(true);
 
-		// region cancelButton events
+		//region setBorder to Color.red
+		nameField.setBorder(new LineBorder(Color.red));
+		surnameField.setBorder(new LineBorder(Color.red));
+		cityField.setBorder(new LineBorder(Color.red));
+		provinceField.setBorder(new LineBorder(Color.red));
+		emailField.setBorder(new LineBorder(Color.red));
+		nicknameField.setBorder(new LineBorder(Color.red));
+		passwordField.setBorder(new LineBorder(Color.red));
+		//endregion
+
+		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		// endregion
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
 
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				// Getting data from the form
-				try {
-					String name = nameField.getText();
-					String surname = surnameField.getText();
-					String city = cityField.getText();
-					String province = provinceField.getText();
-					String email = emailField.getText();
-					String nickname = nicknameField.getText();
-					String password = valueOf(passwordField.getPassword());
+				String name = nameField.getText();
+				String surname = surnameField.getText();
+				String city = cityField.getText();
+				String province = provinceField.getText();
+				String email = emailField.getText();
+				String nickname = nicknameField.getText();
+				String password = String.valueOf(passwordField.getPassword());
 
-					// Trying to register the customer
-					Database.insertClient(name, surname, city, province, email, nickname, password);
-				}
-				finally {
-					// Saving the username in the database
-					showMessageDialog(null, "Registered successfully!");
-				}
+				Database.insertClient(name, surname, city, province, email, nickname, password);
+				JOptionPane.showMessageDialog(null, "Registered successfully!");
 			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
@@ -121,7 +122,7 @@ public class CustomerRegistration extends JDialog{
 			public void focusLost(FocusEvent e) { }
 		});
 		passwordField.addCaretListener(e -> {
-			Color color = Database.regexPassword(valueOf(passwordField.getPassword())) ? Color.green : Color.red;
+			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
 			passwordField.setBorder(new LineBorder(color));
 		});
 		//endregion

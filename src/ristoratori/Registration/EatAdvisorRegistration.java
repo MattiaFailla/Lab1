@@ -1,6 +1,7 @@
 package ristoratori.Registration;
 
 import _database.Database;
+import ristorante.Registration.RestaurantRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -23,13 +24,23 @@ public class EatAdvisorRegistration extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-		// region cancelButton events
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		//region setBorder to Color.red
+		nameField.setBorder(new LineBorder(Color.red));
+		surnameField.setBorder(new LineBorder(Color.red));
+		cityField.setBorder(new LineBorder(Color.red));
+		provinceField.setBorder(new LineBorder(Color.red));
+		emailField.setBorder(new LineBorder(Color.red));
+		nicknameField.setBorder(new LineBorder(Color.red));
+		passwordField.setBorder(new LineBorder(Color.red));
+		//endregion
+
+		//region closing app events
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		// endregion
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
 
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
@@ -43,9 +54,9 @@ public class EatAdvisorRegistration extends JDialog {
 				String nickname = nicknameField.getText();
 				String password = String.valueOf(passwordField.getPassword());
 
-				// Saving the username in the database
 				Database.insertClient(name, surname, city, province, email, nickname, password);
 				JOptionPane.showMessageDialog(null, "Registered successfully!");
+				dispose();
 			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
@@ -54,11 +65,7 @@ public class EatAdvisorRegistration extends JDialog {
 		});
 		// endregion
 
-		registerRestaurantButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
 
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
