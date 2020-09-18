@@ -44,8 +44,9 @@ public class EatAdvisorLogin extends JDialog {
 						Profile.client = client;
 						dispose();
 						Profile.main();
-					} else
+					} else {
 						JOptionPane.showMessageDialog(null, "Client not found");
+					}
 
 				} catch (IOException | ClassNotFoundException exception) {
 					exception.printStackTrace();
