@@ -21,6 +21,11 @@ public class EatAdvisorLogin extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
+		//region setBorder to Color.red
+		nicknameField.setBorder(new LineBorder(Color.red));
+		passwordField.setBorder(new LineBorder(Color.red));
+		//endregion
+
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -29,48 +34,29 @@ public class EatAdvisorLogin extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		//region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				// Getting data from the form
 				String nickname = nicknameField.getText();
 				String password = String.valueOf(passwordField.getPassword());
 
-				loginButton.setEnabled(allFieldValid());
-
 				try {
 					Client client = Database.getClient(nickname);
-					if (client.nickname.equals(nickname) && client.password.equals(password)) {
-						JOptionPane.showMessageDialog(null, "Login successfully");
+					if(client.nickname.equals(nickname) && client.password.equals(password)) {
+						JOptionPane.showMessageDialog(null, "Login successful");
 						Profile.client = client;
 						dispose();
 						Profile.main();
-					} else {
-						JOptionPane.showMessageDialog(null, "Client not found");
-					}
-
-				} catch (IOException | ClassNotFoundException exception) {
-					exception.printStackTrace();
-				} catch (DatabaseExceptions databaseExceptions) {
-					JOptionPane.showMessageDialog(null, "Client not found");
-				} finally {
-					dispose();
+					} else { JOptionPane.showMessageDialog(null, "Client not found"); }
 				}
+				catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
+				catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
 			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
+			public void mouseExited(MouseEvent e) { }
 		});
-		//endregion
 
 		//region Focus Events
 		nicknameField.addFocusListener(new FocusListener() {
