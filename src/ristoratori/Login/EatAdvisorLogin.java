@@ -1,6 +1,7 @@
 package ristoratori.Login;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Client;
 import ristoratori._Profile.Profile;
 
@@ -50,6 +51,8 @@ public class EatAdvisorLogin extends JDialog {
 
 				} catch (IOException | ClassNotFoundException exception) {
 					exception.printStackTrace();
+				} catch (DatabaseExceptions databaseExceptions) {
+					JOptionPane.showMessageDialog(null, "Client not found");
 				} finally {
 					dispose();
 				}

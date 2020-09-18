@@ -167,29 +167,38 @@ public class Database {
 	}
 
 	// Get single object
-	public static Client getClient(String nickname) throws IOException, ClassNotFoundException {
+	public static Client getClient(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of restaurants
 		List<Client> clientArrayList = getClients();
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByClientNickname(clientArrayList, nickname);
+		if (restInt == -1) {
+			throw new _database.DatabaseExceptions("The user does not exists.");
+		}
 		// Getting the list of judgements
 		return clientArrayList.get(restInt);
 	}
 
-	public static Restaurant getRestaurant(String restaurantName) throws IOException, ClassNotFoundException {
+	public static Restaurant getRestaurant(String restaurantName) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
+		if (restInt == -1) {
+			throw new _database.DatabaseExceptions("The user does not exists.");
+		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt);
 	}
 
-	public static List<Judgement> getJudgement(String restaurantName) throws IOException, ClassNotFoundException {
+	public static List<Judgement> getJudgement(String restaurantName) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
+		if (restInt == -1) {
+			throw new _database.DatabaseExceptions("The user does not exists.");
+		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt).judgement;
 	}
