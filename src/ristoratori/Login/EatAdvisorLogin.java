@@ -1,4 +1,4 @@
-package ristoratori.login;
+package ristoratori.Login;
 
 import _database.Database;
 import _database.objects.Client;
