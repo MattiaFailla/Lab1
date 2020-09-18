@@ -28,9 +28,7 @@ public class RestaurantStartApp {
 			System.out.println(Database.getClients());
 			System.out.println(Database.checkClient("Mattia"));
 
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
 
 		// Starting the UI
 		EatAdvisorLogin.main();
