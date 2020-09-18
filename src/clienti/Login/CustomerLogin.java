@@ -1,6 +1,7 @@
 package clienti.Login;
 
 import _database.Database;
+import _database.objects.Client;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -35,13 +36,17 @@ public class CustomerLogin extends JDialog {
 
 				//todo: Ask to db about this client
 				try {
-					if(Database.checkClient(nickname))
-						JOptionPane.showMessageDialog(null, "Login successfully!");
+					//Database.checkClient(nickname);
+					Client client = Database.getClient(nickname);
+					if(client.nickname == nickname && client.password == password)
+						JOptionPane.showMessageDialog(null, "Login successfully");
 					else
-						JOptionPane.showMessageDialog(null, "Not found this client");
+						JOptionPane.showMessageDialog(null, "Client not found");
 
 				} catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
-				finally { dispose(); }
+				finally {
+
+					dispose(); }
 			}
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
