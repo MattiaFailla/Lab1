@@ -1,6 +1,7 @@
 package ristoratori._Profile;
 
 import _database.Database;
+import _database.objects.Client;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -9,24 +10,25 @@ import java.awt.event.*;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
-	private JLabel nicknameLabel;
+	private static JLabel nicknameLabel;
 	private JPasswordField passwordField;
 	private JTextField emailField;
 	private JTextField fullNameField;
 	private JComboBox restaurantComboBox;
 	private JButton saveButton;
+	public static Client client;
 
 	public Profile() {
 		setContentPane(contentPane);
 		setModal(true);
 
-		// region cancelButton events
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		//region closing app events
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
-		//contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		// endregion
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
 
 		//region saveButton events
 		saveButton.addMouseListener(new MouseListener() {
@@ -74,19 +76,10 @@ public class Profile extends JDialog {
 		//endregion
 	}
 
-	//todo: plus validate
-	private boolean allFieldValid() {
-		Color[] colorArray = {
-				((LineBorder)passwordField.getBorder()).getLineColor()
-		};
-
-		for(Color color : colorArray) if(color == Color.red) return false;
-		return true;
-	}
-
-	public static void main() {
+	public static void main(Client client) {
 		Profile dialog = new Profile();
 		dialog.pack();
+		nicknameLabel.setText(client.nickname);
 		dialog.setVisible(true);
 	}
 }

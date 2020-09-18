@@ -2,6 +2,7 @@ package ristoratori.Login;
 
 import _database.Database;
 import _database.objects.Client;
+import ristoratori._Profile.Profile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -34,11 +35,12 @@ public class EatAdvisorLogin extends JDialog {
 				String nickname = nicknameField.getText();
 				String password = String.valueOf(passwordField.getPassword());
 
-				// @todo: Ask to db about this client
 				try {
 					Client client = Database.getClient(nickname);
-					if(client.nickname.equals(nickname) && client.password.equals(password))
+					if(client.nickname.equals(nickname) && client.password.equals(password)) {
 						JOptionPane.showMessageDialog(null, "Login successfully");
+						Profile.main(client);
+					}
 					else
 						JOptionPane.showMessageDialog(null, "Client not found");
 
