@@ -24,7 +24,7 @@ public class RestaurantStartApp {
 		System.out.println("App started");
 
 		try {
-			Database.insertClient("Mattia", "Failla", "Laveno", "VA", "mattiafailla@hotmail.it", "Mattia", "mattia");
+			Database.insertClient("Mattia", "Failla", "Laveno", "VA", "mattiafailla@hotmail.it", "mattia", "Matt1a%%");
 			System.out.println(Database.getClients());
 			System.out.println(Database.checkClient("Mattia"));
 
