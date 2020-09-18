@@ -23,7 +23,6 @@ public class Profile extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -32,7 +31,6 @@ public class Profile extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		//region saveButton events
 		saveButton.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				// Getting data from the form
@@ -52,7 +50,6 @@ public class Profile extends JDialog {
 			public void mouseEntered(MouseEvent e) { }
 			public void mouseExited(MouseEvent e) { }
 		});
-		//endregion
 
 		//region Focus events
 		passwordField.addFocusListener(new FocusListener() {
