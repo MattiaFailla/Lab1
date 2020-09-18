@@ -1,7 +1,7 @@
 package ristoratori;
 
 import _database.Database;
-import ristoratori.Login.EatAdvisorLogin;
+import ristoratori.login.EatAdvisorLogin;
 
 import java.io.IOException;
 
