@@ -12,7 +12,7 @@
       <minimumSize width="500" height="300"/>
       <preferredSize width="500" height="300"/>
     </properties>
-    <border type="line" title="Restaurant Registration">
+    <border type="none">
       <title-color color="-15658735"/>
       <color color="-15658735"/>
     </border>
@@ -238,23 +238,9 @@
           </model>
         </properties>
       </component>
-      <component id="99573" class="javax.swing.JButton" binding="cancelButton">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-723724"/>
-          <borderPainted value="true"/>
-          <contentAreaFilled value="false"/>
-          <enabled value="true"/>
-          <foreground color="-15658735"/>
-          <label value="Cancel"/>
-          <text value="Cancel"/>
-        </properties>
-      </component>
       <component id="97bcb" class="javax.swing.JButton" binding="registerButton">
         <constraints>
-          <grid row="5" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-723724"/>
