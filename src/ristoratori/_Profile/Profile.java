@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
@@ -39,10 +41,12 @@ public class Profile extends JDialog {
 				String fullname = fullNameField.getText();
 
 				//regex to split fullname in name and surname
+				Pattern pattern = Pattern.compile("^([a-zA-Z]+)\\s(['a-zA-Z]+)$");
+				Matcher matcher = pattern.matcher(fullname);
+				String name = matcher.group(1);
+				String surname = matcher.group(2);
 
-
-
-
+				Database.insertClient(name, surname, client.city, client.province, email, client.nickname, password);
 				JOptionPane.showMessageDialog(null, "Saved!");
 			}
 			public void mousePressed(MouseEvent e) { }
@@ -84,6 +88,7 @@ public class Profile extends JDialog {
 	public static void main() {
 		Profile dialog = new Profile();
 		dialog.pack();
+		dialog.setLocation(null);
 		dialog.setVisible(true);
 	}
 }
