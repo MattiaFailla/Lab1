@@ -12,7 +12,7 @@
       <minimumSize width="350" height="150"/>
       <preferredSize width="350" height="150"/>
     </properties>
-    <border type="line" title="Customer Login">
+    <border type="none">
       <title-color color="-15658735"/>
       <color color="-15658735"/>
     </border>

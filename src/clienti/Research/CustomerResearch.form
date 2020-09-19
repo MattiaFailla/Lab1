@@ -12,7 +12,7 @@
       <minimumSize width="500" height="300"/>
       <preferredSize width="500" height="300"/>
     </properties>
-    <border type="line" title="Research">
+    <border type="none">
       <title-color color="-15658735"/>
     </border>
     <children>
