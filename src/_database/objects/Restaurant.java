@@ -1,10 +1,10 @@
 package _database.objects;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Restaurant implements Serializable {
+
     private static final long serialVersionUID = -6075801231078042820L;
 
     public enum types {

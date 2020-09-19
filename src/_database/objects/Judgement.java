@@ -3,7 +3,9 @@ package _database.objects;
 import java.io.Serializable;
 
 public class Judgement implements Serializable {
+
 	private static final long serialVersionUID = -3744536479556587616L;
+
 	public String username;
 	public String restaurantName;
 	public Integer rating;
