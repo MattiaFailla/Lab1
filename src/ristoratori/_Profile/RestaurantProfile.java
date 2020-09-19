@@ -3,6 +3,7 @@ package ristoratori._Profile;
 import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Judgement;
+import _database.objects.Restaurant;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +12,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
 
-public class Restaurant extends JDialog {
+public class RestaurantProfile extends JDialog {
 	private JPanel contentPane;
 	private JLabel restaurantLabel;
 	private JTextArea judgmentArea;
@@ -20,7 +21,7 @@ public class Restaurant extends JDialog {
 	public static Restaurant rst;
 	public static boolean verifyClient;
 
-	public Restaurant() {
+	public RestaurantProfile() {
 		restaurantLabel.setText("collegamento");
 		setContentPane(contentPane);
 		setModal(true);
@@ -47,7 +48,7 @@ public class Restaurant extends JDialog {
 	}
 
 	public static void main() {
-		Restaurant dialog = new Restaurant();
+		RestaurantProfile dialog = new RestaurantProfile();
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
