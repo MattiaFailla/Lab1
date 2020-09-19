@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
@@ -16,12 +14,12 @@ public class Profile extends JDialog {
 	private JPasswordField passwordField;
 	private JTextField emailField;
 	private JTextField fullNameField;
+	private JTextField cityField;
+	private JTextField provinceField;
 	private JComboBox restaurantComboBox;
-	private JButton saveButton;
 	public static Client clt;
 
 	public Profile() {
-		nicknameLabel.setText(clt.nickname);
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -33,30 +31,15 @@ public class Profile extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		//region saveButton events
-		saveButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { }
-			public void mouseExited(MouseEvent e) { }
-		});
-		saveButton.addActionListener(e -> {
-			// Getting data from the form
-			String password = String.valueOf(passwordField.getPassword());
-			String email = emailField.getText();
-			String fullname = fullNameField.getText();
-
-			//regex to split fullname in name and surname
-			Pattern pattern = Pattern.compile("^([a-zA-Z]+)\\s(['a-zA-Z]+)$");
-			Matcher matcher = pattern.matcher(fullname);
-			String name = matcher.group(1);
-			String surname = matcher.group(2);
-
-			// Saving the new eat advisor's info in the database
-			Database.insertClient(name, surname, clt.city, clt.province, email, clt.nickname, password);
-			JOptionPane.showMessageDialog(null, "Saved!");
-		});
+		//region Information's client
+		nicknameLabel.setText(clt.nickname);
+		passwordField.setText(clt.password);
+		emailField.setText(clt.email);
+		fullNameField.setText(clt.name + " " + clt.surname);
+		cityField.setText(clt.city);
+		provinceField.setText(clt.province);
+		//todo: ottenere ristorante da nickname
+		//restaurantComboBox.addItem(Database.getRestaurant("nome proprietario"));
 		//endregion
 
 		//region Focus events
