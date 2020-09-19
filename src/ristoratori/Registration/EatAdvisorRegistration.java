@@ -43,6 +43,13 @@ public class EatAdvisorRegistration extends JDialog {
 		//endregion
 
 		//region registerButton events
+		registerButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
+			public void mouseExited(MouseEvent e) { }
+		});
 		registerButton.addActionListener(e -> {
 			// Getting data from the form
 			String name = nameField.getText();
@@ -57,13 +64,6 @@ public class EatAdvisorRegistration extends JDialog {
 			JOptionPane.showMessageDialog(null, "Registered successful");
 			dispose();
 		});
-		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
-		});
 		//endregion
 
 		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
@@ -71,62 +71,62 @@ public class EatAdvisorRegistration extends JDialog {
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		nameField.addCaretListener(e->{
+		nameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
 			nameField.setBorder(new LineBorder(color));
 		});
 
 		surnameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { surnameField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		surnameField.addCaretListener(e->{
+		surnameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(surnameField.getText()) ? Color.green : Color.red;
 			surnameField.setBorder(new LineBorder(color));
 		});
 		cityField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { cityField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		cityField.addCaretListener(e->{
+		cityField.addCaretListener(e -> {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
 			cityField.setBorder(new LineBorder(color));
 		});
 
 		provinceField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		provinceField.addCaretListener(e->{
+		provinceField.addCaretListener(e -> {
 			Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
 			provinceField.setBorder(new LineBorder(color));
 		});
 
 		emailField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { emailField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		emailField.addCaretListener(e->{
+		emailField.addCaretListener(e -> {
 			Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
 			emailField.setBorder(new LineBorder(color));
 		});
 
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		nicknameField.addCaretListener(e->{
+		nicknameField.addCaretListener(e -> {
 			Color color = Database.regexNickname(nicknameField.getText()) ? Color.green : Color.red;
 			nicknameField.setBorder(new LineBorder(color));
 		});
 
 		passwordField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
+			public void focusLost(FocusEvent e) { }
 		});
-		passwordField.addCaretListener(e->{
+		passwordField.addCaretListener(e -> {
 			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
 			passwordField.setBorder(new LineBorder(color));
 		});
