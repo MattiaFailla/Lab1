@@ -23,7 +23,6 @@ public class EatAdvisorLogin extends JDialog {
 	public EatAdvisorLogin() {
 		setContentPane(contentPane);
 		setModal(true);
-		loginButton.setEnabled(false);
 
 		//region setBorder to Color.red
 		nicknameField.setBorder(new LineBorder(Color.red));
