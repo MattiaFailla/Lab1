@@ -319,7 +319,7 @@ public class Database {
 	//endregion
 
 	//region REGEX
-	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z])?[a-zA-Zàèéìòù]*)*$"); }
+	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z ])?[a-zA-Zàèéìòù]*)*$"); }
 
 	public static boolean regexProvince(String text) { return text.matches("^[a-zA-Z]{2}$"); }
 
