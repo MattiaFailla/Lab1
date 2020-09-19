@@ -64,7 +64,11 @@ public class RestaurantRegistration extends JDialog {
 			String city = this.cityField.getText();
 			String province = this.provinceField.getText();
 			Integer CAP = Integer.valueOf(this.capField.getText());
-			Restaurant.types type = (Restaurant.types) this.typologyBox.getSelectedItem();
+			String typeStr = (String) this.typologyBox.getSelectedItem();
+			Restaurant.types type = null;
+			if (typeStr != null) {
+				type = Restaurant.types.valueOf(typeStr.toUpperCase());
+			}
 
 			// Saving the username in the database
 			Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
