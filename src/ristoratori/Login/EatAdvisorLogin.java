@@ -3,6 +3,7 @@ package ristoratori.Login;
 import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Client;
+import ristoratori.Registration.EatAdvisorRegistration;
 import ristoratori._Profile.Profile;
 
 import javax.swing.*;
@@ -15,11 +16,14 @@ public class EatAdvisorLogin extends JDialog {
 	private JPanel contentPane;
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
+	private JButton openRegisterButton;
 	private JButton loginButton;
+
 
 	public EatAdvisorLogin() {
 		setContentPane(contentPane);
 		setModal(true);
+		loginButton.setEnabled(false);
 
 		//region setBorder to Color.red
 		nicknameField.setBorder(new LineBorder(Color.red));
@@ -34,29 +38,32 @@ public class EatAdvisorLogin extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				// Getting data from the form
-				String nickname = nicknameField.getText();
-				String password = String.valueOf(passwordField.getPassword());
+		loginButton.addActionListener(e -> {
+			// Getting data from the form
+			String nickname = nicknameField.getText();
+			String password = String.valueOf(passwordField.getPassword());
 
-				try {
-					Client client = Database.getClient(nickname);
-					if(client.nickname.equals(nickname) && client.password.equals(password)) {
-						JOptionPane.showMessageDialog(null, "Login successful");
-						Profile.client = client;
-						dispose();
-						Profile.main();
-					} else { JOptionPane.showMessageDialog(null, "Client not found"); }
-				}
-				catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
-				catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
+			try {
+				Client client = Database.getClient(nickname);
+				if(client.nickname.equals(nickname) && client.password.equals(password)) {
+					JOptionPane.showMessageDialog(null, "Login successful");
+					Profile.client = client;
+					dispose();
+					Profile.main();
+				} else { JOptionPane.showMessageDialog(null, "Client not found"); }
 			}
+			catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
+			catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
+		});
+		loginButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
+
+		openRegisterButton.addActionListener(e -> EatAdvisorRegistration.main());
 
 		//region Focus Events
 		nicknameField.addFocusListener(new FocusListener() {
@@ -92,6 +99,9 @@ public class EatAdvisorLogin extends JDialog {
 	public static void main() {
 		EatAdvisorLogin dialog = new EatAdvisorLogin();
 		dialog.pack();
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("EatAdvisor - Login");
 		dialog.setVisible(true);
 	}
 }

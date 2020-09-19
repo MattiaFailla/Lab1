@@ -12,7 +12,7 @@
       <minimumSize width="350" height="150"/>
       <preferredSize width="350" height="150"/>
     </properties>
-    <border type="line" title="EatAdvisor Login">
+    <border type="none">
       <title-color color="-15658735"/>
       <color color="-15658735"/>
     </border>
@@ -60,6 +60,21 @@
           <foreground color="-15658735"/>
         </properties>
       </component>
+      <component id="3899" class="javax.swing.JButton" binding="openRegisterButton">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-723724"/>
+          <borderPainted value="true"/>
+          <contentAreaFilled value="false"/>
+          <focusPainted value="false"/>
+          <foreground color="-15658735"/>
+          <opaque value="false"/>
+          <requestFocusEnabled value="true"/>
+          <text value="Registration"/>
+        </properties>
+      </component>
       <component id="e7465" class="javax.swing.JButton" binding="loginButton">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -74,21 +89,6 @@
           <opaque value="false"/>
           <requestFocusEnabled value="true"/>
           <text value="Login"/>
-        </properties>
-      </component>
-      <component id="3899" class="javax.swing.JButton" binding="openRegisterButton">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-723724"/>
-          <borderPainted value="true"/>
-          <contentAreaFilled value="false"/>
-          <focusPainted value="false"/>
-          <foreground color="-15658735"/>
-          <opaque value="false"/>
-          <requestFocusEnabled value="true"/>
-          <text value="Registration"/>
         </properties>
       </component>
     </children>
