@@ -60,6 +60,7 @@ public class EatAdvisorRegistration extends JDialog {
 			String nickname = nicknameField.getText();
 			String password = String.valueOf(passwordField.getPassword());
 
+			// Saving the eat advisor in the database
 			Database.insertClient(name, surname, city, province, email, nickname, password);
 			JOptionPane.showMessageDialog(null, "Registered successful");
 			dispose();
