@@ -68,6 +68,7 @@ public class Database {
 	}
 
 	public static void insertRestaurant(String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
+		// Saving the Restaurant
 		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
@@ -81,9 +82,7 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { e.printStackTrace(); }
 		System.out.println("Restaurant succesfully inserted.");
 	}
 
@@ -113,10 +112,7 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		} catch (IOException e) { e.printStackTrace(); }
 		System.out.println("Judgement successfully inserted.");
 	}
 	//endregion
@@ -137,7 +133,6 @@ public class Database {
 
 		FileInputStream fIn = new FileInputStream(file);
 		ObjectInputStream oIn = new ObjectInputStream(fIn);
-
 
 		// Getting data
 		Object data = oIn.readObject();
@@ -246,8 +241,8 @@ public class Database {
 
 
 	//region HELPER FUNCT
-	// Reads the file and returns all entries in a list
 	private static ArrayList<?> readFile(String filename) {
+		// Reads the file and returns all entries in a list
 		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<>();
 		try {
 			init();
@@ -269,8 +264,8 @@ public class Database {
 		return persistedEntries.get();
 	}
 
-	// Get the index of an element in an array based on specific propert
 	private static int getIndexByRestaurantName(List<Restaurant> restList, String name) {
+		// Get the index of an element in an array based on specific propert
 		for (int index = 0; index < restList.size(); index++) {
 			Restaurant restaurant = restList.get(index);
 			if (restaurant.name.equals(name)) {
@@ -287,7 +282,7 @@ public class Database {
 				return index;
 			}
 		}
-		return -1;// not there is list
+		return -1; // not there is list
 	}
 
 	private static int getIndexByClientNickname(List<Client> restList, String nickname) {
@@ -317,20 +312,31 @@ public class Database {
 	//endregion
 
 	//region REGEX
-	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z ])?[a-zA-Zàèéìòù]*)*$"); }
+	/*
+	* { x , y } where:
+	* * x = minimun
+	* * y = maximum
+	*
+	* * if x = y
+	* * I write the { } with one number
+	*
+	* ? is {0,1}
+	* */
 
-	public static boolean regexProvince(String text) { return text.matches("^[a-zA-Z]{2}$"); }
+	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z ])?[a-zA-Zàèéìòù]*)*$"); } // Regular phrase
 
-	public static boolean regexEmail(String text) { return text.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"); }
+	public static boolean regexProvince(String text) { return text.toUpperCase().matches("^[A-Z]{2}$"); } // uppercase letters {2}
 
-	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); }
+	public static boolean regexEmail(String text) { return text.matches("^([a-z0-9]+[\\.]?)+@[a-z0-9]+\\.[a-z0-9]{2,3}$"); } // (lowercase letters or number + .?) more times + @ + letters + . + lower letters {2,3}
 
-	public static boolean regexPassword(String text) { return text.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"); }
+	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); } // lowercase letters or number or _ or - {3,15}
 
-	public static boolean regexNumber(String text, String quantifier) { return text.matches("^[\\d]" + quantifier + "$"); }
+	public static boolean regexPassword(String text) { return text.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\\.-_^*#!$&]).{8,15}$"); } // Must insert, at least: upper/lower -case letter, number, special char {8,15}
 
-	public static boolean regexPhone(String text) { return text.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"); }
+	public static boolean regexNumber(String text, String quantifier) { return text.matches("^[0-9]" + quantifier + "$"); } // numbers (quantifier set the length)
 
-	public static boolean regexURL(String text) { return text.matches("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)"); }
+	public static boolean regexPhone(String text) { return text.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"); } // Regular italian phone number
+
+	public static boolean regexURL(String text) { return text.matches("^https?:\\/\\/(www\\.)?[a-z0-9]+([\\.]?[a-z0-9]+){1,2}/?$"); }  // http + s? + :// + www.? + lowercase letters or number + (.? + lowercase letters or number) {1,2} + /?
 	//endregion
 }
