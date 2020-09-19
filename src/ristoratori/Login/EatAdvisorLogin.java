@@ -37,6 +37,7 @@ public class EatAdvisorLogin extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
+		//region loginButton events
 		loginButton.addActionListener(e -> {
 			// Getting data from the form
 			String nickname = nicknameField.getText();
@@ -61,10 +62,11 @@ public class EatAdvisorLogin extends JDialog {
 			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
+		//endregion
 
 		openRegisterButton.addActionListener(e -> EatAdvisorRegistration.main());
 
-		//region Focus Events
+		//region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) { }
