@@ -38,6 +38,13 @@ public class EatAdvisorLogin extends JDialog {
 		//endregion
 
 		//region loginButton events
+		loginButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
+			public void mouseExited(MouseEvent e) { }
+		});
 		loginButton.addActionListener(e -> {
 			// Getting data from the form
 			String nickname = nicknameField.getText();
@@ -54,13 +61,6 @@ public class EatAdvisorLogin extends JDialog {
 			}
 			catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
 			catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
-		});
-		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
 		});
 		//endregion
 
