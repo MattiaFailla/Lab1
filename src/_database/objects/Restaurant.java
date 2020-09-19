@@ -8,8 +8,8 @@ public class Restaurant implements Serializable {
     private static final long serialVersionUID = -6075801231078042820L;
 
     public enum types {
-        ITALIANO,
-        ETNICO,
+        ITALIAN,
+        ETNIC,
         FUSION
     }
 
