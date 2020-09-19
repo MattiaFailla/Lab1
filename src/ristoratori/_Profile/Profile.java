@@ -18,10 +18,10 @@ public class Profile extends JDialog {
 	private JTextField fullNameField;
 	private JComboBox restaurantComboBox;
 	private JButton saveButton;
-	public static Client client;
+	public static Client clt;
 
 	public Profile() {
-		nicknameLabel.setText(client.nickname);
+		nicknameLabel.setText(clt.nickname);
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -46,7 +46,7 @@ public class Profile extends JDialog {
 				String name = matcher.group(1);
 				String surname = matcher.group(2);
 
-				Database.insertClient(name, surname, client.city, client.province, email, client.nickname, password);
+				Database.insertClient(name, surname, clt.city, clt.province, email, clt.nickname, password);
 				JOptionPane.showMessageDialog(null, "Saved!");
 			}
 			public void mousePressed(MouseEvent e) { }
@@ -88,7 +88,9 @@ public class Profile extends JDialog {
 	public static void main() {
 		Profile dialog = new Profile();
 		dialog.pack();
-		dialog.setLocation(null);
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("EatAdvisor Profile");
 		dialog.setVisible(true);
 	}
 }
