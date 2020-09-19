@@ -42,28 +42,29 @@ public class EatAdvisorRegistration extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		// region registerButton events
-		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				// Getting data from the form
-				String name = nameField.getText();
-				String surname = surnameField.getText();
-				String city = cityField.getText();
-				String province = provinceField.getText();
-				String email = emailField.getText();
-				String nickname = nicknameField.getText();
-				String password = String.valueOf(passwordField.getPassword());
+		//region registerButton events
+		registerButton.addActionListener(e -> {
+			// Getting data from the form
+			String name = nameField.getText();
+			String surname = surnameField.getText();
+			String city = cityField.getText();
+			String province = provinceField.getText();
+			String email = emailField.getText();
+			String nickname = nicknameField.getText();
+			String password = String.valueOf(passwordField.getPassword());
 
-				Database.insertClient(name, surname, city, province, email, nickname, password);
-				JOptionPane.showMessageDialog(null, "Registered successfully!");
-				dispose();
-			}
+			Database.insertClient(name, surname, city, province, email, nickname, password);
+			JOptionPane.showMessageDialog(null, "Registered successful");
+			dispose();
+		});
+		registerButton.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
-		// endregion
+		//endregion
 
 		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
 
@@ -150,6 +151,9 @@ public class EatAdvisorRegistration extends JDialog {
 	public static void main() {
 		EatAdvisorRegistration dialog = new EatAdvisorRegistration();
 		dialog.pack();
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("EatAdvisor - Registration");
 		dialog.setVisible(true);
 	}
 }
