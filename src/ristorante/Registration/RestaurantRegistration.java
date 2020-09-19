@@ -56,7 +56,7 @@ public class RestaurantRegistration extends JDialog {
 		registerButton.addActionListener(e -> {
 			// Getting data from the form
 			String name = this.nameField.getText();
-			Integer phoneNumber = Integer.valueOf(this.phoneField.getText());
+			Long phoneNumber = Long.valueOf(this.phoneField.getText());
 			String url = this.websiteField.getText();
 			String qualifier = String.valueOf(this.qualifierComboBox.getSelectedItem());
 			String street = this.streetNameField.getText();

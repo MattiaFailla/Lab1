@@ -21,14 +21,14 @@ public class Restaurant implements Serializable {
     public String province;
     public Integer CAP;
     public String fullAddress; // this will be auto generated
-    public Integer phoneNumber;
+    public Long phoneNumber;
     public String url;
     public types type;
     public ArrayList<Judgement> judgement;
 
     public Restaurant(){}
 
-    public Restaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Integer phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
+    public Restaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Long phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
         this.name = name;
         this.qualifier = qualifier;
         this.streetName = streetName;

@@ -67,9 +67,7 @@ public class Database {
 		System.out.println("Client succesfully inserted.");
 	}
 
-	public static void insertRestaurant(String name, Integer phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
-		// Saving the EatAdvisor
-
+	public static void insertRestaurant(String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
