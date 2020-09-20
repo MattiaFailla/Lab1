@@ -52,8 +52,9 @@ public class Database {
 		}
 	}
 
+	//region WRITERS
 	/**
-	 * This function insert a customer in the database.
+	 * This function inserts a customer in the database.
 	 *
 	 * @param name     The name of the client
 	 * @param surname  The surname of the client
@@ -63,7 +64,6 @@ public class Database {
 	 * @param nickname The unique nickname of the client
 	 * @param password The password of the client
 	 */
-	//region WRITERS
 	public static void insertClient(String name, String surname, String city, String province, String email, String nickname, String password) {
 		// Saving the Customer
 		Customer clt = new Customer(name, surname, city, province, email, nickname, password);
@@ -86,8 +86,9 @@ public class Database {
 	}
 
 	/**
-	 * This function insert a Restaurant in the database
+	 * This function inserts a restaurant in the database
 	 *
+	 * @param owner       The name of the owner
 	 * @param name        The name of the restaurant
 	 * @param phoneNumber The phone number of the restaurant
 	 * @param qualifier   The qualifier of the restaurant (via or piazza)
@@ -99,9 +100,9 @@ public class Database {
 	 * @param url         The url of the website of the restaurant
 	 * @param type        The type of restaurant
 	 */
-	public static void insertRestaurant(String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
+	public static void insertRestaurant(String owner, String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		// Saving the Restaurant
-		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
+		Restaurant rst = new Restaurant(owner, name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
 			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
@@ -121,7 +122,7 @@ public class Database {
 	}
 
 	/**
-	 * This function insert a Judgment in the database
+	 * This function inserts a judgment in the database
 	 *
 	 * @param username       The username of the user who insert the judgement
 	 * @param restaurantName The restaurant name
@@ -164,8 +165,7 @@ public class Database {
 	//endregion
 
 	//region GETTER
-
-	// Get all objects
+	/// Get all objects
 	public static boolean checkCustomer(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of customers
 		for (Customer customer : getCustomers()) if (customer.toString().contains(fieldData)) return true;
@@ -203,7 +203,9 @@ public class Database {
 	 */
 	public static List<Restaurant> getRestaurants() throws IOException, ClassNotFoundException {
 		// Returning every restaurant in the file
+		System.out.println("Getting restaurants from database");
 		File file = new File(restaurant_db);
+
 		FileInputStream fIn = new FileInputStream(file);
 		if (fIn.available() <= 0) {
 			return new ArrayList<>();
@@ -225,6 +227,7 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
+	/// Get single object
 	/**
 	 * @param nickname The unique nickname of the customer
 	 * @return The Customer
@@ -232,7 +235,6 @@ public class Database {
 	 * @throws ClassNotFoundException
 	 * @throws DatabaseExceptions     This exception is thrown when the database cannot find the customer
 	 */
-	// Get single object
 	public static Customer getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of customers
 		List<Customer> customerArrayList = getCustomers();
@@ -294,7 +296,7 @@ public class Database {
 	public static List<Restaurant> getRestaurantByName(String name) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
-		// Building the list of restaurants based on city name
+		// Building the list of restaurants based on name
 		List<Restaurant> result = new ArrayList<>();
 		for (Restaurant restaurant : restaurantArrayList) {
 			if (restaurant.name.equals(name)) result.add(restaurant);
@@ -311,7 +313,7 @@ public class Database {
 	public static List<Restaurant> getRestaurantByCity(String city) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
-		// Building the list of restaurants based on city name
+		// Building the list of restaurants based on city
 		List<Restaurant> result = new ArrayList<>();
 		for (Restaurant restaurant : restaurantArrayList) {
 			if (restaurant.city.equals(city)) result.add(restaurant);
@@ -328,7 +330,7 @@ public class Database {
 	public static List<Restaurant> getRestaurantByCategory(Restaurant.types resType) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
-		// Building the list of restaurants based on city name
+		// Building the list of restaurants based on typology
 		List<Restaurant> result = new ArrayList<>();
 		for (Restaurant restaurant : restaurantArrayList) {
 			if (restaurant.type.equals(resType)) result.add(restaurant);
@@ -346,10 +348,21 @@ public class Database {
 	public static List<Restaurant> getRestaurantByCityAndType(String city, Restaurant.types resType) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
-		// Building the list of restaurants based on city name
+		// Building the list of restaurants based on city and typology
 		List<Restaurant> result = new ArrayList<>();
 		for (Restaurant restaurant : restaurantArrayList) {
 			if (restaurant.city.equals(city) && restaurant.type.equals(resType)) result.add(restaurant);
+		}
+		return result;
+	}
+
+	public static List<Restaurant> getRestaurantByOwner(String owner) throws IOException, ClassNotFoundException {
+		// Getting the list of restaurants
+		List<Restaurant> restaurantArrayList = getRestaurants();
+		// Building the list of restaurants based on owner
+		List<Restaurant> result = new ArrayList<>();
+		for (Restaurant restaurant : restaurantArrayList) {
+			if(restaurant.owner.equals(owner)) result.add(restaurant);
 		}
 		return result;
 	}
