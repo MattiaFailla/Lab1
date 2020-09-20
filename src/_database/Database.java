@@ -166,8 +166,8 @@ public class Database {
 	//region GETTER
 
 	// Get all objects
-	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
-		// Return true if fieldData exists in any field of clients
+	public static boolean checkCustomer(String fieldData) throws IOException, ClassNotFoundException {
+		// Return true if fieldData exists in any field of customers
 		for (Customer customer : getCustomers()) if (customer.toString().contains(fieldData)) return true;
 		return false;
 	}
@@ -178,8 +178,8 @@ public class Database {
 	 * @throws ClassNotFoundException This exception will be thrown if the class is not found
 	 */
 	public static List<Customer> getCustomers() throws IOException, ClassNotFoundException {
-		// Returning every client in the file
-		System.out.println("Getting clients");
+		// Returning every customer in the file
+		System.out.println("Getting customers");
 		File file = new File(client_db);
 
 		FileInputStream fIn = new FileInputStream(file);
@@ -233,14 +233,14 @@ public class Database {
 	 */
 	// Get single object
 	public static Customer getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
-		// Getting the list of clients
+		// Getting the list of customers
 		List<Customer> customerArrayList = getCustomers();
 		// Finding the restaurant by restaurantName
-		int restInt = getIndexByClientNickname(customerArrayList, nickname);
+		int restInt = getIndexByCustomerNickname(customerArrayList, nickname);
 		if (restInt == -1) {
 			throw new _database.DatabaseExceptions("The customer does not exists.");
 		}
-		// Getting the client
+		// Getting the customer
 		return customerArrayList.get(restInt);
 	}
 
@@ -424,10 +424,10 @@ public class Database {
 
 	/**
 	 * @param customerList The list of customers
-	 * @param nickname     The nickname of the client
-	 * @return The first client with the same nickname
+	 * @param nickname     The nickname of the customer
+	 * @return The first customer with the same nickname
 	 */
-	private static int getIndexByClientNickname(List<Customer> customerList, String nickname) {
+	private static int getIndexByCustomerNickname(List<Customer> customerList, String nickname) {
 		for (int index = 0; index < customerList.size(); index++) {
 			Customer customer = customerList.get(index);
 			if (customer.nickname.equals(nickname)) {
