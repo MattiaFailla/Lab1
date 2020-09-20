@@ -40,14 +40,12 @@ public class CustomerSearch extends JDialog {
 
 		//region addColumn to searchTable
 		String[] columnNames = {"Name", "City", "Typology"};
-		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		searchTable.setModel(model);
-		String[] columnNames = {"Name", "City", "Typology"};
-		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames);
-		//tableModel.addRow(new Object[]{"test", "test", "test"});
+		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
+			//all cells false
+			public boolean isCellEditable(int row, int column) { return false; }
+		};
 		searchTable.setModel(tableModel);
 		//endregion
-
 
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -61,13 +59,14 @@ public class CustomerSearch extends JDialog {
 
 		//region researchButton events
 		researchButton.addActionListener(e -> {
-			String typeNull = "- nothing -";
 			Restaurant.types type = null;
+			tableModel.setRowCount(0);
+			tableModel.addRow(columnNames);
 
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (!typeStr.equals(typeNull)) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
+			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
 			List<Restaurant> result;
 			try {
@@ -80,10 +79,7 @@ public class CustomerSearch extends JDialog {
 				else {
 					Collections.reverse(result);
 					// Adding the result of the search to the table
-					for (Restaurant res :
-							result) {
-						tableModel.addRow(new Object[]{res.name, res.city, res.type});
-					}
+					for (Restaurant res : result) { tableModel.addRow(new Object[]{res.name, res.city, res.type}); }
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
