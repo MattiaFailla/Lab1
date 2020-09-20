@@ -95,7 +95,6 @@
           <background color="-1"/>
           <focusable value="true"/>
           <foreground color="-15658735"/>
-          <lightWeightPopupEnabled value="true"/>
           <model>
             <item value="via"/>
             <item value="p.zza"/>

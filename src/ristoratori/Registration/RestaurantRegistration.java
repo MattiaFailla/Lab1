@@ -39,7 +39,6 @@ public class RestaurantRegistration extends JDialog {
 		provinceField.setBorder(new LineBorder(Color.red));
 		capField.setBorder(new LineBorder(Color.red));
 		//endregion
-		qualifierComboBox.setSelectedIndex(1);
 
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
