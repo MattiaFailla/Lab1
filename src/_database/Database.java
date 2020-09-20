@@ -148,6 +148,9 @@ public class Database {
 		// Returning every restaurant in the file
 		File file = new File(restaurant_db);
 		FileInputStream fIn = new FileInputStream(file);
+		if (fIn.available() <= 0) {
+			return new ArrayList<>();
+		}
 		ObjectInputStream oIn = new ObjectInputStream(fIn);
 		if (fIn.available() <= 0) {
 			return new ArrayList<>();
@@ -167,14 +170,14 @@ public class Database {
 
 	// Get single object
 	public static Client getClient(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
-		// Getting the list of restaurants
+		// Getting the list of clients
 		List<Client> clientArrayList = getClients();
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByClientNickname(clientArrayList, nickname);
 		if (restInt == -1) {
 			throw new _database.DatabaseExceptions("The user does not exists.");
 		}
-		// Getting the list of judgements
+		// Getting the client
 		return clientArrayList.get(restInt);
 	}
 
