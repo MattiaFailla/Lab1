@@ -1,9 +1,9 @@
 package clienti.Research;
 
 import _database.Database;
-import _database.objects.*;
-import clienti.Registration.*;
-import clienti.Login.*;
+import _database.objects.Restaurant;
+import clienti.Login.CustomerLogin;
+import clienti.Registration.CustomerRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -126,7 +126,7 @@ public class CustomerResearch extends JDialog {
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
-		dialog.setTitle("Research");
+		dialog.setTitle("Search");
 		dialog.setVisible(true);
 	}
 }
