@@ -89,6 +89,7 @@ public class Profile extends JDialog {
 	}
 
 	private void printRestaurants(DefaultTableModel tableModel) {
+		tableModel.setRowCount(1);
 		List<Restaurant> result;
 		try {
 			result = Database.getRestaurantByOwner(clt.nickname);

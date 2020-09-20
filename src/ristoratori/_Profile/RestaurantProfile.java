@@ -48,7 +48,7 @@ public class RestaurantProfile extends JDialog {
 		websiteLabel.setText(rst.url);
 		typeLabel.setText(rst.type.toString());
 
-		judgmentList.setEnabled(verifyClient);
+		judgmentField.setEnabled(verifyClient);
 		starsComboBox.setEnabled(verifyClient);
 		//endregion
 
