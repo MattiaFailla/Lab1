@@ -1,7 +1,7 @@
 package clienti.Registration;
 
 import _database.Database;
-import _database.objects.Customer;
+import _database.DatabaseExceptions;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -61,6 +61,20 @@ public class CustomerRegistration extends JDialog{
 			String password = String.valueOf(this.passwordField.getPassword());
 
 			try {
+				// Check the customer in db
+				Database.getCustomer(nickname);
+				JOptionPane.showMessageDialog(null, "Customer already exists");
+			} catch (IOException | ClassNotFoundException ioException) {
+				ioException.printStackTrace();
+			} catch (DatabaseExceptions databaseExceptions) {
+				// Saving the customer in the database
+				Database.insertClient(name, surname, city, province, email, nickname, password);
+				JOptionPane.showMessageDialog(null, "Registration successful");
+				dispose();
+			}
+
+
+			/*try {
 				// Check the customer in the database
 				for(Customer cst : Database.getCustomers()) {
 					if(!cst.nickname.equals(nickname)) {
@@ -72,6 +86,8 @@ public class CustomerRegistration extends JDialog{
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
+
+			 */
 		});
 		// endregion
 
