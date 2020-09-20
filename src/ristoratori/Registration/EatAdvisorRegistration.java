@@ -63,7 +63,7 @@ public class EatAdvisorRegistration extends JDialog {
 			String password = String.valueOf(passwordField.getPassword());
 
 			try {
-				// Check the customer in db
+				// Check the eat advisor in db
 				Database.getClient(nickname);
 				JOptionPane.showMessageDialog(null, "Customer already exists");
 			}

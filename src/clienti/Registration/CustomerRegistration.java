@@ -2,7 +2,6 @@ package clienti.Registration;
 
 import _database.Database;
 import _database.DatabaseExceptions;
-import _database.objects.Client;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -41,7 +40,7 @@ public class CustomerRegistration extends JDialog{
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		//endregion
+		//endregiond
 
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
@@ -68,7 +67,7 @@ public class CustomerRegistration extends JDialog{
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 			catch (DatabaseExceptions databaseExceptions) {
-				// Saving the eat advisor in the database
+				// Saving the customer in the database
 				Database.insertClient(name, surname, city, province, email, nickname, password);
 				JOptionPane.showMessageDialog(null, "Registration successful");
 				dispose();

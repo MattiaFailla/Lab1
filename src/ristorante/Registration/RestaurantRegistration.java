@@ -72,7 +72,7 @@ public class RestaurantRegistration extends JDialog {
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
 			try {
-				// Check the customer in db
+				// Check the restaurant in db
 				Database.getRestaurant(name);
 				JOptionPane.showMessageDialog(null, "Restaurant already exists");
 			}
