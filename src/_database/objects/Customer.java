@@ -2,7 +2,7 @@ package _database.objects;
 
 import java.io.Serializable;
 
-public class Client implements Serializable {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = -5537382712246477714L;
 
@@ -14,9 +14,10 @@ public class Client implements Serializable {
     public String nickname;
     public String password;
 
-    public Client(){}
+    public Customer() {
+    }
 
-    public Client(String name, String surname, String city, String province, String email, String nickname, String password) {
+    public Customer(String name, String surname, String city, String province, String email, String nickname, String password) {
         this.name = name;
         this.surname = surname;
         this.city = city;

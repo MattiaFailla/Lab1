@@ -1,6 +1,6 @@
 package _database;
 
-import _database.objects.Client;
+import _database.objects.Customer;
 import _database.objects.Judgement;
 import _database.objects.Restaurant;
 
@@ -66,10 +66,10 @@ public class Database {
 	//region WRITERS
 	public static void insertClient(String name, String surname, String city, String province, String email, String nickname, String password) {
 		// Saving the Customer
-		Client clt = new Client(name, surname, city, province, email, nickname, password);
+		Customer clt = new Customer(name, surname, city, province, email, nickname, password);
 		try {
 			// Before saving the new customer we need to extract the old customers
-			ArrayList<Client> entries = (ArrayList<Client>) readFile(client_db);
+			ArrayList<Customer> entries = (ArrayList<Customer>) readFile(client_db);
 			entries.add(clt);
 
 			File file = new File(client_db);
@@ -166,9 +166,9 @@ public class Database {
 	//region GETTER
 
 	// Get all objects
-	public static boolean checkCustomer(String fieldData) throws IOException, ClassNotFoundException {
+	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of clients
-		for (Client client : getCustomers()) if (client.toString().contains(fieldData)) return true;
+		for (Customer customer : getCustomers()) if (customer.toString().contains(fieldData)) return true;
 		return false;
 	}
 
@@ -177,7 +177,7 @@ public class Database {
 	 * @throws IOException            This exception will be thrown if the file is empty
 	 * @throws ClassNotFoundException This exception will be thrown if the class is not found
 	 */
-	public static List<Client> getCustomers() throws IOException, ClassNotFoundException {
+	public static List<Customer> getCustomers() throws IOException, ClassNotFoundException {
 		// Returning every client in the file
 		System.out.println("Getting clients");
 		File file = new File(client_db);
@@ -190,8 +190,8 @@ public class Database {
 
 		// Getting data
 		Object data = oIn.readObject();
-		List<Client> list = new ArrayList<>();
-		if (data instanceof List) list = (List<Client>) data;
+		List<Customer> list = new ArrayList<>();
+		if (data instanceof List) list = (List<Customer>) data;
 		return list;
 	}
 
@@ -232,16 +232,16 @@ public class Database {
 	 * @throws DatabaseExceptions     This exception is thrown when the database cannot find the customer
 	 */
 	// Get single object
-	public static Client getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
+	public static Customer getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of clients
-		List<Client> clientArrayList = getCustomers();
+		List<Customer> customerArrayList = getCustomers();
 		// Finding the restaurant by restaurantName
-		int restInt = getIndexByClientNickname(clientArrayList, nickname);
+		int restInt = getIndexByClientNickname(customerArrayList, nickname);
 		if (restInt == -1) {
 			throw new _database.DatabaseExceptions("The customer does not exists.");
 		}
 		// Getting the client
-		return clientArrayList.get(restInt);
+		return customerArrayList.get(restInt);
 	}
 
 	/**
@@ -364,10 +364,10 @@ public class Database {
 		return -1; // not there is list
 	}
 
-	private static int getIndexByClientNickname(List<Client> restList, String nickname) {
+	private static int getIndexByClientNickname(List<Customer> restList, String nickname) {
 		for (int index = 0; index < restList.size(); index++) {
-			Client client = restList.get(index);
-			if (client.nickname.equals(nickname)) {
+			Customer customer = restList.get(index);
+			if (customer.nickname.equals(nickname)) {
 				return index;
 			}
 		}

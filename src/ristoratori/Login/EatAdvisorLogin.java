@@ -2,7 +2,7 @@ package ristoratori.Login;
 
 import _database.Database;
 import _database.DatabaseExceptions;
-import _database.objects.Client;
+import _database.objects.Customer;
 import ristoratori.Registration.EatAdvisorRegistration;
 import ristoratori._Profile.Profile;
 
@@ -51,10 +51,10 @@ public class EatAdvisorLogin extends JDialog {
 			String password = String.valueOf(passwordField.getPassword());
 
 			try {
-				Client client = Database.getCustomer(nickname);
-				if (client.nickname.equals(nickname) && client.password.equals(password)) {
+				Customer customer = Database.getCustomer(nickname);
+				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
-					Profile.clt = client;
+					Profile.clt = customer;
 					dispose();
 					Profile.main();
 				} else {

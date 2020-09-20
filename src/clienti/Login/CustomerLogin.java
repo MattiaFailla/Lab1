@@ -2,7 +2,7 @@ package clienti.Login;
 
 import _database.Database;
 import _database.DatabaseExceptions;
-import _database.objects.Client;
+import _database.objects.Customer;
 import clienti.Search.CustomerSearch;
 
 import javax.swing.*;
@@ -48,8 +48,8 @@ public class CustomerLogin extends JDialog {
 			String password = String.valueOf(passwordField.getPassword());
 
 			try {
-				Client client = Database.getCustomer(nickname);
-				if (client.nickname.equals(nickname) && client.password.equals(password)) {
+				Customer customer = Database.getCustomer(nickname);
+				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					CustomerSearch.isLogged = true;
 					dispose();

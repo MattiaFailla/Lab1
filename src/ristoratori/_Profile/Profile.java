@@ -1,9 +1,11 @@
 package ristoratori._Profile;
 
-import _database.objects.Client;
+import _database.objects.Customer;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
@@ -14,7 +16,7 @@ public class Profile extends JDialog {
 	private JLabel cityLabel;
 	private JLabel provinceLabel;
 	private JComboBox<String> restaurantComboBox;
-	public static Client clt;
+	public static Customer clt;
 
 	public Profile() {
 		setContentPane(contentPane);
@@ -23,7 +25,9 @@ public class Profile extends JDialog {
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
