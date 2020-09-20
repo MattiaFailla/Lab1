@@ -4,6 +4,7 @@ import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Customer;
 import clienti.Search.CustomerSearch;
+import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -21,17 +22,17 @@ public class CustomerLogin extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-		//region setBorder to Color.red
-		nicknameField.setBorder(new LineBorder(Color.red));
-		passwordField.setBorder(new LineBorder(Color.red));
-		//endregion
-
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
+
+		//region setBorder to Color.red
+		nicknameField.setBorder(new LineBorder(Color.red));
+		passwordField.setBorder(new LineBorder(Color.red));
 		//endregion
 
 		//region loginButton events
@@ -52,6 +53,7 @@ public class CustomerLogin extends JDialog {
 				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					CustomerSearch.isLogged = true;
+					RestaurantProfile.verifyClient = true;
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Customer not found");

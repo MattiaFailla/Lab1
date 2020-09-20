@@ -5,6 +5,7 @@ import _database.DatabaseExceptions;
 import _database.objects.Customer;
 import ristoratori.Registration.EatAdvisorRegistration;
 import ristoratori._Profile.Profile;
+import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -24,17 +25,17 @@ public class EatAdvisorLogin extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-		//region setBorder to Color.red
-		nicknameField.setBorder(new LineBorder(Color.red));
-		passwordField.setBorder(new LineBorder(Color.red));
-		//endregion
-
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) { dispose(); }
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
+
+		//region setBorder to Color.red
+		nicknameField.setBorder(new LineBorder(Color.red));
+		passwordField.setBorder(new LineBorder(Color.red));
 		//endregion
 
 		//region loginButton events

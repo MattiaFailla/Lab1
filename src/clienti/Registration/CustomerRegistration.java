@@ -24,6 +24,14 @@ public class CustomerRegistration extends JDialog{
 		setContentPane(contentPane);
 		setModal(true);
 
+		//region closing app events
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) { dispose(); }
+		});
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregiond
+
 		//region setBorder to Color.red
 		nameField.setBorder(new LineBorder(Color.red));
 		surnameField.setBorder(new LineBorder(Color.red));
@@ -33,14 +41,6 @@ public class CustomerRegistration extends JDialog{
 		nicknameField.setBorder(new LineBorder(Color.red));
 		passwordField.setBorder(new LineBorder(Color.red));
 		//endregion
-
-		//region closing app events
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
-		});
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
-		//endregiond
 
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {

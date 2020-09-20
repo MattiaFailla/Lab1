@@ -24,7 +24,7 @@ public class RestaurantProfile extends JDialog {
 	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
 	public static Restaurant rst;
-	public static boolean verifyClient;
+	public static boolean verifyClient = false;
 
 	public RestaurantProfile() {
 		setContentPane(contentPane);

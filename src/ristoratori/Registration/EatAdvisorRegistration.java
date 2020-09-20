@@ -2,6 +2,7 @@ package ristoratori.Registration;
 
 import _database.Database;
 import _database.DatabaseExceptions;
+import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -24,6 +25,14 @@ public class EatAdvisorRegistration extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
+		//region closing app events
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) { dispose(); }
+		});
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		//endregion
+
 		//region setBorder to Color.red
 		nameField.setBorder(new LineBorder(Color.red));
 		surnameField.setBorder(new LineBorder(Color.red));
@@ -32,14 +41,6 @@ public class EatAdvisorRegistration extends JDialog {
 		emailField.setBorder(new LineBorder(Color.red));
 		nicknameField.setBorder(new LineBorder(Color.red));
 		passwordField.setBorder(new LineBorder(Color.red));
-		//endregion
-
-		//region closing app events
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
-		});
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
 		//region registerButton events
@@ -52,18 +53,18 @@ public class EatAdvisorRegistration extends JDialog {
 		});
 		registerButton.addActionListener(e -> {
 			// Getting data from the form
-			String name = nameField.getText();
-			String surname = surnameField.getText();
-			String city = cityField.getText();
-			String province = provinceField.getText();
-			String email = emailField.getText();
-			String nickname = nicknameField.getText();
-			String password = String.valueOf(passwordField.getPassword());
+			String name = this.nameField.getText();
+			String surname = this.surnameField.getText();
+			String city = this.cityField.getText();
+			String province = this.provinceField.getText();
+			String email = this.emailField.getText();
+			String nickname = this.nicknameField.getText();
+			String password = String.valueOf(this.passwordField.getPassword());
 
 			try {
 				// Check the eat advisor in db
 				Database.getCustomer(nickname);
-				JOptionPane.showMessageDialog(null, "Customer already exists");
+				JOptionPane.showMessageDialog(null, "Eat advisor already exists");
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 			catch (DatabaseExceptions databaseExceptions) {
