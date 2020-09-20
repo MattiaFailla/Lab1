@@ -25,7 +25,7 @@ public class CustomerSearch extends JDialog {
 	private JRadioButton cityandtypologyRadio;
 	private JTable searchTable;
 	private JButton researchButton;
-	private JButton registrationButton;
+	private JButton registerButton;
 	private JButton loginButton;
 	public static boolean isLogged = false;
 
@@ -87,7 +87,7 @@ public class CustomerSearch extends JDialog {
 		//endregion
 
 		//region Switch windows
-		registrationButton.addActionListener(e -> CustomerRegistration.main());
+		registerButton.addActionListener(e -> CustomerRegistration.main());
 		loginButton.addActionListener(e -> {
 			CustomerLogin.main();
 			loginButton.setEnabled(!isLogged);

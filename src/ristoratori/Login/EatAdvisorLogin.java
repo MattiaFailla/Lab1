@@ -16,7 +16,7 @@ public class EatAdvisorLogin extends JDialog {
 	private JPanel contentPane;
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
-	private JButton openRegisterButton;
+	private JButton registerButton;
 	private JButton loginButton;
 
 
@@ -68,7 +68,7 @@ public class EatAdvisorLogin extends JDialog {
 		});
 		//endregion
 
-		openRegisterButton.addActionListener(e -> EatAdvisorRegistration.main());
+		registerButton.addActionListener(e -> EatAdvisorRegistration.main());
 
 		//region Focus events
 		nicknameField.addFocusListener(new FocusListener() {

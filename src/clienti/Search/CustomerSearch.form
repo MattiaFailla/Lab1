@@ -143,7 +143,7 @@
           <text value="Run search"/>
         </properties>
       </component>
-      <component id="44689" class="javax.swing.JButton" binding="registrationButton">
+      <component id="44689" class="javax.swing.JButton" binding="registerButton">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

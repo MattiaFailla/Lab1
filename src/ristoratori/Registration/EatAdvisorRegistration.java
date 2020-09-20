@@ -19,8 +19,6 @@ public class EatAdvisorRegistration extends JDialog {
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
 	private JButton registerButton;
-	private JButton registerRestaurantButton;
-	public static boolean isRegistered = false;
 
 	public EatAdvisorRegistration() {
 		setContentPane(contentPane);
@@ -76,8 +74,6 @@ public class EatAdvisorRegistration extends JDialog {
 			}
 		});
 		//endregion
-
-		registerRestaurantButton.addActionListener(e -> RestaurantRegistration.main());
 
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
@@ -156,7 +152,7 @@ public class EatAdvisorRegistration extends JDialog {
 		};
 
 		for(Color color : colorArray) if(color == Color.red) return false;
-		return isRegistered;
+		return true;
 	}
 
 	public static void main() {
