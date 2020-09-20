@@ -1,22 +1,19 @@
 package ristoratori._Profile;
 
-import _database.Database;
 import _database.objects.Client;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 import java.awt.event.*;
 
 public class Profile extends JDialog {
 	private JPanel contentPane;
 	private JLabel nicknameLabel;
-	private JPasswordField passwordField;
-	private JTextField emailField;
-	private JTextField fullNameField;
-	private JTextField cityField;
-	private JTextField provinceField;
-	private JComboBox restaurantComboBox;
+	private JLabel passwordLabel;
+	private JLabel emailLabel;
+	private JLabel fullNameLabel;
+	private JLabel cityLabel;
+	private JLabel provinceLabel;
+	private JComboBox<String> restaurantComboBox;
 	public static Client clt;
 
 	public Profile() {
@@ -33,42 +30,13 @@ public class Profile extends JDialog {
 
 		//region Information's client
 		nicknameLabel.setText(clt.nickname);
-		passwordField.setText(clt.password);
-		emailField.setText(clt.email);
-		fullNameField.setText(clt.name + " " + clt.surname);
-		cityField.setText(clt.city);
-		provinceField.setText(clt.province);
+		passwordLabel.setText(String.valueOf(clt.password));
+		emailLabel.setText(clt.email);
+		fullNameLabel.setText(clt.name + " " + clt.surname);
+		cityLabel.setText(clt.city);
+		provinceLabel.setText(clt.province);
 		//todo: ottenere ristorante da nickname
 		//restaurantComboBox.addItem(Database.getRestaurant("nome proprietario"));
-		//endregion
-
-		//region Focus events
-		passwordField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
-		});
-		passwordField.addCaretListener(e->{
-			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
-			passwordField.setBorder(new LineBorder(color));
-		});
-
-		emailField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { emailField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
-		});
-		emailField.addCaretListener(e->{
-			Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
-			emailField.setBorder(new LineBorder(color));
-		});
-
-		fullNameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { fullNameField.selectAll(); }
-			public void focusLost(FocusEvent e) {}
-		});
-		fullNameField.addCaretListener(e->{
-			Color color = Database.regexStandard(fullNameField.getText()) ? Color.green : Color.red;
-			fullNameField.setBorder(new LineBorder(color));
-		});
 		//endregion
 	}
 
