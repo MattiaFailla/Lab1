@@ -7,7 +7,6 @@ import _database.objects.Restaurant;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 /**
@@ -69,7 +68,8 @@ public class Database {
 		Customer clt = new Customer(name, surname, city, province, email, nickname, password);
 		try {
 			// Before saving the new customer we need to extract the old customers
-			ArrayList<Customer> entries = (ArrayList<Customer>) readFile(client_db);
+			ArrayList<Customer> entries = (ArrayList<Customer>) ReadObjectFromFile(client_db);
+			assert entries != null;
 			entries.add(clt);
 
 			File file = new File(client_db);
@@ -105,7 +105,7 @@ public class Database {
 		Restaurant rst = new Restaurant(owner, name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
-			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) ReadObjectFromFile(restaurant_db);
 			entries.add(rst);
 
 			File file = new File(restaurant_db);
@@ -145,7 +145,7 @@ public class Database {
 		Restaurant newRestaurant = restaurantArrayList.get(restInt);
 
 		// Overriding the restuarant element in order to save the new list of judgements
-		ArrayList<Restaurant> entries = (ArrayList<Restaurant>) readFile(restaurant_db);
+		ArrayList<Restaurant> entries = (ArrayList<Restaurant>) ReadObjectFromFile(restaurant_db);
 		entries.set(restInt, newRestaurant);
 
 		// Saving to file
@@ -377,13 +377,8 @@ public class Database {
 	}
 	//endregion
 
-
-	/**
-	 * @param filename The database filename
-	 * @return A generic arraylist of results (objects) from the database
-	 */
 	//region HELPER FUNCT
-	private static ArrayList<?> readFile(String filename) {
+	/*private static ArrayList<?> readObjectFromFile(String filename) {
 		// Reads the file and returns all entries in a list
 		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<>();
 		try {
@@ -391,6 +386,7 @@ public class Database {
 			FileInputStream fileIn = new FileInputStream(filename);
 			if (fileIn.available() > 0) {
 				ObjectInputStream objIn = new ObjectInputStream(fileIn);
+				System.out.println("FILEOBJ: "+objIn);
 				var obj = objIn.readObject();
 				if (obj == null) {
 					obj = new ArrayList();
@@ -403,6 +399,20 @@ public class Database {
 			ex.printStackTrace();
 		}
 		return persistedEntries.get();
+	}*/
+
+	public static Object ReadObjectFromFile(String filepath) {
+		try {
+			FileInputStream fileIn = new FileInputStream(filepath);
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			Object obj = objectIn.readObject();
+			System.out.println("The Object has been read from the file");
+			objectIn.close();
+			return obj;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
