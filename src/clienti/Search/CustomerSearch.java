@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class CustomerResearch extends JDialog {
+public class CustomerSearch extends JDialog {
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField cityField;
@@ -28,7 +28,7 @@ public class CustomerResearch extends JDialog {
 	private JButton loginButton;
 	public static boolean isLogged = false;
 
-	public CustomerResearch() {
+	public CustomerSearch() {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -126,7 +126,7 @@ public class CustomerResearch extends JDialog {
 	}
 
 	public static void main() {
-		CustomerResearch dialog = new CustomerResearch();
+		CustomerSearch dialog = new CustomerSearch();
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
