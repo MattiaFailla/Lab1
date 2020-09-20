@@ -53,7 +53,7 @@ public class Database {
 	}
 
 	/**
-	 * This function insert a client in the database.
+	 * This function insert a customer in the database.
 	 *
 	 * @param name     The name of the client
 	 * @param surname  The surname of the client
@@ -82,22 +82,22 @@ public class Database {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Client succesfully inserted.");
+		System.out.println("Customer succesfully inserted.");
 	}
 
 	/**
 	 * This function insert a Restaurant in the database
 	 *
-	 * @param name        The name of the restuarant
-	 * @param phoneNumber The phone number of the restuarant
-	 * @param qualifier   The qualifier of the restuarant (via or piazza)
-	 * @param street      The street of the restuarant
-	 * @param civicNumber The civic number of the restuarant
-	 * @param city        The city of the restuarant
-	 * @param province    The province of the restuarant
-	 * @param CAP         The cap of the restuarant
-	 * @param url         The url of the website of the restuarant
-	 * @param type        The type of restuarant
+	 * @param name        The name of the restaurant
+	 * @param phoneNumber The phone number of the restaurant
+	 * @param qualifier   The qualifier of the restaurant (via or piazza)
+	 * @param street      The street of the restaurant
+	 * @param civicNumber The civic number of the restuaurant
+	 * @param city        The city of the restaurant
+	 * @param province    The province of the restaurant
+	 * @param CAP         The cap of the restaurant
+	 * @param url         The url of the website of the restaurant
+	 * @param type        The type of restaurant
 	 */
 	public static void insertRestaurant(String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		// Saving the Restaurant
@@ -377,7 +377,6 @@ public class Database {
 			}
 			return new ArrayList();
 		} catch (Exception ex) {
-			System.out.println("ERRORE NELLA LETTURA FILE");
 			ex.printStackTrace();
 		}
 		return persistedEntries.get();
@@ -431,17 +430,6 @@ public class Database {
 	//endregion
 
 	//region REGEX
-	/*
-	* { x , y } where:
-	* * x = minimun
-	* * y = maximum
-	*
-	* * if x = y
-	* * I write the { } with one number
-	*
-	* ? is {0,1}
-	* */
-
 	public static boolean regexStandard(String text) { return text.matches("^[a-zA-Z]+(([' ][a-zA-Z ])?[a-zA-Zàèéìòù]*)*$"); } // Regular phrase
 
 	public static boolean regexProvince(String text) { return text.toUpperCase().matches("^[A-Z]{2}$"); } // uppercase letters {2}
