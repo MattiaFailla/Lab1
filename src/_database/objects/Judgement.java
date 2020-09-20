@@ -2,6 +2,9 @@ package _database.objects;
 
 import java.io.Serializable;
 
+/**
+ * This is the custom Judjement serializable class to hold the Judgement of the restaurants
+ */
 public class Judgement implements Serializable {
 
 	private static final long serialVersionUID = -3744536479556587616L;

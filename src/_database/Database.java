@@ -353,12 +353,21 @@ public class Database {
 		return result;
 	}
 
+	/**
+	 * @param restaurants A list of restaurants
+	 * @param index       The index of the array
+	 * @return A single restaurant
+	 */
 	public static Restaurant getRestaurantByIndex(ArrayList<Restaurant> restaurants, int index) {
 		return restaurants.get(index);
 	}
 	//endregion
 
 
+	/**
+	 * @param filename The database filename
+	 * @return A generic arraylist of results (objects) from the database
+	 */
 	//region HELPER FUNCT
 	private static ArrayList<?> readFile(String filename) {
 		// Reads the file and returns all entries in a list
@@ -366,7 +375,7 @@ public class Database {
 		try {
 			init();
 			FileInputStream fileIn = new FileInputStream(filename);
-			if (fileIn.available() > 0){
+			if (fileIn.available() > 0) {
 				ObjectInputStream objIn = new ObjectInputStream(fileIn);
 				var obj = objIn.readObject();
 				if (obj == null) {
@@ -383,6 +392,11 @@ public class Database {
 		return persistedEntries.get();
 	}
 
+	/**
+	 * @param restList The list of restaurants
+	 * @param name     The name of the restaurant
+	 * @return The index of the position of the restaurant in the array
+	 */
 	private static int getIndexByRestaurantName(List<Restaurant> restList, String name) {
 		// Get the index of an element in an array based on specific propert
 		for (int index = 0; index < restList.size(); index++) {
@@ -394,6 +408,11 @@ public class Database {
 		return -1;// not there is list
 	}
 
+	/**
+	 * @param restList The list of restaurants
+	 * @param city     the city
+	 * @return An index of the first restaurant with the same city
+	 */
 	private static int getIndexByRestaurantCity(List<Restaurant> restList, String city) {
 		for (int index = 0; index < restList.size(); index++) {
 			Restaurant restaurant = restList.get(index);
@@ -404,9 +423,14 @@ public class Database {
 		return -1; // not there is list
 	}
 
-	private static int getIndexByClientNickname(List<Customer> restList, String nickname) {
-		for (int index = 0; index < restList.size(); index++) {
-			Customer customer = restList.get(index);
+	/**
+	 * @param customerList The list of customers
+	 * @param nickname     The nickname of the client
+	 * @return The first client with the same nickname
+	 */
+	private static int getIndexByClientNickname(List<Customer> customerList, String nickname) {
+		for (int index = 0; index < customerList.size(); index++) {
+			Customer customer = customerList.get(index);
 			if (customer.nickname.equals(nickname)) {
 				return index;
 			}
@@ -414,6 +438,9 @@ public class Database {
 		return -1;// not there is list
 	}
 
+	/**
+	 * Custom enum struct to handle the recordType of the database. (Used for debug only)
+	 */
 	// RecordType is the type of record that will be inserted into the db
 	public enum recordType {
 		CLIENTE,
@@ -421,6 +448,9 @@ public class Database {
 		RISTORANTE
 	}
 
+	/**
+	 * Enum of data_types used for debug messages in the database.
+	 */
 	// This types are typically used to insert debug messages into the db
 	public enum data_types {
 		CLIENTS_DATA,

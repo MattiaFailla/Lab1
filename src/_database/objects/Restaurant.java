@@ -3,10 +3,16 @@ package _database.objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Restaurant is a custom serializable object that stores the restaurant informations
+ */
 public class Restaurant implements Serializable {
 
     private static final long serialVersionUID = -6075801231078042820L;
 
+    /**
+     * Custom enum class to handle different kinds of restaurant types
+     */
     public enum types {
         ITALIAN,
         ETHNIC,

@@ -2,6 +2,9 @@ package _database.objects;
 
 import java.io.Serializable;
 
+/**
+ * This is the Customer serializable class to hold the Customer informations
+ */
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = -5537382712246477714L;
