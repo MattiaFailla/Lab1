@@ -1,3 +1,9 @@
+/*
+ * D'Angelo Lorenzo - 742577 - Varese
+ * Failla Mattia - 742581 - Varese
+ * Pedotti Samuel - 739897 - Varese
+ * */
+
 package ristoratori;
 
 import _database.Database;
