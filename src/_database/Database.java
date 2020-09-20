@@ -348,7 +348,7 @@ public class Database {
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
 		for (Restaurant restaurant : restaurantArrayList) {
-			if (restaurant.city.equals(city) || restaurant.type.equals(resType)) result.add(restaurant);
+			if (restaurant.city.equals(city) && restaurant.type.equals(resType)) result.add(restaurant);
 		}
 		return result;
 	}

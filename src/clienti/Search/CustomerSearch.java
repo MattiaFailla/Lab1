@@ -40,6 +40,9 @@ public class CustomerSearch extends JDialog {
 
 		//region addColumn to searchTable
 		String[] columnNames = {"Name", "City", "Typology"};
+		DefaultTableModel model = new DefaultTableModel(null, columnNames);
+		searchTable.setModel(model);
+		String[] columnNames = {"Name", "City", "Typology"};
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames);
 		//tableModel.addRow(new Object[]{"test", "test", "test"});
 		searchTable.setModel(tableModel);
