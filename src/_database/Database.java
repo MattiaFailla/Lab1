@@ -263,6 +263,13 @@ public class Database {
 		return restaurantArrayList.get(restInt);
 	}
 
+	/**
+	 * @param restaurantName The unique identifier of the Restaurant
+	 * @return A list of Judgments
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws DatabaseExceptions
+	 */
 	public static List<Judgement> getJudgement(String restaurantName) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
@@ -276,40 +283,73 @@ public class Database {
 	}
 	//endregion
 
+	/**
+	 * @param name The name of the restaurant
+	 * @return A list of restaurants with the same name
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	//region SEARCH
 	public static List<Restaurant> getRestaurantByName(String name) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.name.equals(name)) result.add(restaurant); }
+		for (Restaurant restaurant : restaurantArrayList) {
+			if (restaurant.name.equals(name)) result.add(restaurant);
+		}
 		return result;
 	}
 
+	/**
+	 * @param city The city of the restaurant
+	 * @return A list of restaurants with the same city
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static List<Restaurant> getRestaurantByCity(String city) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.city.equals(city)) result.add(restaurant); }
+		for (Restaurant restaurant : restaurantArrayList) {
+			if (restaurant.city.equals(city)) result.add(restaurant);
+		}
 		return result;
 	}
 
+	/**
+	 * @param resType The custom type of restaurant
+	 * @return A list of restaurants with the same custom type
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static List<Restaurant> getRestaurantByCategory(Restaurant.types resType) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.type.equals(resType)) result.add(restaurant); }
+		for (Restaurant restaurant : restaurantArrayList) {
+			if (restaurant.type.equals(resType)) result.add(restaurant);
+		}
 		return result;
 	}
 
+	/**
+	 * @param city    The city of restaurant
+	 * @param resType The custom type of restaurant
+	 * @return A list of restaurants with the same data
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static List<Restaurant> getRestaurantByCityAndType(String city, Restaurant.types resType) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
 		// Building the list of restaurants based on city name
 		List<Restaurant> result = new ArrayList<>();
-		for (Restaurant restaurant : restaurantArrayList) { if (restaurant.city.equals(city) || restaurant.type.equals(resType)) result.add(restaurant); }
+		for (Restaurant restaurant : restaurantArrayList) {
+			if (restaurant.city.equals(city) || restaurant.type.equals(resType)) result.add(restaurant);
+		}
 		return result;
 	}
 
