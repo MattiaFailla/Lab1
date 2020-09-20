@@ -19,6 +19,7 @@ public class Restaurant implements Serializable {
         FUSION
     }
 
+    public String owner;
     public String name;
     public String qualifier; // example: via or piazza
     public String streetName;
@@ -34,7 +35,8 @@ public class Restaurant implements Serializable {
 
     public Restaurant(){}
 
-    public Restaurant(String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Long phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
+    public Restaurant(String owner, String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Long phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
+        this.owner = owner;
         this.name = name;
         this.qualifier = qualifier;
         this.streetName = streetName;
@@ -50,7 +52,8 @@ public class Restaurant implements Serializable {
     }
 
     public String toString(){
-        return "Name: " + name +
+        return "owner: " + owner +
+                "\nname: " + name +
                 "\nqualifier: " + qualifier +
                 "\nstreetName: " + streetName +
                 "\ncivicNumber: " + civicNumber +

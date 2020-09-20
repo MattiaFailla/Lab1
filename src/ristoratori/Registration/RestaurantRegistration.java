@@ -23,6 +23,7 @@ public class RestaurantRegistration extends JDialog {
 	private JTextField capField;
 	private JComboBox<String> typologyBox;
 	private JButton registerButton;
+	public static String owner;
 
 	public RestaurantRegistration() {
 		setContentPane(contentPane);
@@ -79,7 +80,7 @@ public class RestaurantRegistration extends JDialog {
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 			catch (DatabaseExceptions databaseExceptions) {
 				// Saving the restaurant in the database
-				Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+				Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
 				JOptionPane.showMessageDialog(null, "Registration successful");
 				dispose();
 			}
