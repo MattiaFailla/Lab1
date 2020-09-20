@@ -38,7 +38,7 @@ public class CustomerSearch extends JDialog {
 		//endregion
 
 		//region addColumn to searchTable
-		String[] columns = { "NAME", "CITY", "TYPOLOGY"};
+
 		//endregion
 
 
@@ -70,7 +70,6 @@ public class CustomerSearch extends JDialog {
 				if (result.isEmpty()) { JOptionPane.showMessageDialog(null, "No result found"); }
 				else {
 					Collections.reverse(result);
-					//searchTable.addColumn();
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
