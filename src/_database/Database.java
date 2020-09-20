@@ -26,6 +26,11 @@ public class Database {
 	private static final String restaurant_db = "./src/_database/db/EatAdvisor.dati";
 	private static final String client_db = "./src/_database/db/Utenti.dati";
 
+	/**
+	 * Initializes the files for the database. This method is implicitly called when a search is issued.
+	 *
+	 * @return void
+	 */
 	public static boolean init() {
 		// Initialize the database
 		// Creating database if not exists
@@ -47,6 +52,17 @@ public class Database {
 		}
 	}
 
+	/**
+	 * This function insert a client in the database.
+	 *
+	 * @param name     The name of the client
+	 * @param surname  The surname of the client
+	 * @param city     The city of the client
+	 * @param province The province of client
+	 * @param email    The email of the client
+	 * @param nickname The unique nickname of the client
+	 * @param password The password of the client
+	 */
 	//region WRITERS
 	public static void insertClient(String name, String surname, String city, String province, String email, String nickname, String password) {
 		// Saving the Customer
@@ -63,10 +79,26 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Client succesfully inserted.");
 	}
 
+	/**
+	 * This function insert a Restaurant in the database
+	 *
+	 * @param name        The name of the restuarant
+	 * @param phoneNumber The phone number of the restuarant
+	 * @param qualifier   The qualifier of the restuarant (via or piazza)
+	 * @param street      The street of the restuarant
+	 * @param civicNumber The civic number of the restuarant
+	 * @param city        The city of the restuarant
+	 * @param province    The province of the restuarant
+	 * @param CAP         The cap of the restuarant
+	 * @param url         The url of the website of the restuarant
+	 * @param type        The type of restuarant
+	 */
 	public static void insertRestaurant(String name, Long phoneNumber, String qualifier, String street, Integer civicNumber, String city, String province, Integer CAP, String url, Restaurant.types type) {
 		// Saving the Restaurant
 		Restaurant rst = new Restaurant(name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, new ArrayList<>());
@@ -82,10 +114,22 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Restaurant succesfully inserted.");
 	}
 
+	/**
+	 * This function insert a Judgment in the database
+	 *
+	 * @param username       The username of the user who insert the judgement
+	 * @param restaurantName The restaurant name
+	 * @param rating         The rating expressed as integer between 0 and 5
+	 * @param judgement      The content of the judgement
+	 * @throws IOException            This exception will be thrown if the file is empty
+	 * @throws ClassNotFoundException This exception will be thrown if the class is not found
+	 */
 	public static void insertJudgment(String username, String restaurantName, Integer rating, String judgement) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
@@ -112,7 +156,9 @@ public class Database {
 			oOut.writeObject(entries);
 			oOut.close();
 			fOut.close();
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Judgement successfully inserted.");
 	}
 	//endregion
@@ -126,6 +172,11 @@ public class Database {
 		return false;
 	}
 
+	/**
+	 * @return A list of Customers
+	 * @throws IOException            This exception will be thrown if the file is empty
+	 * @throws ClassNotFoundException This exception will be thrown if the class is not found
+	 */
 	public static List<Client> getCustomers() throws IOException, ClassNotFoundException {
 		// Returning every client in the file
 		System.out.println("Getting clients");
@@ -144,6 +195,11 @@ public class Database {
 		return list;
 	}
 
+	/**
+	 * @return A list of Restuarants
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static List<Restaurant> getRestaurants() throws IOException, ClassNotFoundException {
 		// Returning every restaurant in the file
 		File file = new File(restaurant_db);
@@ -168,6 +224,13 @@ public class Database {
 		return (List<Restaurant>) list;
 	}
 
+	/**
+	 * @param nickname The unique nickname of the customer
+	 * @return The Customer
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws DatabaseExceptions     This exception is thrown when the database cannot find the customer
+	 */
 	// Get single object
 	public static Client getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of clients
@@ -175,12 +238,19 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByClientNickname(clientArrayList, nickname);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The user does not exists.");
+			throw new _database.DatabaseExceptions("The customer does not exists.");
 		}
 		// Getting the client
 		return clientArrayList.get(restInt);
 	}
 
+	/**
+	 * @param restaurantName The unique identifier of the restaurant
+	 * @return A single Restaurant
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws DatabaseExceptions
+	 */
 	public static Restaurant getRestaurant(String restaurantName) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
