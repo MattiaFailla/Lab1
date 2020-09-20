@@ -1,7 +1,6 @@
 package ristoratori.Registration;
 
 import _database.Database;
-import _database.DatabaseExceptions;
 import _database.objects.Restaurant;
 
 import javax.swing.*;
@@ -72,18 +71,20 @@ public class RestaurantRegistration extends JDialog {
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
+			Restaurant newRestaurant = new Restaurant(owner, name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, null);
 			try {
 				// Check the restaurant in db
-				Database.getRestaurant(name);
-				JOptionPane.showMessageDialog(null, "Restaurant already exists");
+				for(Restaurant rst : Database.getRestaurants()) {
+					if(!rst.equals(newRestaurant)) {
+						Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+						JOptionPane.showMessageDialog(null, "Registration successful");
+						dispose();
+					}
+					else JOptionPane.showMessageDialog(null, "Restaurant already exists");
+
+				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
-			catch (DatabaseExceptions databaseExceptions) {
-				// Saving the restaurant in the database
-				Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
-				JOptionPane.showMessageDialog(null, "Registration successful");
-				dispose();
-			}
 		});
 		//endregion
 

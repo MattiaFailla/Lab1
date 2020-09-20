@@ -26,22 +26,12 @@
       </component>
       <component id="98568" class="javax.swing.JLabel" binding="nameLabel">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
           <text value="Restaurant"/>
-        </properties>
-      </component>
-      <component id="d0a9c" class="javax.swing.JLabel" binding="fullAddressLabel">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <foreground color="-15658735"/>
-          <text value="Full Address"/>
         </properties>
       </component>
       <component id="98f60" class="javax.swing.JLabel" binding="phoneNumberLabel">
@@ -56,7 +46,7 @@
       </component>
       <component id="f9f2f" class="javax.swing.JLabel" binding="websiteLabel">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
@@ -121,6 +111,16 @@
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
+      <component id="d0a9c" class="javax.swing.JLabel" binding="fullAddressLabel">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-15658735"/>
+          <text value="Full Address"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

@@ -1,6 +1,7 @@
 package ristoratori._Profile;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Customer;
 import _database.objects.Restaurant;
 import ristoratori.Registration.RestaurantRegistration;
@@ -63,6 +64,24 @@ public class Profile extends JDialog {
 			RestaurantRegistration.owner = clt.nickname;
 			RestaurantRegistration.main();
 			printRestaurants(tableModel);
+		});
+		restaurantTable.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2 && !e.isConsumed()) {
+					e.consume();
+					try {
+						String nameRestaurant = String.valueOf(tableModel.getValueAt(restaurantTable.getSelectedRow(), 0));
+						RestaurantProfile.rst = Database.getRestaurant(nameRestaurant);
+						RestaurantProfile.main();
+					} catch (IOException | ClassNotFoundException | DatabaseExceptions ioException) {
+						ioException.printStackTrace();
+					}
+				}
+			}
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { }
+			public void mouseExited(MouseEvent e) { }
 		});
 	}
 

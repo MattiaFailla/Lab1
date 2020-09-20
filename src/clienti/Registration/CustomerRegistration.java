@@ -1,7 +1,7 @@
 package clienti.Registration;
 
 import _database.Database;
-import _database.DatabaseExceptions;
+import _database.objects.Customer;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -61,17 +61,17 @@ public class CustomerRegistration extends JDialog{
 			String password = String.valueOf(this.passwordField.getPassword());
 
 			try {
-				// Check the customer in db
-				Database.getCustomer(nickname);
-				JOptionPane.showMessageDialog(null, "Customer already exists");
+				// Check the customer in the database
+				for(Customer cst : Database.getCustomers()) {
+					if(!cst.nickname.equals(nickname)) {
+						Database.insertClient(name, surname, city, province, email, nickname, password);
+						JOptionPane.showMessageDialog(null, "Registration successfull");
+						dispose();
+					}
+					else JOptionPane.showMessageDialog(null, "Eat advisor already exists");
+				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
-			catch (DatabaseExceptions databaseExceptions) {
-				// Saving the customer in the database
-				Database.insertClient(name, surname, city, province, email, nickname, password);
-				JOptionPane.showMessageDialog(null, "Registration successful");
-				dispose();
-			}
 		});
 		// endregion
 
