@@ -43,10 +43,22 @@ public class CustomerSearch extends JDialog {
 		//region addColumn to searchTable
 		String[] columnNames = {"Name", "City", "Typology"};
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
-			public boolean isCellEditable(int row, int column) { return false; }
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
 			private static final long serialVersionUID = 7007554847444425016L;
 		};
 		tableModel.addRow(columnNames);
+		try {
+			List<Restaurant> restaurantList = Database.getRestaurants();
+			for (Restaurant res :
+					restaurantList) {
+				tableModel.addRow(new Object[]{res.name, res.city, res.type});
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		searchTable.setModel(tableModel);
 		//endregion
 
