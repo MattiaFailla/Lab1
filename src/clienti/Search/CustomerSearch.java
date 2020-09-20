@@ -22,7 +22,7 @@ public class CustomerSearch extends JDialog {
 	private JRadioButton cityRadio;
 	private JRadioButton typologyRadio;
 	private JRadioButton cityandtypologyRadio;
-	private JTextArea searchArea;
+	private JTable searchTable;
 	private JButton researchButton;
 	private JButton registrationButton;
 	private JButton loginButton;
@@ -36,6 +36,11 @@ public class CustomerSearch extends JDialog {
 		nameField.setBorder(new LineBorder(Color.red));
 		cityField.setBorder(new LineBorder(Color.red));
 		//endregion
+
+		//region addColumn to searchTable
+		String[] columns = { "NAME", "CITY", "TYPOLOGY"};
+		//endregion
+
 
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -62,12 +67,11 @@ public class CustomerSearch extends JDialog {
 				else if (typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
 				else result = Database.getRestaurantByCityAndType(city, type);
 
-				if (result.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No result found");
+				if (result.isEmpty()) { JOptionPane.showMessageDialog(null, "No result found"); }
+				else {
+					Collections.reverse(result);
+					//searchTable.addColumn();
 				}
-
-				Collections.reverse(result);
-				//searchArea.append();
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 		});
@@ -83,24 +87,28 @@ public class CustomerSearch extends JDialog {
 
 		//region RadioButton events
 		nameRadio.addActionListener(e -> {
+			nameRadio.setSelected(true);
 			cityRadio.setSelected(false);
 			typologyRadio.setSelected(false);
 			cityandtypologyRadio.setSelected(false);
 		});
 		cityRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
+			cityRadio.setSelected(true);
 			typologyRadio.setSelected(false);
 			cityandtypologyRadio.setSelected(false);
 		});
 		typologyRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
 			cityRadio.setSelected(false);
+			typologyRadio.setSelected(true);
 			cityandtypologyRadio.setSelected(false);
 		});
 		cityandtypologyRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
 			cityRadio.setSelected(false);
 			typologyRadio.setSelected(false);
+			cityandtypologyRadio.setSelected(true);
 		});
 		//endregion
 
