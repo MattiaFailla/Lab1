@@ -43,6 +43,7 @@ public class CustomerSearch extends JDialog {
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
 			//all cells false
 			public boolean isCellEditable(int row, int column) { return false; }
+			private static final long serialVersionUID = 7007554847444425016L;
 		};
 		tableModel.addRow(columnNames);
 		searchTable.setModel(tableModel);
@@ -75,11 +76,11 @@ public class CustomerSearch extends JDialog {
 				else if (typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
 				else result = Database.getRestaurantByCityAndType(city, type);
 
-				if (result.isEmpty()) { JOptionPane.showMessageDialog(null, "No result found"); }
+				if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No result found");
 				else {
 					Collections.reverse(result);
 					// Adding the result of the search to the table
-					for (Restaurant res : result) { tableModel.addRow(new Object[]{res.name, res.city, res.type}); }
+					for (Restaurant rst : result) { tableModel.addRow(new Object[]{rst.name, rst.city, rst.type}); }
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
