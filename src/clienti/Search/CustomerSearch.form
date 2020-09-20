@@ -176,6 +176,7 @@
           <background color="-723724"/>
           <foreground color="-15658735"/>
           <gridColor color="-3355444"/>
+          <selectionBackground color="-13670966"/>
         </properties>
       </component>
     </children>

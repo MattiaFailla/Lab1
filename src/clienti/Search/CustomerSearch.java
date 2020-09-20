@@ -7,7 +7,7 @@ import clienti.Registration.CustomerRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.TableColumn;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -39,10 +39,19 @@ public class CustomerSearch extends JDialog {
 		//endregion
 
 		//region addColumn to searchTable
-		String[] columnNames = {"Name", "City", "Typology"};
+		DefaultTableModel model_table = (DefaultTableModel) searchTable.getModel();
+		model_table.addColumn("Name");
+		model_table.addColumn("City");
+		model_table.addColumn("Typology");
+		model_table.addRow(new Object[]{"test", "test", "test"});
+		searchTable.setModel(model_table);
+
+
+		/*String[] columnNames = {"Name", "City", "Typology"};
 		//initialize the columns with the searches
 		Object[][] data = new Object[][];
-		searchTable = new JTable(data, columnNames);
+		searchTable = new JTable(data, columnNames);*/
+
 
 		//endregion
 
@@ -50,7 +59,9 @@ public class CustomerSearch extends JDialog {
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
@@ -134,6 +145,7 @@ public class CustomerSearch extends JDialog {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
 			cityField.setBorder(new LineBorder(color));
 		});
+
 
 		//endregion
 	}
