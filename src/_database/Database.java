@@ -132,6 +132,9 @@ public class Database {
 		File file = new File(client_db);
 
 		FileInputStream fIn = new FileInputStream(file);
+		if (fIn.available() <= 0) {
+			return new ArrayList<>();
+		}
 		ObjectInputStream oIn = new ObjectInputStream(fIn);
 
 		// Getting data
@@ -146,6 +149,9 @@ public class Database {
 		File file = new File(restaurant_db);
 		FileInputStream fIn = new FileInputStream(file);
 		ObjectInputStream oIn = new ObjectInputStream(fIn);
+		if (fIn.available() <= 0) {
+			return new ArrayList<>();
+		}
 
 		// Getting data
 		Object data = oIn.readObject();
@@ -178,7 +184,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The user does not exists.");
+			throw new _database.DatabaseExceptions("The restaurant does not exists.");
 		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt);
@@ -190,7 +196,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The user does not exists.");
+			throw new _database.DatabaseExceptions("The restaurant does not exists.");
 		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt).judgement;
