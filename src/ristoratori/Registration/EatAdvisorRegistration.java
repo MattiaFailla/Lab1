@@ -1,6 +1,7 @@
 package ristoratori.Registration;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Customer;
 
 import javax.swing.*;
@@ -62,13 +63,17 @@ public class EatAdvisorRegistration extends JDialog {
 
 			try {
 				// Saving the eat advisor in the database
-				for(Customer cst : Database.getCustomers()) {
-					if(!cst.nickname.equals(nickname)) Database.insertClient(name, surname, city, province, email, nickname, password);
-					else JOptionPane.showMessageDialog(null, "Eat advisor already exists");
-					dispose();
+				Customer res = Database.getCustomer(nickname);
+				if (!res.nickname.equals(nickname)) {
+					Database.insertClient(name, surname, city, province, email, nickname, password);
+					JOptionPane.showMessageDialog(null, "Welcome!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Eat advisor already exists");
 				}
+				dispose();
+			} catch (IOException | ClassNotFoundException | DatabaseExceptions ioException) {
+				ioException.printStackTrace();
 			}
-			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 		});
 		//endregion
 
