@@ -88,7 +88,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <text value="Search"/>
+          <text value="Search by"/>
         </properties>
       </component>
       <component id="e4b2a" class="javax.swing.JRadioButton" binding="nameRadio">
@@ -99,7 +99,7 @@
           <background color="-1"/>
           <foreground color="-15658735"/>
           <selected value="true"/>
-          <text value="by Name"/>
+          <text value="name"/>
         </properties>
       </component>
       <component id="2fd2e" class="javax.swing.JRadioButton" binding="cityRadio">
@@ -109,7 +109,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <text value="by City"/>
+          <text value="city"/>
         </properties>
       </component>
       <component id="db6f" class="javax.swing.JRadioButton" binding="typologyRadio">
@@ -119,7 +119,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <text value="by Typology"/>
+          <text value="typology"/>
         </properties>
       </component>
       <component id="5242d" class="javax.swing.JRadioButton" binding="cityandtypologyRadio">
@@ -129,7 +129,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <text value="by City and Typology"/>
+          <text value="city and typology"/>
         </properties>
       </component>
       <component id="42c2e" class="javax.swing.JButton" binding="researchButton">
@@ -165,7 +165,7 @@
           <text value="Login"/>
         </properties>
       </component>
-      <component id="85550" class="javax.swing.JTable" binding="searchTable">
+      <component id="b8e" class="javax.swing.JTable" binding="searchTable">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -174,7 +174,8 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <gridColor color="-3355444"/>
+          <gridColor color="-15658735"/>
+          <showHorizontalLines value="false"/>
         </properties>
       </component>
     </children>

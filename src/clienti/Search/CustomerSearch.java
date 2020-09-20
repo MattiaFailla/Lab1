@@ -1,9 +1,11 @@
 package clienti.Search;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Restaurant;
 import clienti.Login.CustomerLogin;
 import clienti.Registration.CustomerRegistration;
+import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -41,7 +43,6 @@ public class CustomerSearch extends JDialog {
 		//region addColumn to searchTable
 		String[] columnNames = {"Name", "City", "Typology"};
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
-			//all cells false
 			public boolean isCellEditable(int row, int column) { return false; }
 			private static final long serialVersionUID = 7007554847444425016L;
 		};
@@ -78,9 +79,9 @@ public class CustomerSearch extends JDialog {
 
 				if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No result found");
 				else {
+					// Reverse and adding the result of the search to the table
 					Collections.reverse(result);
-					// Adding the result of the search to the table
-					for (Restaurant rst : result) { tableModel.addRow(new Object[]{rst.name, rst.city, rst.type}); }
+					for (Restaurant rst : result) tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
@@ -92,6 +93,24 @@ public class CustomerSearch extends JDialog {
 		loginButton.addActionListener(e -> {
 			CustomerLogin.main();
 			loginButton.setEnabled(!isLogged);
+		});
+		searchTable.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2 && !e.isConsumed()) {
+					e.consume();
+					try {
+						String nameRestaurant = String.valueOf(tableModel.getValueAt(searchTable.getSelectedRow(), 0));
+						RestaurantProfile.rst = Database.getRestaurant(nameRestaurant);
+						RestaurantProfile.main();
+					} catch (IOException | ClassNotFoundException | DatabaseExceptions ioException) {
+						ioException.printStackTrace();
+					}
+				}
+			}
+			public void mousePressed(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) { }
+			public void mouseEntered(MouseEvent e) { }
+			public void mouseExited(MouseEvent e) { }
 		});
 		//endregion
 
