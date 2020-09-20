@@ -9,16 +9,24 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class CustomerResearch extends JDialog {
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField cityField;
 	private JComboBox<String> typologyBox;
+	private JRadioButton nameRadio;
+	private JRadioButton cityRadio;
+	private JRadioButton typologyRadio;
+	private JRadioButton cityandtypologyRadio;
 	private JTextArea searchArea;
 	private JButton researchButton;
 	private JButton registrationButton;
-	public static JButton loginButton;
+	private JButton loginButton;
+	public static boolean isLogged = false;
 
 	public CustomerResearch() {
 		setContentPane(contentPane);
@@ -27,8 +35,6 @@ public class CustomerResearch extends JDialog {
 		//region setBorder to Color.red
 		nameField.setBorder(new LineBorder(Color.red));
 		cityField.setBorder(new LineBorder(Color.red));
-
-		typologyBox.setSelectedIndex(-1);
 		//endregion
 
 		//region closing app events
@@ -47,14 +53,49 @@ public class CustomerResearch extends JDialog {
 			Restaurant.types type = null;
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
-			//Database.getRestaurantByCategory(type);
+			List<Restaurant> result;
+			try {
+				if(nameRadio.isSelected()) result = Database.getRestaurantByName(name);
+				else if(cityRadio.isSelected()) result = Database.getRestaurantByCity(city);
+				else if(typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
+				else result = Database.getRestaurantByCityAndType(city, type);
 
+				Collections.reverse(result);
+				//searchArea.append();
+			}
+			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 		});
 		//endregion
 
 		//region Switch windows
 		registrationButton.addActionListener(e -> CustomerRegistration.main());
-		loginButton.addActionListener(e -> CustomerLogin.main());
+		loginButton.addActionListener(e -> {
+			CustomerLogin.main();
+			loginButton.setEnabled(!isLogged);
+		});
+		//endregion
+
+		//region RadioButton events
+		nameRadio.addActionListener(e -> {
+			cityRadio.setSelected(false);
+			typologyRadio.setSelected(false);
+			cityandtypologyRadio.setSelected(false);
+		});
+		cityRadio.addActionListener(e -> {
+			nameRadio.setSelected(false);
+			typologyRadio.setSelected(false);
+			cityandtypologyRadio.setSelected(false);
+		});
+		typologyRadio.addActionListener(e -> {
+			nameRadio.setSelected(false);
+			cityRadio.setSelected(false);
+			cityandtypologyRadio.setSelected(false);
+		});
+		cityandtypologyRadio.addActionListener(e -> {
+			nameRadio.setSelected(false);
+			cityRadio.setSelected(false);
+			typologyRadio.setSelected(false);
+		});
 		//endregion
 
 		//region Focus Events
