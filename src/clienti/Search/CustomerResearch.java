@@ -1,4 +1,4 @@
-package clienti.Research;
+package clienti.Search;
 
 import _database.Database;
 import _database.objects.Restaurant;

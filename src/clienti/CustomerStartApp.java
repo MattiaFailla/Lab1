@@ -1,7 +1,8 @@
 package clienti;
 
 import _database.Database;
-import clienti.Research.CustomerResearch;
+import clienti.Search.CustomerResearch;
+import clienti.Search.CustomerSearch;
 
 /**
  * StartApp is the entry point for the app clienti
@@ -22,6 +23,6 @@ public class CustomerStartApp {
 		System.out.println("App started");
 
 		// Starting the UI
-		CustomerResearch.main();
+		CustomerSearch.main();
 	}
 }

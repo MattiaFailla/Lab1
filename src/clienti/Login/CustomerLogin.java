@@ -3,7 +3,7 @@ package clienti.Login;
 import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Client;
-import clienti.Research.CustomerResearch;
+import clienti.Search.CustomerResearch;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
