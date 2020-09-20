@@ -60,8 +60,8 @@ public class Profile extends JDialog {
 		printRestaurants(tableModel);
 
 		restaurantButton.addActionListener(e -> {
-			RestaurantRegistration.main();
 			RestaurantRegistration.owner = clt.nickname;
+			RestaurantRegistration.main();
 			printRestaurants(tableModel);
 		});
 	}
