@@ -57,10 +57,14 @@ public class CustomerResearch extends JDialog {
 
 			List<Restaurant> result;
 			try {
-				if(nameRadio.isSelected()) result = Database.getRestaurantByName(name);
-				else if(cityRadio.isSelected()) result = Database.getRestaurantByCity(city);
-				else if(typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
+				if (nameRadio.isSelected()) result = Database.getRestaurantByName(name);
+				else if (cityRadio.isSelected()) result = Database.getRestaurantByCity(city);
+				else if (typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
 				else result = Database.getRestaurantByCityAndType(city, type);
+
+				if (result.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No result found");
+				}
 
 				Collections.reverse(result);
 				//searchArea.append();
