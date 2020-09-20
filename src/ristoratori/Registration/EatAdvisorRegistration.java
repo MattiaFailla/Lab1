@@ -20,6 +20,7 @@ public class EatAdvisorRegistration extends JDialog {
 	private JPasswordField passwordField;
 	private JButton registerButton;
 	private JButton registerRestaurantButton;
+	public static boolean isRegistered = false;
 
 	public EatAdvisorRegistration() {
 		setContentPane(contentPane);
@@ -155,7 +156,7 @@ public class EatAdvisorRegistration extends JDialog {
 		};
 
 		for(Color color : colorArray) if(color == Color.red) return false;
-		return true;
+		return isRegistered;
 	}
 
 	public static void main() {

@@ -81,6 +81,7 @@ public class RestaurantRegistration extends JDialog {
 				// Saving the restaurant in the database
 				Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
 				JOptionPane.showMessageDialog(null, "Registration successful");
+				EatAdvisorRegistration.isRegistered = true;
 				dispose();
 			}
 		});
