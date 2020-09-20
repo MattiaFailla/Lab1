@@ -47,12 +47,13 @@ public class CustomerResearch extends JDialog {
 
 		//region researchButton events
 		researchButton.addActionListener(e -> {
+			String typeNull = "- nothing -";
 			Restaurant.types type = null;
 
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
+			if (!typeStr.equals(typeNull)) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
 			List<Restaurant> result;
 			try {
@@ -99,7 +100,7 @@ public class CustomerResearch extends JDialog {
 		});
 		//endregion
 
-		//region Focus Events
+		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
 			public void focusLost(FocusEvent e) { }
