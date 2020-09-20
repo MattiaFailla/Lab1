@@ -7,6 +7,7 @@ import clienti.Registration.CustomerRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -38,6 +39,10 @@ public class CustomerSearch extends JDialog {
 		//endregion
 
 		//region addColumn to searchTable
+		String[] columnNames = {"Name", "City", "Typology"};
+		//initialize the columns with the searches
+		Object[][] data = new Object[][];
+		searchTable = new JTable(data, columnNames);
 
 		//endregion
 
@@ -129,6 +134,7 @@ public class CustomerSearch extends JDialog {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
 			cityField.setBorder(new LineBorder(color));
 		});
+
 		//endregion
 	}
 
