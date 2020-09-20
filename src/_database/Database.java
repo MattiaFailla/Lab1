@@ -106,6 +106,7 @@ public class Database {
 		try {
 			// Before saving the new restaurant we need to extract the old restaurant data
 			ArrayList<Restaurant> entries = (ArrayList<Restaurant>) ReadObjectFromFile(restaurant_db);
+			assert entries != null;
 			entries.add(rst);
 
 			File file = new File(restaurant_db);

@@ -1,7 +1,10 @@
+_database
+_database.objects
+clienti
 clienti.Login
 clienti.Registration
-database
+clienti.Search
 ristoratori
+ristoratori._Profile
 ristoratori.Login
-ristoratori.profile
-ristoratori.Restaurant
+ristoratori.Registration
