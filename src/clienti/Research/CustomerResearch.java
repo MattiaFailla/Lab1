@@ -47,10 +47,11 @@ public class CustomerResearch extends JDialog {
 
 		//region researchButton events
 		researchButton.addActionListener(e -> {
+			Restaurant.types type = null;
+
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			Restaurant.types type = null;
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
 			List<Restaurant> result;
