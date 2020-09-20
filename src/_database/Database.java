@@ -475,6 +475,6 @@ public class Database {
 
 	public static boolean regexPhone(String text) { return text.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"); } // Regular italian phone number
 
-	public static boolean regexURL(String text) { return text.matches("^https?:\\/\\/(www\\.)?[a-z0-9]+([\\.]?[a-z0-9]+){1,2}/?$"); }  // http + s? + :// + www.? + lowercase letters or number + (.? + lowercase letters or number) {1,2} + /?
+	public static boolean regexURL(String text) { return text.matches("^(www\\.)?[a-z0-9]+([\\.]?[a-z0-9]+){1,2}/?$"); }  // www.? + lowercase letters or number + (.? + lowercase letters or number) {1,2} + /?
 	//endregion
 }
