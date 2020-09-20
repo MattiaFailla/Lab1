@@ -55,6 +55,7 @@ public class Profile extends JDialog {
 		fullNameLabel.setText(clt.name + " " + clt.surname);
 		cityLabel.setText(clt.city);
 		provinceLabel.setText(clt.province);
+		//endregion
 
 		List<Restaurant> result;
 		try {
