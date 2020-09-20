@@ -1,12 +1,14 @@
 package ristorante.Registration;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Restaurant;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class RestaurantRegistration extends JDialog {
 	private JPanel contentPane;
@@ -69,10 +71,18 @@ public class RestaurantRegistration extends JDialog {
 			Restaurant.types type = null;
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
-			// Saving the restaurant in the database
-			Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
-			JOptionPane.showMessageDialog(null, "Registered successful");
-			dispose();
+			try {
+				// Check the customer in db
+				Database.getRestaurant(name);
+				JOptionPane.showMessageDialog(null, "Restaurant already exists");
+			}
+			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
+			catch (DatabaseExceptions databaseExceptions) {
+				// Saving the restaurant in the database
+				Database.insertRestaurant(name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+				JOptionPane.showMessageDialog(null, "Registration successful");
+				dispose();
+			}
 		});
 		//endregion
 
