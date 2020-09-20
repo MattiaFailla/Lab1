@@ -2,7 +2,6 @@ package ristoratori.Registration;
 
 import _database.Database;
 import _database.DatabaseExceptions;
-import ristorante.Registration.RestaurantRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
