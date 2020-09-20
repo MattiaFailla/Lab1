@@ -63,7 +63,7 @@ public class EatAdvisorRegistration extends JDialog {
 
 			try {
 				// Check the eat advisor in db
-				Database.getClient(nickname);
+				Database.getCustomer(nickname);
 				JOptionPane.showMessageDialog(null, "Customer already exists");
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }

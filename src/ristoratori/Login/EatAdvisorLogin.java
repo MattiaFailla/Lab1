@@ -51,16 +51,20 @@ public class EatAdvisorLogin extends JDialog {
 			String password = String.valueOf(passwordField.getPassword());
 
 			try {
-				Client client = Database.getClient(nickname);
-				if(client.nickname.equals(nickname) && client.password.equals(password)) {
+				Client client = Database.getCustomer(nickname);
+				if (client.nickname.equals(nickname) && client.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					Profile.clt = client;
 					dispose();
 					Profile.main();
-				} else { JOptionPane.showMessageDialog(null, "Client not found"); }
+				} else {
+					JOptionPane.showMessageDialog(null, "Customer not found");
+				}
+			} catch (IOException | ClassNotFoundException exception) {
+				exception.printStackTrace();
+			} catch (DatabaseExceptions databaseExceptions) {
+				JOptionPane.showMessageDialog(null, "Customer not found");
 			}
-			catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
-			catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
 		});
 		//endregion
 
