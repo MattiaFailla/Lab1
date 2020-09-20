@@ -1,7 +1,6 @@
 package clienti;
 
 import _database.Database;
-import clienti.Search.CustomerResearch;
 import clienti.Search.CustomerSearch;
 
 /**
