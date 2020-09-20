@@ -3,8 +3,6 @@ package ristoratori;
 import _database.Database;
 import ristoratori.Login.EatAdvisorLogin;
 
-import java.io.IOException;
-
 /**
  * StartApp is the entry point for the app ristoratori
  */
@@ -22,13 +20,6 @@ public class RestaurantStartApp {
 		// Database.write(1, DataBase.data_types.INFO, "App started");
 
 		System.out.println("App started");
-
-		try {
-			Database.insertClient("Mattia", "Failla", "Laveno", "VA", "mattiafailla@hotmail.it", "mattia", "Matt1a");
-			System.out.println(Database.getClients());
-			System.out.println(Database.checkClient("Mattia"));
-
-		} catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
 
 		// Starting the UI
 		EatAdvisorLogin.main();

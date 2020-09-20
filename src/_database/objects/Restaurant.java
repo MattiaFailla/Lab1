@@ -9,7 +9,7 @@ public class Restaurant implements Serializable {
 
     public enum types {
         ITALIAN,
-        ETNIC,
+        ETHNIC,
         FUSION
     }
 

@@ -13,13 +13,13 @@ public class RestaurantRegistration extends JDialog {
 	private JTextField nameField;
 	private JTextField phoneField;
 	private JTextField websiteField;
-	private JComboBox qualifierComboBox;
+	private JComboBox<String> qualifierComboBox;
 	private JTextField streetNameField;
 	private JTextField civicNumberField;
 	private JTextField cityField;
 	private JTextField provinceField;
 	private JTextField capField;
-	private JComboBox typologyBox;
+	private JComboBox<String> typologyBox;
 	private JButton registerButton;
 
 	public RestaurantRegistration() {
@@ -36,6 +36,7 @@ public class RestaurantRegistration extends JDialog {
 		provinceField.setBorder(new LineBorder(Color.red));
 		capField.setBorder(new LineBorder(Color.red));
 		//endregion
+		qualifierComboBox.setSelectedIndex(1);
 
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,7 +65,7 @@ public class RestaurantRegistration extends JDialog {
 			String city = this.cityField.getText();
 			String province = this.provinceField.getText();
 			Integer CAP = Integer.valueOf(this.capField.getText());
-			String typeStr = (String) this.typologyBox.getSelectedItem();
+			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
 			Restaurant.types type = null;
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 

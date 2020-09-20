@@ -8,9 +8,9 @@
     <properties>
       <background color="-723724"/>
       <foreground color="-15658735"/>
-      <maximumSize width="350" height="150"/>
-      <minimumSize width="350" height="150"/>
-      <preferredSize width="350" height="150"/>
+      <maximumSize width="350" height="120"/>
+      <minimumSize width="350" height="120"/>
+      <preferredSize width="350" height="120"/>
     </properties>
     <border type="none">
       <title-color color="-15658735"/>

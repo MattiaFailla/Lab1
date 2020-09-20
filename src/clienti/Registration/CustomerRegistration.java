@@ -42,27 +42,30 @@ public class CustomerRegistration extends JDialog{
 
 		// region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				// Getting data from the form
-				String name = nameField.getText();
-				String surname = surnameField.getText();
-				String city = cityField.getText();
-				String province = provinceField.getText();
-				String email = emailField.getText();
-				String nickname = nicknameField.getText();
-				String password = String.valueOf(passwordField.getPassword());
-
-				Database.insertClient(name, surname, city, province, email, nickname, password);
-				JOptionPane.showMessageDialog(null, "Registered successfully!");
-			}
+			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
+		registerButton.addActionListener(e -> {
+			// Getting data from the form
+			String name = this.nameField.getText();
+			String surname = this.surnameField.getText();
+			String city = this.cityField.getText();
+			String province = this.provinceField.getText();
+			String email = this.emailField.getText();
+			String nickname = this.nicknameField.getText();
+			String password = String.valueOf(this.passwordField.getPassword());
+
+			// Saving the customer in the database
+			Database.insertClient(name, surname, city, province, email, nickname, password);
+			JOptionPane.showMessageDialog(null, "Registered successful");
+			dispose();
+		});
 		// endregion
 
-		//region Action events
+		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nameField.selectAll(); }
 			public void focusLost(FocusEvent e) { }
@@ -146,6 +149,9 @@ public class CustomerRegistration extends JDialog{
 	public static void main() {
 		CustomerRegistration dialog = new CustomerRegistration();
 		dialog.pack();
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("Client - Registration");
 		dialog.setVisible(true);
 	}
 }

@@ -3,6 +3,7 @@ package clienti.Login;
 import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Client;
+import clienti.Research.CustomerResearch;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -33,29 +34,33 @@ public class CustomerLogin extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
+		//region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				// Getting data from the form
-				String nickname = nicknameField.getText();
-				String password = String.valueOf(passwordField.getPassword());
-
-				try {
-					Client client = Database.getClient(nickname);
-					if (client.nickname.equals(nickname) && client.password.equals(password)) {
-						JOptionPane.showMessageDialog(null, "Login successful");
-
-					} else { JOptionPane.showMessageDialog(null, "Client not found"); }
-				}
-				catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
-				catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
-			}
+			public void mouseClicked(MouseEvent e) { }
 			public void mousePressed(MouseEvent e) { }
 			public void mouseReleased(MouseEvent e) { }
 			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
 			public void mouseExited(MouseEvent e) { }
 		});
+		loginButton.addActionListener(e -> {
+			// Getting data from the form
+			String nickname = nicknameField.getText();
+			String password = String.valueOf(passwordField.getPassword());
 
-		//region Focus Events
+			try {
+				Client client = Database.getClient(nickname);
+				if(client.nickname.equals(nickname) && client.password.equals(password)) {
+					JOptionPane.showMessageDialog(null, "Login successful");
+					CustomerResearch.isLogged = true;
+					dispose();
+				} else { JOptionPane.showMessageDialog(null, "Client not found"); }
+			}
+			catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
+			catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
+		});
+		//endregion
+
+		//region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
 			public void focusLost(FocusEvent e) { }
@@ -89,6 +94,9 @@ public class CustomerLogin extends JDialog {
 	public static void main() {
 		CustomerLogin dialog = new CustomerLogin();
 		dialog.pack();
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("Client - Login");
 		dialog.setVisible(true);
 	}
 }
