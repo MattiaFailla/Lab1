@@ -76,6 +76,11 @@ public class CustomerSearch extends JDialog {
 				if (result.isEmpty()) { JOptionPane.showMessageDialog(null, "No result found"); }
 				else {
 					Collections.reverse(result);
+					// Adding the result of the search to the table
+					for (Restaurant res :
+							result) {
+						tableModel.addRow(new Object[]{res.name, res.city, res.type});
+					}
 				}
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
