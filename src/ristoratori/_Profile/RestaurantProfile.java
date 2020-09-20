@@ -14,15 +14,19 @@ import java.util.List;
 
 public class RestaurantProfile extends JDialog {
 	private JPanel contentPane;
-	private JLabel restaurantLabel;
-	private JTextArea judgmentArea;
-	private JComboBox starsComboBox;
+	private JLabel ownerLabel;
+	private JLabel nameLabel;
+	private JLabel fullAddressLabel;
+	private JLabel phoneNumberLabel;
+	private JLabel websiteLabel;
+	private JLabel typeLabel;
+	private JList<String> judgmentList;
+	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
 	public static Restaurant rst;
 	public static boolean verifyClient;
 
 	public RestaurantProfile() {
-		restaurantLabel.setText("Connection");
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -36,17 +40,37 @@ public class RestaurantProfile extends JDialog {
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
 
-		try {
-			List<Judgement> list = Database.getJudgement(restaurantLabel.getText());
-			judgmentArea.append(list.toString());
-		}
-		catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
-		catch (DatabaseExceptions databaseExceptions) {
-			JOptionPane.showMessageDialog(null, "Restaurant not found");
-		}
+		//region Information's restaurants
+		ownerLabel.setText(rst.owner);
+		nameLabel.setText(rst.name);
+		fullAddressLabel.setText(rst.fullAddress);
+		phoneNumberLabel.setText(String.valueOf(rst.phoneNumber));
+		websiteLabel.setText(rst.url);
+		typeLabel.setText(rst.type.toString());
 
 		judgmentField.setEditable(verifyClient);
 		starsComboBox.setEnabled(verifyClient);
+		//endregion
+
+		//region Initializing judgmentList
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		judgmentList.setModel(listModel);
+		printJudgment(listModel);
+		//endregion
+
+	}
+
+	private void printJudgment(DefaultListModel<String> listModel) {
+		List<Judgement> result;
+		try {
+			result = Database.getJudgement(rst.name);
+			if(result.isEmpty()) JOptionPane.showMessageDialog(null, "Any judgment for this restaurant");
+			else {
+				for(Judgement jdg : result) listModel.addElement(jdg.judgement);
+			}
+		} catch (IOException | DatabaseExceptions e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) { JOptionPane.showMessageDialog(null, "Any judgment for this restaurant"); }
 	}
 
 	public static void main() {

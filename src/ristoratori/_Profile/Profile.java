@@ -27,17 +27,6 @@ public class Profile extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 
-		//region addColumn to searchTable
-		String[] columnNames = {"Name", "City", "Typology"};
-		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
-			//all cells false
-			public boolean isCellEditable(int row, int column) { return false; }
-			private static final long serialVersionUID = 8785365349565461528L;
-		};
-		tableModel.addRow(columnNames);
-		restaurantTable.setModel(tableModel);
-		//endregion
-
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -57,6 +46,27 @@ public class Profile extends JDialog {
 		provinceLabel.setText(clt.province);
 		//endregion
 
+		//region Initializing searchTable
+		String[] columnNames = {"Name", "City", "Typology"};
+		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
+			//all cells false
+			public boolean isCellEditable(int row, int column) { return false; }
+			private static final long serialVersionUID = 8785365349565461528L;
+		};
+		tableModel.addRow(columnNames);
+		restaurantTable.setModel(tableModel);
+		//endregion
+
+		printRestaurants(tableModel);
+
+		restaurantButton.addActionListener(e -> {
+			RestaurantRegistration.main();
+			RestaurantRegistration.owner = clt.nickname;
+			printRestaurants(tableModel);
+		});
+	}
+
+	private void printRestaurants(DefaultTableModel tableModel) {
 		List<Restaurant> result;
 		try {
 			result = Database.getRestaurantByOwner(clt.nickname);
@@ -66,11 +76,6 @@ public class Profile extends JDialog {
 			}
 		}
 		catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
-
-		restaurantButton.addActionListener(e -> {
-			RestaurantRegistration.main();
-			RestaurantRegistration.owner = clt.nickname;
-		});
 	}
 
 	public static void main() {
