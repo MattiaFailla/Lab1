@@ -179,7 +179,7 @@ public class Database {
 	 */
 	public static List<Customer> getCustomers() throws IOException, ClassNotFoundException {
 		// Returning every customer in the file
-		System.out.println("Getting customers");
+		System.out.println("Getting customers from database");
 		File file = new File(client_db);
 
 		FileInputStream fIn = new FileInputStream(file);
@@ -192,6 +192,7 @@ public class Database {
 		Object data = oIn.readObject();
 		List<Customer> list = new ArrayList<>();
 		if (data instanceof List) list = (List<Customer>) data;
+		System.out.println(list);
 		return list;
 	}
 
