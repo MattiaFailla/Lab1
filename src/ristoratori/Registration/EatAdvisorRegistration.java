@@ -1,12 +1,14 @@
 package ristoratori.Registration;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import ristorante.Registration.RestaurantRegistration;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class EatAdvisorRegistration extends JDialog {
 	private JPanel contentPane;
@@ -60,10 +62,18 @@ public class EatAdvisorRegistration extends JDialog {
 			String nickname = nicknameField.getText();
 			String password = String.valueOf(passwordField.getPassword());
 
-			// Saving the eat advisor in the database
-			Database.insertClient(name, surname, city, province, email, nickname, password);
-			JOptionPane.showMessageDialog(null, "Registered successful");
-			dispose();
+			try {
+				// Check the customer in db
+				Database.getClient(nickname);
+				JOptionPane.showMessageDialog(null, "Customer already exists");
+			}
+			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
+			catch (DatabaseExceptions databaseExceptions) {
+				// Saving the eat advisor in the database
+				Database.insertClient(name, surname, city, province, email, nickname, password);
+				JOptionPane.showMessageDialog(null, "Registration successful");
+				dispose();
+			}
 		});
 		//endregion
 
