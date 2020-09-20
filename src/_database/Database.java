@@ -418,7 +418,7 @@ public class Database {
 				return index;
 			}
 		}
-		return -1;// not there is list
+		return -1; // Element not found
 	}
 
 	/**
@@ -433,7 +433,7 @@ public class Database {
 				return index;
 			}
 		}
-		return -1; // not there is list
+		return -1;  // Element not found
 	}
 
 	/**
@@ -448,7 +448,7 @@ public class Database {
 				return index;
 			}
 		}
-		return -1;// not there is list
+		return -1; // Element not found
 	}
 
 	/**
