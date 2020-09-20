@@ -166,7 +166,7 @@ public class Database {
 	//region GETTER
 
 	// Get all objects
-	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
+	public static boolean checkCustomer(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of clients
 		for (Client client : getCustomers()) if (client.toString().contains(fieldData)) return true;
 		return false;
