@@ -62,7 +62,7 @@ public class CustomerRegistration extends JDialog{
 
 			try {
 				// Check the customer in db
-				Database.getClient(nickname);
+				Database.getCustomer(nickname);
 				JOptionPane.showMessageDialog(null, "Customer already exists");
 			}
 			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
@@ -161,7 +161,7 @@ public class CustomerRegistration extends JDialog{
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
-		dialog.setTitle("Client - Registration");
+		dialog.setTitle("Customer - Registration");
 		dialog.setVisible(true);
 	}
 }

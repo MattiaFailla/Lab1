@@ -48,15 +48,19 @@ public class CustomerLogin extends JDialog {
 			String password = String.valueOf(passwordField.getPassword());
 
 			try {
-				Client client = Database.getClient(nickname);
-				if(client.nickname.equals(nickname) && client.password.equals(password)) {
+				Client client = Database.getCustomer(nickname);
+				if (client.nickname.equals(nickname) && client.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					CustomerSearch.isLogged = true;
 					dispose();
-				} else { JOptionPane.showMessageDialog(null, "Client not found"); }
+				} else {
+					JOptionPane.showMessageDialog(null, "Customer not found");
+				}
+			} catch (IOException | ClassNotFoundException exception) {
+				exception.printStackTrace();
+			} catch (DatabaseExceptions databaseExceptions) {
+				JOptionPane.showMessageDialog(null, "Customer not found");
 			}
-			catch (IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
-			catch (DatabaseExceptions databaseExceptions) { JOptionPane.showMessageDialog(null, "Client not found"); }
 		});
 		//endregion
 
@@ -96,7 +100,7 @@ public class CustomerLogin extends JDialog {
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
-		dialog.setTitle("Client - Login");
+		dialog.setTitle("Customer - Login");
 		dialog.setVisible(true);
 	}
 }

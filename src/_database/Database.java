@@ -122,11 +122,11 @@ public class Database {
 	// Get all objects
 	public static boolean checkClient(String fieldData) throws IOException, ClassNotFoundException {
 		// Return true if fieldData exists in any field of clients
-		for (Client client : getClients()) if (client.toString().contains(fieldData)) return true;
+		for (Client client : getCustomers()) if (client.toString().contains(fieldData)) return true;
 		return false;
 	}
 
-	public static List<Client> getClients() throws IOException, ClassNotFoundException {
+	public static List<Client> getCustomers() throws IOException, ClassNotFoundException {
 		// Returning every client in the file
 		System.out.println("Getting clients");
 		File file = new File(client_db);
@@ -169,9 +169,9 @@ public class Database {
 	}
 
 	// Get single object
-	public static Client getClient(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
+	public static Client getCustomer(String nickname) throws IOException, ClassNotFoundException, DatabaseExceptions {
 		// Getting the list of clients
-		List<Client> clientArrayList = getClients();
+		List<Client> clientArrayList = getCustomers();
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByClientNickname(clientArrayList, nickname);
 		if (restInt == -1) {
