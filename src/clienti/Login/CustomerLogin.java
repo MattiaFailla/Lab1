@@ -51,7 +51,7 @@ public class CustomerLogin extends JDialog {
 				Client client = Database.getClient(nickname);
 				if(client.nickname.equals(nickname) && client.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
-					CustomerResearch.loginButton.setEnabled(false);
+					CustomerResearch.isLogged = true;
 					dispose();
 				} else { JOptionPane.showMessageDialog(null, "Client not found"); }
 			}
