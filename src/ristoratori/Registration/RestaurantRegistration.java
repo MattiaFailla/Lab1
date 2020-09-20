@@ -1,6 +1,7 @@
 package ristoratori.Registration;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import _database.objects.Restaurant;
 
 import javax.swing.*;
@@ -71,20 +72,16 @@ public class RestaurantRegistration extends JDialog {
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
 			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
 
-			Restaurant newRestaurant = new Restaurant(owner, name, qualifier, street, civicNumber, city, province, CAP, phoneNumber, url, type, null);
 			try {
-				// Check the restaurant in db
-				for(Restaurant rst : Database.getRestaurants()) {
-					if(!rst.equals(newRestaurant)) {
-						Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
-						JOptionPane.showMessageDialog(null, "Registration successful");
-						dispose();
-					}
-					else JOptionPane.showMessageDialog(null, "Restaurant already exists");
-
-				}
+				Database.getRestaurant(name); // This will invoke an exception if the restaurant does exists
+				JOptionPane.showMessageDialog(null, "Restaurant already exists!");
+			} catch (DatabaseExceptions | IOException ioException) {
+				Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+				JOptionPane.showMessageDialog(null, "Registration successful");
+				dispose();
+			} catch (ClassNotFoundException classNotFoundException) {
+				classNotFoundException.printStackTrace();
 			}
-			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 		});
 		//endregion
 
