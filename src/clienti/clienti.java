@@ -6,7 +6,7 @@ import clienti.Search.CustomerSearch;
 /**
  * StartApp is the entry point for the app clienti
  */
-public class CustomerStartApp {
+public class clienti {
 	/**
 	 * This is the entry-point for the app clienti.
 	 *

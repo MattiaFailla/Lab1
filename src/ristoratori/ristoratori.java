@@ -6,7 +6,7 @@ import ristoratori.Login.EatAdvisorLogin;
 /**
  * StartApp is the entry point for the app ristoratori
  */
-public class RestaurantStartApp {
+public class ristoratori {
 	/**
 	 * This is the entry-point for the app ristoratori.
 	 *
