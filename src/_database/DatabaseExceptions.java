@@ -1,7 +1,8 @@
 package _database;
 
 /**
- * This class is responsible for managing custom database errors
+ * This class is responsible for managing custom database errors.
+ * DatabaseException is a function called when the result of a search or a file is empty.
  */
 public class DatabaseExceptions extends Throwable {
 

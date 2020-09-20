@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 /**
  * Database is the class responsible for correct communication with the
- *  * database.
- *  * <p>
- *  * The data are saved in the following format:
- *  * --- TODO ---
- *  * <p>
- *  * In this class you can find helper functions to find, insert, update and delete data
- *  * from the database. Since this class is in common between clienti and ristoratori our
- *  * priority is to make a powerful yet simple helper class to achieve a single point of
- *  * junction between these two applications.
+ * * database file.
+ * * <p>
+ * * The data is saved into an array of class stored in stream file.
+ * * Custom classes are provided to manage and store data as Clienti, Ristoranti and Giudizi.
+ * * <p>
+ * * In this class you can find helper functions to find, insert, update and delete data
+ * * from the database. Since this class is in common between clienti and ristoratori our
+ * * priority is to make a powerful yet simple helper class to achieve a single point of
+ * * junction between these two applications.
  */
 public class Database {
 	private static final String restaurant_db = "./src/_database/db/EatAdvisor.dati";
