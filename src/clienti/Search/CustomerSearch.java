@@ -44,6 +44,7 @@ public class CustomerSearch extends JDialog {
 			//all cells false
 			public boolean isCellEditable(int row, int column) { return false; }
 		};
+		tableModel.addRow(columnNames);
 		searchTable.setModel(tableModel);
 		//endregion
 
@@ -60,8 +61,7 @@ public class CustomerSearch extends JDialog {
 		//region researchButton events
 		researchButton.addActionListener(e -> {
 			Restaurant.types type = null;
-			tableModel.setRowCount(0);
-			tableModel.addRow(columnNames);
+			tableModel.setRowCount(1);
 
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
