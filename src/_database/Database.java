@@ -357,6 +357,12 @@ public class Database {
 		return result;
 	}
 
+	/**
+	 * @param owner   The owner of restaurant
+	 * @return A list of restaurants with the same owner
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static List<Restaurant> getRestaurantByOwner(String owner) throws IOException, ClassNotFoundException {
 		// Getting the list of restaurants
 		List<Restaurant> restaurantArrayList = getRestaurants();
