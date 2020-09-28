@@ -54,6 +54,7 @@ public class CustomerLogin extends JDialog {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					CustomerSearch.isLogged = true;
 					RestaurantProfile.verifyClient = true;
+					RestaurantProfile.customerName = nickname;
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Customer not found");

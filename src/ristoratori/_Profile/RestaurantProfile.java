@@ -23,8 +23,10 @@ public class RestaurantProfile extends JDialog {
 	private JList<String> judgmentList;
 	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
-	public static Restaurant rst;
+	private JButton sendButton;
 	public static boolean verifyClient = false;
+	public static String customerName;
+	public static Restaurant rst;
 
 	public RestaurantProfile() {
 		setContentPane(contentPane);
@@ -48,8 +50,7 @@ public class RestaurantProfile extends JDialog {
 		websiteLabel.setText(rst.url);
 		typeLabel.setText(rst.type.toString());
 
-		judgmentField.setEnabled(verifyClient);
-		starsComboBox.setEnabled(verifyClient);
+		sendButton.setEnabled(verifyClient);
 		//endregion
 
 		//region Initializing judgmentList
@@ -58,9 +59,26 @@ public class RestaurantProfile extends JDialog {
 		printJudgment(listModel);
 		//endregion
 
+		printJudgment(listModel);
+
+		//region sendButton events
+		sendButton.addActionListener(e -> {
+			Integer rating = this.starsComboBox.getSelectedIndex() + 1;
+			String judgment = this.judgmentField.getText();
+
+			try {
+				Database.insertJudgment(customerName, nameLabel.getText(), rating, judgment);
+			} catch (IOException | ClassNotFoundException ioException) {
+				ioException.printStackTrace();
+			}
+
+			printJudgment(listModel);
+		});
+		//endregion
 	}
 
 	private void printJudgment(DefaultListModel<String> listModel) {
+		listModel.clear();
 		List<Judgement> result;
 		try {
 			result = Database.getJudgement(rst.name);
@@ -70,11 +88,7 @@ public class RestaurantProfile extends JDialog {
 					listModel.addElement(jdg.toString());
 				}
 			}
-		} catch (IOException | DatabaseExceptions e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "No judgment found for this restaurant");
-		}
+		} catch (IOException | DatabaseExceptions | ClassNotFoundException e) { e.printStackTrace(); }
 	}
 
 	public static void main() {

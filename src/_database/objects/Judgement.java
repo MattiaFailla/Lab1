@@ -20,12 +20,10 @@ public class Judgement implements Serializable {
 		this.username = username;
 		this.restaurantName = restaurantName;
 		this.rating = rating;
-		this.judgement = judgement.substring(0, 256);
+		this.judgement = judgement;
 	}
 
 	public String toString(){
-		return "The user" + username + " has rated the restaurant " + restaurantName +
-				" with " + rating.toString() + " stars.\n" +
-				"Comment:\n" + judgement;
+		return username + " | " + rating.toString() + " stars. " + judgement;
 	}
 }
