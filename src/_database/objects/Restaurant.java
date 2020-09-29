@@ -10,9 +10,7 @@ public class Restaurant implements Serializable {
 
     private static final long serialVersionUID = -6075801231078042820L;
 
-    /**
-     * Custom enum class to handle different kinds of restaurant types
-     */
+    // Custom enum class to handle different kinds of restaurant types
     public enum types {
         ITALIAN,
         ETHNIC,
@@ -33,7 +31,7 @@ public class Restaurant implements Serializable {
     public types type;
     public ArrayList<Judgement> judgement;
 
-    public Restaurant(){}
+    public Restaurant() {}
 
     public Restaurant(String owner, String name, String qualifier, String streetName, Integer civicNumber, String city, String province, Integer CAP, Long phoneNumber, String url, types type, ArrayList<Judgement> judgement) {
         this.owner = owner;
@@ -51,7 +49,7 @@ public class Restaurant implements Serializable {
         this.judgement = judgement;
     }
 
-    public String toString(){
+    public String toString() {
         return "owner: " + owner +
                 "\nname: " + name +
                 "\nqualifier: " + qualifier +
@@ -64,6 +62,6 @@ public class Restaurant implements Serializable {
                 "\nphoneNumber: " + phoneNumber.toString() +
                 "\nurl: " + url +
                 "\ntype: " + type.toString() +
-                "\n Giudizi: " + judgement.toString();
+                "\ngiudizi: " + judgement.toString();
     }
 }
