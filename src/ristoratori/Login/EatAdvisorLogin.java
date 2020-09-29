@@ -39,13 +39,23 @@ public class EatAdvisorLogin extends JDialog {
 
 		//region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				loginButton.setEnabled(allFieldValid());
+			}
+
+			public void mouseExited(MouseEvent e) {
+			}
 		});
-		loginButton.addActionListener(e -> {
+		/*loginButton.addActionListener(e -> {
 			// Getting data from the form
 			String nickname = nicknameField.getText();
 			String password = String.valueOf(passwordField.getPassword());
@@ -65,7 +75,7 @@ public class EatAdvisorLogin extends JDialog {
 			} catch (DatabaseExceptions databaseExceptions) {
 				JOptionPane.showMessageDialog(null, "Customer not found");
 			}
-		});
+		});*/
 		//endregion
 
 		registerButton.addActionListener(e -> EatAdvisorRegistration.main());
@@ -117,7 +127,7 @@ public class EatAdvisorLogin extends JDialog {
 			if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
 				JOptionPane.showMessageDialog(null, "Welcome back!");
 				Profile.clt = customer;
-				Profile.main();
+				Profile.main(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Customer not found");
 			}

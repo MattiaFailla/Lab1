@@ -15,16 +15,13 @@ import java.util.List;
 public class Profile extends JDialog {
 	private JPanel contentPane;
 	private JLabel nicknameLabel;
-	private JLabel passwordLabel;
-	private JLabel emailLabel;
-	private JLabel fullNameLabel;
-	private JLabel cityLabel;
-	private JLabel provinceLabel;
 	private JButton restaurantButton;
 	private JTable restaurantTable;
 	public static Customer clt;
+	private Boolean isRestaurant = false;
 
-	public Profile() {
+	public Profile(Boolean isRestaurant) {
+		this.isRestaurant = isRestaurant;
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -40,11 +37,6 @@ public class Profile extends JDialog {
 
 		//region Information's client
 		nicknameLabel.setText(clt.nickname);
-		passwordLabel.setText(String.valueOf(clt.password));
-		emailLabel.setText(clt.email);
-		fullNameLabel.setText(clt.name + " " + clt.surname);
-		cityLabel.setText(clt.city);
-		provinceLabel.setText(clt.province);
 		//endregion
 
 		//region Initializing searchTable
@@ -95,14 +87,17 @@ public class Profile extends JDialog {
 			result = Database.getRestaurantByOwner(clt.nickname);
 			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "You have not registered any restaurants yet");
 			else {
-				for(Restaurant rst : result) { tableModel.addRow(new Object[]{rst.name, rst.city, rst.type}); }
+				for (Restaurant rst : result) {
+					tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
+				}
 			}
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
 		}
-		catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
 	}
 
-	public static void main() {
-		Profile dialog = new Profile();
+	public static void main(Boolean isRestaurant) {
+		Profile dialog = new Profile(isRestaurant);
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
