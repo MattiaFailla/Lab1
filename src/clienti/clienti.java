@@ -22,9 +22,6 @@ public class clienti {
 		// Starting the app
 		// Init the database
 		Database.init();
-		// Writing some log
-		// Database.write(1, DataBase.data_types.INFO, "App started");
-
 		System.out.println("App started");
 
 		// Starting the UI

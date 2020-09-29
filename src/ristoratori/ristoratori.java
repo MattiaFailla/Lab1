@@ -25,16 +25,15 @@ public class ristoratori {
 		// Starting the app
 		// Init the database
 		Database.init();
-
 		System.out.println("App started");
 
-		// Inserzione di un ristoratore (con verifica che non esista)
-		String nickname = "ristoratore";
+		//todo: auto-registrazione di un ristoratore (con verifica che non esista)
 		String name = "ristoratore";
 		String surname = "ristoratore";
-		String city = "milano";
+		String city = "Milano";
 		String province = "MI";
 		String email = "ristoratore@lab.com";
+		String nickname = "ristoratore";
 		String password = "!Ristoratore1";
 
 		try {
