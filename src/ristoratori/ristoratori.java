@@ -9,6 +9,8 @@ package ristoratori;
 import _database.Database;
 import ristoratori.Login.EatAdvisorLogin;
 
+import javax.xml.crypto.Data;
+
 /**
  * StartApp is the entry point for the app ristoratori
  */
@@ -21,6 +23,7 @@ public class ristoratori {
 	public static void main(String[] args) {
 		// Starting the app
 		// Init the database
+		System.out.println(Database.init());
 		Database.init();
 		// Writing some log
 		// Database.write(1, DataBase.data_types.INFO, "App started");
