@@ -14,17 +14,19 @@ public class Judgement implements Serializable {
 	public Integer rating;
 	public String judgement;
 
-	public Judgement(){}
+	public Judgement() {}
 
-	public Judgement(String username, String restaurantName, Integer rating, String judgement){
+	public Judgement(String username, String restaurantName, Integer rating, String judgement) {
 		this.username = username;
 		this.restaurantName = restaurantName;
 		this.rating = rating;
-		if (judgement.length() > 256) throw new ClassFormatError("Stringa troppo lunga!");
+		//if (judgement.length() > 256) throw new ClassFormatError("Stringa troppo lunga!");
 		this.judgement = judgement;
 	}
 
-	public String toString(){
-		return username + " | " + rating.toString() + " stars. " + judgement;
+	public String toString() {
+		return username + "\t | " +
+				rating.toString() + " stars.\t "
+				+ judgement;
 	}
 }
