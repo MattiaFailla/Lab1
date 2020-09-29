@@ -67,7 +67,7 @@ public class EatAdvisorRegistration extends JDialog {
 				JOptionPane.showMessageDialog(null, "Eat advisor already exists");
 			} catch (IOException | ClassNotFoundException ioException) {
 				ioException.printStackTrace();
-			} catch (DatabaseExceptions databaseExceptions) {
+			} catch (DatabaseExceptions dbExceptions) {
 				// Saving the customer in the database
 				Database.insertClient(name, surname, city, province, email, nickname, password);
 				JOptionPane.showMessageDialog(null, "Registration successful");

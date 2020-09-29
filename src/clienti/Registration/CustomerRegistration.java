@@ -66,7 +66,7 @@ public class CustomerRegistration extends JDialog{
 				JOptionPane.showMessageDialog(null, "Customer already exists");
 			} catch (IOException | ClassNotFoundException ioException) {
 				ioException.printStackTrace();
-			} catch (DatabaseExceptions databaseExceptions) {
+			} catch (DatabaseExceptions dbExceptions) {
 				// Saving the customer in the database
 				Database.insertClient(name, surname, city, province, email, nickname, password);
 				JOptionPane.showMessageDialog(null, "Registration successful");
