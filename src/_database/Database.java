@@ -6,6 +6,7 @@ import _database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +71,7 @@ public class Database {
 			// Before saving the new customer we need to extract the old customers
 			ArrayList<Customer> entries = (ArrayList<Customer>) ReadObjectFromFile(client_db);
 			assert entries != null;
+			System.out.println(entries);
 			entries.add(clt);
 
 			File file = new File(client_db);
@@ -417,8 +419,10 @@ public class Database {
 			objectIn.close();
 			return obj;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+
+			//return ArrayList;
+			//ex.printStackTrace();
+			return new ArrayList<>();
 		}
 	}
 
