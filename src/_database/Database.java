@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
  * * junction between these two applications.
  */
 public class Database {
-	private static final String restaurant_db = "./src/_database/db/EatAdvisor.dati";
-	private static final String client_db = "./src/_database/db/Utenti.dati";
+	private static final String restaurant_db = "./data/_database/db/EatAdvisor.dati";
+	private static final String client_db = "./data/_database/db/Utenti.dati";
 
 	/**
 	 * Initializes the files for the database. This method is implicitly called when a search is issued.
@@ -386,30 +386,6 @@ public class Database {
 	}
 	//endregion
 
-	//region HELPER FUNCT
-	/*private static ArrayList<?> readObjectFromFile(String filename) {
-		// Reads the file and returns all entries in a list
-		AtomicReference<ArrayList<?>> persistedEntries = new AtomicReference<>();
-		try {
-			init();
-			FileInputStream fileIn = new FileInputStream(filename);
-			if (fileIn.available() > 0) {
-				ObjectInputStream objIn = new ObjectInputStream(fileIn);
-				System.out.println("FILEOBJ: "+objIn);
-				var obj = objIn.readObject();
-				if (obj == null) {
-					obj = new ArrayList();
-				}
-				persistedEntries.set((ArrayList<?>) obj);
-				objIn.close();
-			}
-			return new ArrayList();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return persistedEntries.get();
-	}*/
-
 	public static Object ReadObjectFromFile(String filepath) {
 		try {
 			FileInputStream fileIn = new FileInputStream(filepath);
@@ -419,9 +395,6 @@ public class Database {
 			objectIn.close();
 			return obj;
 		} catch (Exception ex) {
-
-			//return ArrayList;
-			//ex.printStackTrace();
 			return new ArrayList<>();
 		}
 	}

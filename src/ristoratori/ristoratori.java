@@ -23,10 +23,7 @@ public class ristoratori {
 	public static void main(String[] args) {
 		// Starting the app
 		// Init the database
-		System.out.println(Database.init());
 		Database.init();
-		// Writing some log
-		// Database.write(1, DataBase.data_types.INFO, "App started");
 
 		System.out.println("App started");
 
