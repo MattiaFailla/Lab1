@@ -115,7 +115,7 @@ public class CustomerSearch extends JDialog {
 						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
 							RestaurantProfile.rst = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main();
+							RestaurantProfile.main(false);
 						}
 					} catch (IOException | ClassNotFoundException | DatabaseExceptions ioException) {
 						ioException.printStackTrace();

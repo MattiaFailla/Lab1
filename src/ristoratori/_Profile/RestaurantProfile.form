@@ -128,7 +128,7 @@
           <background color="-1"/>
           <borderPainted value="true"/>
           <contentAreaFilled value="false"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <foreground color="-15658735"/>
           <text value="Send"/>
         </properties>

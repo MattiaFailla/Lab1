@@ -28,7 +28,7 @@ public class RestaurantProfile extends JDialog {
 	public static String customerName;
 	public static Restaurant rst;
 
-	public RestaurantProfile() {
+	public RestaurantProfile(Boolean isRestaurant) {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -50,7 +50,13 @@ public class RestaurantProfile extends JDialog {
 		websiteLabel.setText(rst.url);
 		typeLabel.setText(rst.type.toString());
 
-		sendButton.setEnabled(verifyClient);
+		if (isRestaurant) {
+			starsComboBox.setVisible(false);
+			judgmentField.setVisible(false);
+			sendButton.setVisible(false);
+		} else {
+			sendButton.setEnabled(verifyClient);
+		}
 		//endregion
 
 		//region Initializing judgmentList
@@ -77,6 +83,15 @@ public class RestaurantProfile extends JDialog {
 		//endregion
 	}
 
+	public static void main(Boolean isRestaurant) {
+		RestaurantProfile dialog = new RestaurantProfile(isRestaurant);
+		dialog.pack();
+		dialog.setResizable(false);
+		dialog.setLocationRelativeTo(null);
+		dialog.setTitle("Restaurant - Profile");
+		dialog.setVisible(true);
+	}
+
 	private void printJudgment(DefaultListModel<String> listModel) {
 		listModel.clear();
 		List<Judgement> result;
@@ -88,15 +103,8 @@ public class RestaurantProfile extends JDialog {
 					listModel.addElement(jdg.toString());
 				}
 			}
-		} catch (IOException | DatabaseExceptions | ClassNotFoundException e) { e.printStackTrace(); }
-	}
-
-	public static void main() {
-		RestaurantProfile dialog = new RestaurantProfile();
-		dialog.pack();
-		dialog.setResizable(false);
-		dialog.setLocationRelativeTo(null);
-		dialog.setTitle("Restaurant - Profile");
-		dialog.setVisible(true);
+		} catch (IOException | DatabaseExceptions | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
