@@ -7,9 +7,10 @@
 package ristoratori;
 
 import _database.Database;
+import _database.DatabaseExceptions;
 import ristoratori.Login.EatAdvisorLogin;
 
-import javax.xml.crypto.Data;
+import java.io.IOException;
 
 /**
  * StartApp is the entry point for the app ristoratori
@@ -26,6 +27,26 @@ public class ristoratori {
 		Database.init();
 
 		System.out.println("App started");
+
+		// Inserzione di un ristoratore (con verifica che non esista)
+		String nickname = "ristoratore";
+		String name = "ristoratore";
+		String surname = "ristoratore";
+		String city = "milano";
+		String province = "MI";
+		String email = "ristoratore@lab.com";
+		String password = "!Ristoratore1";
+
+		try {
+			// Check the customer in db
+			Database.getCustomer(nickname);
+			//JOptionPane.showMessageDialog(null, "Eat advisor already exists");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions databaseExceptions) {
+			// Saving the customer in the database
+			Database.insertClient(name, surname, city, province, email, nickname, password);
+		}
 
 		// Starting the UI
 		EatAdvisorLogin.main();

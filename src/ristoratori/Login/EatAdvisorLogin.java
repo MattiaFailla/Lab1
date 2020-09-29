@@ -5,7 +5,6 @@ import _database.DatabaseExceptions;
 import _database.objects.Customer;
 import ristoratori.Registration.EatAdvisorRegistration;
 import ristoratori._Profile.Profile;
-import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -103,11 +102,30 @@ public class EatAdvisorLogin extends JDialog {
 	}
 
 	public static void main() {
-		EatAdvisorLogin dialog = new EatAdvisorLogin();
+		/*EatAdvisorLogin dialog = new EatAdvisorLogin();
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("EatAdvisor - Login");
-		dialog.setVisible(true);
+		dialog.setVisible(true);*/
+
+		String nickname = "ristoratore";
+		String password = "!Ristoratore1";
+
+		try {
+			Customer customer = Database.getCustomer(nickname);
+			if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
+				JOptionPane.showMessageDialog(null, "Welcome back!");
+				Profile.clt = customer;
+				Profile.main();
+			} else {
+				JOptionPane.showMessageDialog(null, "Customer not found");
+			}
+		} catch (IOException | ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} catch (DatabaseExceptions databaseExceptions) {
+			JOptionPane.showMessageDialog(null, "Customer not found");
+		}
+
 	}
 }
