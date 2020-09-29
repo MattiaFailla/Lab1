@@ -71,6 +71,13 @@ public class RestaurantProfile extends JDialog {
 		sendButton.addActionListener(e -> {
 			Integer rating = this.starsComboBox.getSelectedIndex() + 1;
 			String judgment = this.judgmentField.getText();
+			if (judgment.length() > 256) {
+				JOptionPane.showMessageDialog(null, "The message is too long!");
+				return;
+			} else if (judgment.length() <= 1) {
+				JOptionPane.showMessageDialog(null, "The message is too short!");
+				return;
+			}
 
 			try {
 				Database.insertJudgment(customerName, nameLabel.getText(), rating, judgment);

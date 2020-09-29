@@ -20,6 +20,7 @@ public class Judgement implements Serializable {
 		this.username = username;
 		this.restaurantName = restaurantName;
 		this.rating = rating;
+		if (judgement.length() > 256) throw new ClassFormatError("Stringa troppo lunga!");
 		this.judgement = judgement;
 	}
 
