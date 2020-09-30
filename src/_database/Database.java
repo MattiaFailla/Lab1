@@ -47,7 +47,7 @@ public class Database {
 			}
 			return success;
 		} catch (Exception e) {
-			System.out.println("Errore:" + e.toString());
+			System.out.println("Error:" + e.toString());
 			return false;
 		}
 	}
@@ -84,7 +84,7 @@ public class Database {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Customer succesfully inserted.");
+		System.out.println("Customer successfully inserted.");
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class Database {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Restaurant succesfully inserted.");
+		System.out.println("Restaurant successfully inserted.");
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByCustomerNickname(customerArrayList, nickname);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The customer does not exists.");
+			throw new _database.DatabaseExceptions("The customer does not exist.");
 		}
 		// Getting the customer
 		return customerArrayList.get(restInt);
@@ -263,7 +263,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The restaurant does not exists.");
+			throw new _database.DatabaseExceptions("The restaurant does not exist.");
 		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt);
@@ -282,7 +282,7 @@ public class Database {
 		// Finding the restaurant by restaurantName
 		int restInt = getIndexByRestaurantName(restaurantArrayList, restaurantName);
 		if (restInt == -1) {
-			throw new _database.DatabaseExceptions("The restaurant does not exists.");
+			throw new _database.DatabaseExceptions("The restaurant does not exist.");
 		}
 		// Getting the list of judgements
 		return restaurantArrayList.get(restInt).judgement;
