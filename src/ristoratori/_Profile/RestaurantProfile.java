@@ -96,12 +96,12 @@ public class RestaurantProfile extends JDialog {
 		List<Judgement> result;
 		try {
 			result = Database.getJudgement(rst.name);
-			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No judgment found for this restaurant");
+			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No judgments found for this restaurant");
 			else for (Judgement jdg : result) listModel.addElement(jdg.toString());
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
 		} catch (DatabaseExceptions dbException) {
-			JOptionPane.showMessageDialog(null, "No judgment found for this restaurant");
+			JOptionPane.showMessageDialog(null, "No judgments found for this restaurant");
 		}
 	}
 }
