@@ -126,11 +126,10 @@ public class EatAdvisorLogin extends JDialog {
 		String password = "!Ristoratore1";
 
 		try {
-			Customer customer = Database.getCustomer(nickname);
-			if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
+			Customer eatAdvisor = Database.getCustomer(nickname);
+			if (eatAdvisor.nickname.equals(nickname) && eatAdvisor.password.equals(password)) {
 				// JOptionPane.showMessageDialog(null, "Welcome back!");
-				Profile.clt = customer;
-				Profile.main(true);
+				Profile.main(eatAdvisor, true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Customer not found");
 			}
