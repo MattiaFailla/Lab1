@@ -128,7 +128,7 @@ public class EatAdvisorLogin extends JDialog {
 		try {
 			Customer customer = Database.getCustomer(nickname);
 			if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
-				JOptionPane.showMessageDialog(null, "Welcome back!");
+				// JOptionPane.showMessageDialog(null, "Welcome back!");
 				Profile.clt = customer;
 				Profile.main(true);
 			} else {
