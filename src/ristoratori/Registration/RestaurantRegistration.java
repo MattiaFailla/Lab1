@@ -81,7 +81,7 @@ public class RestaurantRegistration extends JDialog {
 			String province = this.provinceField.getText();
 			Integer CAP = Integer.valueOf(this.capField.getText());
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) type = Restaurant.types.valueOf(typeStr);
+			if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
 
 			try {
 				// Check the restaurant in db
