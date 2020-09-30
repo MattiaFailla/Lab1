@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class RestaurantProfile extends JDialog {
-	public static boolean verifyClient = false;
 	public static String customerName;
 	private JPanel contentPane;
 	//private JLabel ownerLabel
@@ -26,7 +25,7 @@ public class RestaurantProfile extends JDialog {
 	private JTextField judgmentField;
 	private JButton sendButton;
 
-	public RestaurantProfile(Restaurant restaurant, boolean isEatAdvisor) {
+	public RestaurantProfile(Restaurant restaurant, boolean isEatAdvisor, boolean isCustomer) {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -47,7 +46,7 @@ public class RestaurantProfile extends JDialog {
 		typeLabel.setText(restaurant.type.toString());
 		fullAddressLabel.setText(restaurant.fullAddress);
 
-		sendButton.setEnabled(verifyClient);
+		sendButton.setEnabled(isCustomer);
 
 		starsComboBox.setVisible(!isEatAdvisor);
 		judgmentField.setVisible(!isEatAdvisor);
@@ -82,8 +81,8 @@ public class RestaurantProfile extends JDialog {
 		//endregion
 	}
 
-	public static void main(Restaurant restaurant, boolean isEatAdvisor) {
-		RestaurantProfile dialog = new RestaurantProfile(restaurant, isEatAdvisor);
+	public static void main(Restaurant restaurant, boolean isEatAdvisor, boolean isCustomer) {
+		RestaurantProfile dialog = new RestaurantProfile(restaurant, isEatAdvisor, isCustomer);
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);

@@ -46,7 +46,7 @@ public class Profile extends JDialog {
 		};
 		tableModel.addRow(new String[]{"Name", "City", "Typology"});
 		restaurantTable.setModel(tableModel);
-		printRestaurants(tableModel, eatAdvisor);
+		printRestaurants(tableModel, eatAdvisor.nickname);
 		//endregion
 
 		restaurantButton.addActionListener(e -> {
@@ -62,7 +62,7 @@ public class Profile extends JDialog {
 						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
 							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main(restaurant, isEatAdvisor);
+							RestaurantProfile.main(restaurant, isEatAdvisor, false);
 						}
 					} catch (IOException | ClassNotFoundException ioException) {
 						ioException.printStackTrace();
