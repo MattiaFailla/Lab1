@@ -16,38 +16,37 @@ import java.io.IOException;
  * StartApp is the entry point for the app ristoratori
  */
 public class ristoratori {
-	/**
-	 * This is the entry-point for the app ristoratori.
-	 *
-	 * @param args The args from the jvm
-	 */
-	public static void main(String[] args) {
-		// Starting the app
-		// Init the database
-		Database.init();
-		System.out.println("App started");
+    /**
+     * This is the entry-point for the app ristoratori.
+     *
+     * @param args The args from the jvm
+     */
+    public static void main(String[] args) {
+        // Starting the app
+        // Init the database
+        Database.init();
+        System.out.println("App started");
 
-		//todo: auto-registrazione di un ristoratore (con verifica che non esista)
-		String name = "ristoratore";
-		String surname = "ristoratore";
-		String city = "Milano";
-		String province = "MI";
-		String email = "ristoratore@lab.com";
-		String nickname = "ristoratore";
-		String password = "!Ristoratore1";
+        //todo: auto-registrazione di un ristoratore (con verifica che non esista)
+        String name = "Ristoratore";
+        String surname = "Ristoratore";
+        String city = "Milano";
+        String province = "MI";
+        String email = "ristoratore@lab.com";
+        String nickname = "ristoratore";
+        String password = "!Ristoratore1";
 
-		try {
-			// Check the customer in db
-			Database.getCustomer(nickname);
-			//JOptionPane.showMessageDialog(null, "Eat advisor already exists");
-		} catch (IOException | ClassNotFoundException ioException) {
-			ioException.printStackTrace();
-		} catch (DatabaseExceptions dbExceptions) {
-			// Saving the customer in the database
-			Database.insertClient(name, surname, city, province, email, nickname, password);
-		}
+        try {
+            // Check the customer in db
+            Database.getCustomer(nickname);
+        } catch (IOException | ClassNotFoundException ioException) {
+            ioException.printStackTrace();
+        } catch (DatabaseExceptions dbExceptions) {
+            // Saving the customer in the database
+            Database.insertClient(name, surname, city, province, email, nickname, password);
+        }
 
-		// Starting the UI
-		EatAdvisorLogin.main();
-	}
+        // Starting the UI
+        EatAdvisorLogin.main();
+    }
 }

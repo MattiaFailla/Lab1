@@ -37,11 +37,25 @@ public class CustomerLogin extends JDialog {
 
 		//region loginButton events
 		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { loginButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
+			public void mouseClicked(MouseEvent e) {
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				loginButton.setEnabled(allFieldValid());
+			}
+
+			public void mouseExited(MouseEvent e) {
+
+			}
 		});
 		loginButton.addActionListener(e -> {
 			// Getting data from the form
@@ -59,9 +73,9 @@ public class CustomerLogin extends JDialog {
 				} else {
 					JOptionPane.showMessageDialog(null, "Customer not found");
 				}
-			} catch (IOException | ClassNotFoundException exception) {
-				exception.printStackTrace();
-			} catch (DatabaseExceptions databaseExceptions) {
+			} catch (IOException | ClassNotFoundException ioException) {
+				ioException.printStackTrace();
+			} catch (DatabaseExceptions dbExceptions) {
 				JOptionPane.showMessageDialog(null, "Customer not found");
 			}
 		});
