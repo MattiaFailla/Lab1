@@ -24,8 +24,8 @@ public class Judgement implements Serializable {
 	}
 
 	public String toString() {
-		return username + "\t | " +
-				rating.toString() + " stars.\t "
+		return  username + " | " +
+				rating.toString() + " stars. "
 				+ judgement;
 	}
 }
