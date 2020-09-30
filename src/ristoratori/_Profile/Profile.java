@@ -13,13 +13,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class Profile extends JDialog {
-	public static Customer clt;
 	private JPanel contentPane;
 	private JLabel welcomeLabel;
 	private JTable restaurantTable;
 	private JButton restaurantButton;
 
-	public Profile(boolean isEatAdvisor) {
+	public Profile(Customer eatAdvisor, boolean isEatAdvisor) {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -34,7 +33,7 @@ public class Profile extends JDialog {
 		//endregion
 
 		//region Information's client
-		welcomeLabel.setText(clt.nickname);
+		welcomeLabel.setText(eatAdvisor.nickname);
 		//endregion
 
 		//region Initializing searchTable
@@ -47,12 +46,12 @@ public class Profile extends JDialog {
 		};
 		tableModel.addRow(new String[]{"Name", "City", "Typology"});
 		restaurantTable.setModel(tableModel);
-		printRestaurants(tableModel);
+		printRestaurants(tableModel, eatAdvisor);
 		//endregion
 
 		restaurantButton.addActionListener(e -> {
-			RestaurantRegistration.main(clt.nickname);
-			printRestaurants(tableModel);
+			RestaurantRegistration.main(eatAdvisor.nickname);
+			printRestaurants(tableModel, eatAdvisor);
 		});
 		restaurantTable.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -91,8 +90,8 @@ public class Profile extends JDialog {
 		});
 	}
 
-	public static void main(boolean isEatAdvisor) {
-		Profile dialog = new Profile(isEatAdvisor);
+	public static void main(Customer eatAdvisor, boolean isEatAdvisor) {
+		Profile dialog = new Profile(eatAdvisor, isEatAdvisor);
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
@@ -100,11 +99,11 @@ public class Profile extends JDialog {
 		dialog.setVisible(true);
 	}
 
-	private void printRestaurants(DefaultTableModel tableModel) {
+	private void printRestaurants(DefaultTableModel tableModel, Customer eatAdvisor) {
 		tableModel.setRowCount(1);
 		List<Restaurant> result;
 		try {
-			result = Database.getRestaurantByOwner(clt.nickname);
+			result = Database.getRestaurantByOwner(eatAdvisor.nickname);
 			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "You have not registered any restaurants yet");
 			else for (Restaurant rst : result) tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
 		} catch (IOException | ClassNotFoundException ioException) {
