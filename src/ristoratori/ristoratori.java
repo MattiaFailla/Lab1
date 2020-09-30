@@ -12,9 +12,6 @@ import ristoratori.Login.EatAdvisorLogin;
 
 import java.io.IOException;
 
-/**
- * StartApp is the entry point for the app ristoratori
- */
 public class ristoratori {
     /**
      * This is the entry-point for the app ristoratori.
