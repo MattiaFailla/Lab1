@@ -51,7 +51,7 @@ public class Profile extends JDialog {
 
 		restaurantButton.addActionListener(e -> {
 			RestaurantRegistration.main(eatAdvisor.nickname);
-			printRestaurants(tableModel, eatAdvisor);
+			printRestaurants(tableModel, eatAdvisor.nickname);
 		});
 		restaurantTable.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -99,11 +99,11 @@ public class Profile extends JDialog {
 		dialog.setVisible(true);
 	}
 
-	private void printRestaurants(DefaultTableModel tableModel, Customer eatAdvisor) {
+	private void printRestaurants(DefaultTableModel tableModel, String owner) {
 		tableModel.setRowCount(1);
 		List<Restaurant> result;
 		try {
-			result = Database.getRestaurantByOwner(eatAdvisor.nickname);
+			result = Database.getRestaurantByOwner(owner);
 			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "You have not registered any restaurants yet");
 			else for (Restaurant rst : result) tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
 		} catch (IOException | ClassNotFoundException ioException) {
