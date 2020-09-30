@@ -12,9 +12,9 @@ public class Restaurant implements Serializable {
 
 	// Custom enum class to handle different kinds of restaurant types
 	public enum types {
-		ITALIAN,
-		ETHNIC,
-		FUSION
+		Italian,
+		Ethnic,
+		Fusion
 	}
 
 	public String owner;
