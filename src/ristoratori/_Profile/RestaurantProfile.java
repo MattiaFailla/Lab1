@@ -19,8 +19,8 @@ public class RestaurantProfile extends JDialog {
 	private JPanel contentPane;
 	//private JLabel ownerLabel
 	private JLabel nameLabel;
-	private JLabel websiteLabel;
 	private JLabel typeLabel;
+	private JLabel websiteLabel;
 	private JLabel fullAddressLabel;
 	private JList<String> judgmentList;
 	private JComboBox<Byte> starsComboBox;
@@ -97,11 +97,7 @@ public class RestaurantProfile extends JDialog {
 		try {
 			result = Database.getJudgement(rst.name);
 			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No judgment found for this restaurant");
-			else {
-				for (Judgement jdg : result) {
-					listModel.addElement(jdg.toString());
-				}
-			}
+			else for (Judgement jdg : result) listModel.addElement(jdg.toString());
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
 		} catch (DatabaseExceptions dbException) {
