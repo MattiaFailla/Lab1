@@ -96,7 +96,8 @@ public class RestaurantProfile extends JDialog {
 		List<Judgement> result;
 		try {
 			result = Database.getJudgement(rst.name);
-			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No judgments found for this restaurant");
+			if (result.isEmpty())
+				JOptionPane.showMessageDialog(null, "No judgments found for this restaurant, be the first one!");
 			else for (Judgement jdg : result) listModel.addElement(jdg.toString());
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
