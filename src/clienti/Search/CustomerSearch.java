@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerSearch extends JDialog {
-	public static boolean isLogged = false;
+	private boolean isCustomer = false;
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField cityField;
@@ -30,6 +30,7 @@ public class CustomerSearch extends JDialog {
 	private JButton researchButton;
 	private JButton registerButton;
 	private JButton loginButton;
+	private JRadioButton clearRadio;
 	private List<Restaurant> result = new ArrayList<>();
 
 	public CustomerSearch() {
@@ -61,7 +62,7 @@ public class CustomerSearch extends JDialog {
 		};
 		tableModel.addRow(new String[]{"Name", "City", "Typology"});
 		searchTable.setModel(tableModel);
-		printRestaurants(tableModel, result);
+		printRestaurants(tableModel);
 		//endregion
 
 		//region researchButton events
@@ -77,9 +78,13 @@ public class CustomerSearch extends JDialog {
 				if (nameRadio.isSelected()) this.result = Database.getRestaurantByName(name);
 				else if (cityRadio.isSelected()) this.result = Database.getRestaurantByCity(city);
 				else if (typologyRadio.isSelected()) this.result = Database.getRestaurantByCategory(type);
-				else this.result = Database.getRestaurantByCityAndType(city, type);
+				else if (cityandtypologyRadio.isSelected()) this.result = Database.getRestaurantByCityAndType(city, type);
+				else {
+					this.result.clear();
+					printRestaurants(tableModel);
+				}
 
-				if (!this.result.isEmpty()) printRestaurants(tableModel, this.result);
+				if (!this.result.isEmpty()) printRestaurants(tableModel);
 				else JOptionPane.showMessageDialog(null, "No result found");
 			} catch (IOException | ClassNotFoundException ioException) {
 				ioException.printStackTrace();
@@ -90,8 +95,8 @@ public class CustomerSearch extends JDialog {
 		//region Switch windows
 		registerButton.addActionListener(e -> CustomerRegistration.main());
 		loginButton.addActionListener(e -> {
-			CustomerLogin.main();
-			loginButton.setEnabled(!isLogged);
+			this.isCustomer = CustomerLogin.main();
+			loginButton.setEnabled(!isCustomer);
 		});
 		searchTable.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -102,7 +107,7 @@ public class CustomerSearch extends JDialog {
 						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
 							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main(restaurant, false);
+							RestaurantProfile.main(restaurant, false, isCustomer);
 						}
 					} catch (IOException | ClassNotFoundException ioException) {
 						ioException.printStackTrace();
@@ -132,24 +137,39 @@ public class CustomerSearch extends JDialog {
 			cityRadio.setSelected(false);
 			typologyRadio.setSelected(false);
 			cityandtypologyRadio.setSelected(false);
+
 		});
+
 		cityRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
 			cityRadio.setSelected(true);
 			typologyRadio.setSelected(false);
 			cityandtypologyRadio.setSelected(false);
+			clearRadio.setSelected(false);
 		});
+
 		typologyRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
 			cityRadio.setSelected(false);
 			typologyRadio.setSelected(true);
 			cityandtypologyRadio.setSelected(false);
+			clearRadio.setSelected(false);
 		});
+
 		cityandtypologyRadio.addActionListener(e -> {
 			nameRadio.setSelected(false);
 			cityRadio.setSelected(false);
 			typologyRadio.setSelected(false);
 			cityandtypologyRadio.setSelected(true);
+			clearRadio.setSelected(false);
+		});
+
+		clearRadio.addActionListener(e -> {
+			nameRadio.setSelected(false);
+			cityRadio.setSelected(false);
+			typologyRadio.setSelected(false);
+			cityandtypologyRadio.setSelected(false);
+			clearRadio.setSelected(true);
 		});
 		//endregion
 
@@ -193,15 +213,15 @@ public class CustomerSearch extends JDialog {
 		dialog.setVisible(true);
 	}
 
-	private void printRestaurants(DefaultTableModel tableModel, List<Restaurant> result) {
+	private void printRestaurants(DefaultTableModel tableModel) {
 		tableModel.setRowCount(1);
-		if (result.isEmpty()) {
+		if (this.result.isEmpty()) {
 			try {
-				result = Database.getRestaurants();
+				this.result = Database.getRestaurants();
 			} catch (IOException | ClassNotFoundException ioException) {
 				ioException.printStackTrace();
 			}
 		}
-		for (Restaurant res : result) tableModel.addRow(new Object[]{res.name, res.city, res.type});
+		for (Restaurant res : this.result) tableModel.addRow(new Object[]{res.name, res.city, res.type});
 	}
 }
