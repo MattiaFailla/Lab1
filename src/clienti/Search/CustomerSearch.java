@@ -67,7 +67,6 @@ public class CustomerSearch extends JDialog {
 		//region researchButton events
 		researchButton.addActionListener(e -> {
 			Restaurant.types type = null;
-			tableModel.setRowCount(1);
 
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
