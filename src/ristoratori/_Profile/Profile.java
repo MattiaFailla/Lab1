@@ -61,8 +61,8 @@ public class Profile extends JDialog {
 						int selectedRow = restaurantTable.getSelectedRow();
 						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
-							RestaurantProfile.rst = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main(isEatAdvisor);
+							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
+							RestaurantProfile.main(restaurant, isEatAdvisor);
 						}
 					} catch (IOException | ClassNotFoundException ioException) {
 						ioException.printStackTrace();

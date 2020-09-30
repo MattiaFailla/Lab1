@@ -15,7 +15,6 @@ import java.util.List;
 public class RestaurantProfile extends JDialog {
 	public static boolean verifyClient = false;
 	public static String customerName;
-	public static Restaurant rst;
 	private JPanel contentPane;
 	//private JLabel ownerLabel
 	private JLabel nameLabel;
@@ -27,9 +26,10 @@ public class RestaurantProfile extends JDialog {
 	private JTextField judgmentField;
 	private JButton sendButton;
 
-	public RestaurantProfile(boolean isRestaurant) {
+	public RestaurantProfile(Restaurant restaurant, boolean isEatAdvisor) {
 		setContentPane(contentPane);
 		setModal(true);
+
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -42,22 +42,22 @@ public class RestaurantProfile extends JDialog {
 
 		//region Information's restaurants
 		//ownerLabel.setText("Welcome " + rst.owner);
-		nameLabel.setText(rst.name);
-		websiteLabel.setText(rst.url);
-		typeLabel.setText(rst.type.toString());
-		fullAddressLabel.setText(rst.fullAddress);
+		nameLabel.setText(restaurant.name);
+		websiteLabel.setText(restaurant.url);
+		typeLabel.setText(restaurant.type.toString());
+		fullAddressLabel.setText(restaurant.fullAddress);
 
 		sendButton.setEnabled(verifyClient);
 
-		starsComboBox.setVisible(!isRestaurant);
-		judgmentField.setVisible(!isRestaurant);
-		sendButton.setVisible(!isRestaurant);
+		starsComboBox.setVisible(!isEatAdvisor);
+		judgmentField.setVisible(!isEatAdvisor);
+		sendButton.setVisible(!isEatAdvisor);
 		//endregion
 
 		//region Initializing judgmentList
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		judgmentList.setModel(listModel);
-		printJudgment(listModel);
+		printJudgment(listModel, restaurant);
 		//endregion
 
 		//region sendButton events
@@ -77,13 +77,13 @@ public class RestaurantProfile extends JDialog {
 				ioException.printStackTrace();
 			}
 
-			printJudgment(listModel);
+			printJudgment(listModel, restaurant);
 		});
 		//endregion
 	}
 
-	public static void main(Boolean isRestaurant) {
-		RestaurantProfile dialog = new RestaurantProfile(isRestaurant);
+	public static void main(Restaurant restaurant, boolean isEatAdvisor) {
+		RestaurantProfile dialog = new RestaurantProfile(restaurant, isEatAdvisor);
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
@@ -91,11 +91,11 @@ public class RestaurantProfile extends JDialog {
 		dialog.setVisible(true);
 	}
 
-	private void printJudgment(DefaultListModel<String> listModel) {
+	private void printJudgment(DefaultListModel<String> listModel, Restaurant restaurant) {
 		listModel.clear();
 		List<Judgement> result;
 		try {
-			result = Database.getJudgement(rst.name);
+			result = Database.getJudgement(restaurant.name);
 			if (result.isEmpty())
 				JOptionPane.showMessageDialog(null, "No judgments found for this restaurant, be the first one!");
 			else for (Judgement jdg : result) listModel.addElement(jdg.toString());
