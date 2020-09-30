@@ -11,7 +11,6 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class RestaurantRegistration extends JDialog {
-	public static String owner;
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField phoneField;
@@ -25,7 +24,7 @@ public class RestaurantRegistration extends JDialog {
 	private JComboBox<String> typologyBox;
 	private JButton registerButton;
 
-	public RestaurantRegistration() {
+	public RestaurantRegistration(String owner) {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -206,8 +205,8 @@ public class RestaurantRegistration extends JDialog {
 		//endregion
 	}
 
-	public static void main() {
-		RestaurantRegistration dialog = new RestaurantRegistration();
+	public static void main(String owner) {
+		RestaurantRegistration dialog = new RestaurantRegistration(owner);
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
