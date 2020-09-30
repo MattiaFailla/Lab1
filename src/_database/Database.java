@@ -6,7 +6,6 @@ import _database.objects.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +22,8 @@ import java.util.stream.Collectors;
  * * junction between these two applications.
  */
 public class Database {
-	private static final String restaurant_db = "./data/_database/db/EatAdvisor.dati";
-	private static final String client_db = "./data/_database/db/Utenti.dati";
+	private static final String restaurant_db = "./data/EatAdvisor.dati";
+	private static final String client_db = "./data/Utenti.dati";
 
 	/**
 	 * Initializes the files for the database. This method is implicitly called when a search is issued.
