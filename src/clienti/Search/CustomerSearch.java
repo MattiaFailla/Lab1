@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerSearch extends JDialog {
@@ -29,6 +30,7 @@ public class CustomerSearch extends JDialog {
 	private JButton researchButton;
 	private JButton registerButton;
 	private JButton loginButton;
+	private List<Restaurant> result = new ArrayList<>();
 
 	public CustomerSearch() {
 		setContentPane(contentPane);
@@ -49,25 +51,17 @@ public class CustomerSearch extends JDialog {
 		cityField.setBorder(new LineBorder(Color.red));
 		//endregion
 
-		//region addColumn to searchTable
-		String[] columnNames = {"Name", "City", "Typology"};
-		String[] columnEmpty = {"", "", ""};
-		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
-			private static final long serialVersionUID = 7007554847444425016L;
+		//region Initializing searchTable
+		DefaultTableModel tableModel = new DefaultTableModel(0, 3) {
+			private static final long serialVersionUID = -6744499930217269875L;
 
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		tableModel.addRow(columnNames);
-		tableModel.addRow(columnEmpty);
+		tableModel.addRow(new String[]{"Name", "City", "Typology"});
 		searchTable.setModel(tableModel);
-		try {
-			List<Restaurant> restaurantList = Database.getRestaurants();
-			for (Restaurant res : restaurantList) tableModel.addRow(new Object[]{res.name, res.city, res.type});
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		printRestaurants(tableModel, result);
 		//endregion
 
 		//region researchButton events
@@ -78,17 +72,16 @@ public class CustomerSearch extends JDialog {
 			String name = this.nameField.getText();
 			String city = this.cityField.getText();
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) type = Restaurant.types.valueOf(typeStr);
+			if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
 
-			List<Restaurant> result;
 			try {
-				if (nameRadio.isSelected()) result = Database.getRestaurantByName(name);
-				else if (cityRadio.isSelected()) result = Database.getRestaurantByCity(city);
-				else if (typologyRadio.isSelected()) result = Database.getRestaurantByCategory(type);
-				else result = Database.getRestaurantByCityAndType(city, type);
+				if (nameRadio.isSelected()) this.result = Database.getRestaurantByName(name);
+				else if (cityRadio.isSelected()) this.result = Database.getRestaurantByCity(city);
+				else if (typologyRadio.isSelected()) this.result = Database.getRestaurantByCategory(type);
+				else this.result = Database.getRestaurantByCityAndType(city, type);
 
-				if (result.isEmpty()) JOptionPane.showMessageDialog(null, "No result found");
-				else for (Restaurant rst : result) tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
+				if (!this.result.isEmpty()) printRestaurants(tableModel, this.result);
+				else JOptionPane.showMessageDialog(null, "No result found");
 			} catch (IOException | ClassNotFoundException ioException) {
 				ioException.printStackTrace();
 			}
@@ -107,7 +100,7 @@ public class CustomerSearch extends JDialog {
 					e.consume();
 					try {
 						int selectedRow = searchTable.getSelectedRow();
-						if (selectedRow > 1) {
+						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
 							RestaurantProfile.rst = Database.getRestaurant(nameRestaurant);
 							RestaurantProfile.main(false);
@@ -199,5 +192,17 @@ public class CustomerSearch extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Search");
 		dialog.setVisible(true);
+	}
+
+	private void printRestaurants(DefaultTableModel tableModel, List<Restaurant> result) {
+		tableModel.setRowCount(1);
+		if (result.isEmpty()) {
+			try {
+				result = Database.getRestaurants();
+			} catch (IOException | ClassNotFoundException ioException) {
+				ioException.printStackTrace();
+			}
+		}
+		for (Restaurant res : result) tableModel.addRow(new Object[]{res.name, res.city, res.type});
 	}
 }
