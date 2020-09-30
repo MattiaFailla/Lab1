@@ -11,6 +11,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class RestaurantRegistration extends JDialog {
+	public static String owner;
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField phoneField;
@@ -23,7 +24,6 @@ public class RestaurantRegistration extends JDialog {
 	private JTextField capField;
 	private JComboBox<String> typologyBox;
 	private JButton registerButton;
-	public static String owner;
 
 	public RestaurantRegistration() {
 		setContentPane(contentPane);
@@ -32,7 +32,9 @@ public class RestaurantRegistration extends JDialog {
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregion
@@ -50,11 +52,21 @@ public class RestaurantRegistration extends JDialog {
 
 		//region registerButton events
 		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				registerButton.setEnabled(allFieldValid());
+			}
+
+			public void mouseExited(MouseEvent e) {
+			}
 		});
 		registerButton.addActionListener(e -> {
 			Restaurant.types type = null;
@@ -70,25 +82,31 @@ public class RestaurantRegistration extends JDialog {
 			String province = this.provinceField.getText();
 			Integer CAP = Integer.valueOf(this.capField.getText());
 			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) { type = Restaurant.types.valueOf(typeStr.toUpperCase()); }
+			if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
 
 			try {
-				Database.getRestaurant(name); // This will invoke an exception if the restaurant does exists
+				// Check the restaurant in db
+				Database.getRestaurant(name);
 				JOptionPane.showMessageDialog(null, "Restaurant already exists!");
-			} catch (DatabaseExceptions | IOException ioException) {
+			} catch (IOException | ClassNotFoundException ioException) {
+				ioException.printStackTrace();
+			} catch (DatabaseExceptions dbException) {
+				// Saving the restaurant in the database
 				Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
 				JOptionPane.showMessageDialog(null, "Registration successful");
 				dispose();
-			} catch (ClassNotFoundException classNotFoundException) {
-				classNotFoundException.printStackTrace();
 			}
 		});
 		//endregion
 
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				nameField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		nameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
@@ -96,8 +114,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		phoneField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { phoneField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				phoneField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		phoneField.addCaretListener(e -> {
 			Color color = Database.regexPhone(phoneField.getText()) ? Color.green : Color.red;
@@ -105,8 +127,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		websiteField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { websiteField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				websiteField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		websiteField.addCaretListener(e -> {
 			Color color = Database.regexURL(websiteField.getText()) ? Color.green : Color.red;
@@ -114,8 +140,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		streetNameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { streetNameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				streetNameField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		streetNameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(streetNameField.getText()) ? Color.green : Color.red;
@@ -123,8 +153,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		civicNumberField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { civicNumberField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				civicNumberField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		civicNumberField.addCaretListener(e -> {
 			Color color = Database.regexNumber(civicNumberField.getText(), "{1,3}") ? Color.green : Color.red;
@@ -132,8 +166,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		cityField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { cityField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				cityField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		cityField.addCaretListener(e -> {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
@@ -141,8 +179,12 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		provinceField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				provinceField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		provinceField.addCaretListener(e -> {
 			Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
@@ -150,30 +192,18 @@ public class RestaurantRegistration extends JDialog {
 		});
 
 		capField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { capField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				capField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		capField.addCaretListener(e -> {
 			Color color = Database.regexNumber(capField.getText(), "{5}") ? Color.green : Color.red;
 			capField.setBorder(new LineBorder(color));
 		});
 		//endregion
-	}
-
-	private boolean allFieldValid() {
-		Color[] colorArray = {
-				((LineBorder)nameField.getBorder()).getLineColor(),
-				((LineBorder)phoneField.getBorder()).getLineColor(),
-				((LineBorder)websiteField.getBorder()).getLineColor(),
-				((LineBorder)streetNameField.getBorder()).getLineColor(),
-				((LineBorder)civicNumberField.getBorder()).getLineColor(),
-				((LineBorder)cityField.getBorder()).getLineColor(),
-				((LineBorder)provinceField.getBorder()).getLineColor(),
-				((LineBorder)capField.getBorder()).getLineColor()
-		};
-
-		for(Color color : colorArray) if(color == Color.red) return false;
-		return true;
 	}
 
 	public static void main() {
@@ -183,5 +213,21 @@ public class RestaurantRegistration extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Restaurant - Registration");
 		dialog.setVisible(true);
+	}
+
+	private boolean allFieldValid() {
+		Color[] colorArray = {
+				((LineBorder) nameField.getBorder()).getLineColor(),
+				((LineBorder) phoneField.getBorder()).getLineColor(),
+				((LineBorder) websiteField.getBorder()).getLineColor(),
+				((LineBorder) streetNameField.getBorder()).getLineColor(),
+				((LineBorder) civicNumberField.getBorder()).getLineColor(),
+				((LineBorder) cityField.getBorder()).getLineColor(),
+				((LineBorder) provinceField.getBorder()).getLineColor(),
+				((LineBorder) capField.getBorder()).getLineColor()
+		};
+
+		for (Color color : colorArray) if (color == Color.red) return false;
+		return true;
 	}
 }
