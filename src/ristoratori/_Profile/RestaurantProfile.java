@@ -31,7 +31,6 @@ public class RestaurantProfile extends JDialog {
 	public RestaurantProfile(Boolean isRestaurant) {
 		setContentPane(contentPane);
 		setModal(true);
-
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
