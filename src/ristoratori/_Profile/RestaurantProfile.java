@@ -101,7 +101,7 @@ public class RestaurantProfile extends JDialog {
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
 		} catch (DatabaseExceptions dbException) {
-			JOptionPane.showMessageDialog(null, "No judgments found for this restaurant");
+			System.out.println("Exception database, no judgement! Continue.");
 		}
 	}
 }
