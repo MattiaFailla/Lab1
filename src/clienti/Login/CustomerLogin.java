@@ -3,7 +3,6 @@ package clienti.Login;
 import _database.Database;
 import _database.DatabaseExceptions;
 import _database.objects.Customer;
-import ristoratori._Profile.RestaurantProfile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,7 +11,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class CustomerLogin extends JDialog {
-	private boolean isCustomer = false;
+	private String customerName = "";
 	private JPanel contentPane;
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
@@ -68,8 +67,7 @@ public class CustomerLogin extends JDialog {
 				Customer customer = Database.getCustomer(nickname);
 				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
 					JOptionPane.showMessageDialog(null, "Login successful");
-					isCustomer = true;
-					RestaurantProfile.customerName = nickname;
+					this.customerName = nickname;
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Customer not found");
@@ -111,14 +109,14 @@ public class CustomerLogin extends JDialog {
 		//endregion
 	}
 
-	public static boolean main() {
+	public static String main() {
 		CustomerLogin dialog = new CustomerLogin();
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Customer - Login");
 		dialog.setVisible(true);
-		return dialog.isCustomer;
+		return dialog.customerName;
 	}
 
 	private boolean allFieldValid() {

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerSearch extends JDialog {
-	private boolean isCustomer = false;
+	private String customerName = "";
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField cityField;
@@ -95,8 +95,8 @@ public class CustomerSearch extends JDialog {
 		//region Switch windows
 		registerButton.addActionListener(e -> CustomerRegistration.main());
 		loginButton.addActionListener(e -> {
-			this.isCustomer = CustomerLogin.main();
-			loginButton.setEnabled(!isCustomer);
+			customerName = CustomerLogin.main();
+			loginButton.setEnabled(customerName.isEmpty());
 		});
 		searchTable.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -107,7 +107,7 @@ public class CustomerSearch extends JDialog {
 						if (selectedRow > 0) {
 							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
 							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main(restaurant, false, isCustomer);
+							RestaurantProfile.main(restaurant, false, customerName);
 						}
 					} catch (IOException | ClassNotFoundException ioException) {
 						ioException.printStackTrace();

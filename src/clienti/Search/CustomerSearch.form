@@ -98,7 +98,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <selected value="true"/>
+          <selected value="false"/>
           <text value="Name"/>
         </properties>
       </component>
@@ -139,6 +139,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
+          <selected value="true"/>
           <text value="Clear"/>
         </properties>
       </component>
