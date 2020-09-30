@@ -13,22 +13,21 @@ import java.io.IOException;
 import java.util.List;
 
 public class RestaurantProfile extends JDialog {
+	public static boolean verifyClient = false;
+	public static String customerName;
+	public static Restaurant rst;
 	private JPanel contentPane;
-	private JLabel ownerLabel;
+	//private JLabel ownerLabel
 	private JLabel nameLabel;
-	private JLabel fullAddressLabel;
-	private JLabel phoneNumberLabel;
 	private JLabel websiteLabel;
 	private JLabel typeLabel;
+	private JLabel fullAddressLabel;
 	private JList<String> judgmentList;
 	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
 	private JButton sendButton;
-	public static boolean verifyClient = false;
-	public static String customerName;
-	public static Restaurant rst;
 
-	public RestaurantProfile(Boolean isRestaurant) {
+	public RestaurantProfile(boolean isRestaurant) {
 		setContentPane(contentPane);
 		setModal(true);
 		//region closing app events
@@ -42,20 +41,17 @@ public class RestaurantProfile extends JDialog {
 		//endregion
 
 		//region Information's restaurants
-		ownerLabel.setText(rst.owner);
+		//ownerLabel.setText("Welcome " + rst.owner);
 		nameLabel.setText(rst.name);
-		fullAddressLabel.setText(rst.fullAddress);
-		phoneNumberLabel.setText(String.valueOf(rst.phoneNumber));
 		websiteLabel.setText(rst.url);
 		typeLabel.setText(rst.type.toString());
+		fullAddressLabel.setText(rst.fullAddress);
 
-		if (isRestaurant) {
-			starsComboBox.setVisible(false);
-			judgmentField.setVisible(false);
-			sendButton.setVisible(false);
-		} else {
-			sendButton.setEnabled(verifyClient);
-		}
+		sendButton.setEnabled(verifyClient);
+
+		starsComboBox.setVisible(!isRestaurant);
+		judgmentField.setVisible(!isRestaurant);
+		sendButton.setVisible(!isRestaurant);
 		//endregion
 
 		//region Initializing judgmentList
@@ -64,17 +60,14 @@ public class RestaurantProfile extends JDialog {
 		printJudgment(listModel);
 		//endregion
 
-		printJudgment(listModel);
-
 		//region sendButton events
 		sendButton.addActionListener(e -> {
 			Integer rating = this.starsComboBox.getSelectedIndex() + 1;
 			String judgment = this.judgmentField.getText();
-			if (judgment.length() > 256) {
-				JOptionPane.showMessageDialog(null, "The message is too long!");
-				return;
-			} else if (judgment.length() <= 1) {
-				JOptionPane.showMessageDialog(null, "The message is too short!");
+			int jdgLength = judgment.length();
+			if (jdgLength < 3 || jdgLength > 254) {
+				String isToo = jdgLength < 3 ? "short" : "long";
+				JOptionPane.showMessageDialog(null, "The message is too " + isToo + "!");
 				return;
 			}
 
@@ -109,8 +102,10 @@ public class RestaurantProfile extends JDialog {
 					listModel.addElement(jdg.toString());
 				}
 			}
-		} catch (IOException | DatabaseExceptions | ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbException) {
+			JOptionPane.showMessageDialog(null, "No judgment found for this restaurant");
 		}
 	}
 }
