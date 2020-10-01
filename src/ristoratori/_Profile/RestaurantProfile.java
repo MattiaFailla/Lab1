@@ -122,7 +122,7 @@ public class RestaurantProfile extends JDialog {
 				JOptionPane.showMessageDialog(null, "No judgments found for this restaurant, be the first one!");
 			else for (Judgement jdg : result) {
 				listModel.addElement(
-						addLinebreaks(jdg.toString(), 105)
+						addLinebreaks(jdg.toString(), 110)
 				);
 			}
 		} catch (IOException | ClassNotFoundException ioException) {
