@@ -50,52 +50,8 @@ public class RestaurantRegistration extends JDialog {
 		//endregion
 
 		//region registerButton events
-		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				registerButton.setEnabled(allFieldValid());
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-		});
-		registerButton.addActionListener(e -> {
-			Restaurant.types type = null;
-
-			// Getting data from the form
-			String name = this.nameField.getText();
-			Long phoneNumber = Long.valueOf(this.phoneField.getText());
-			String url = this.websiteField.getText();
-			String qualifier = String.valueOf(this.qualifierComboBox.getSelectedItem());
-			String street = this.streetNameField.getText();
-			Integer civicNumber = Integer.valueOf(this.civicNumberField.getText());
-			String city = this.cityField.getText();
-			String province = this.provinceField.getText();
-			Integer CAP = Integer.valueOf(this.capField.getText());
-			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
-
-			try {
-				// Check the restaurant in db
-				Database.getRestaurant(name);
-				JOptionPane.showMessageDialog(null, "Restaurant already exists!");
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			} catch (DatabaseExceptions dbException) {
-				// Saving the restaurant in the database
-				Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
-				JOptionPane.showMessageDialog(null, "Registration successful");
-				dispose();
-			}
-		});
+		registerButton.registerKeyboardAction(e -> register(owner), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		registerButton.addActionListener(e -> register(owner));
 		//endregion
 
 		//region Focus events
@@ -212,6 +168,41 @@ public class RestaurantRegistration extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Restaurant - Registration");
 		dialog.setVisible(true);
+	}
+
+	private void register(String owner) {
+		if (!allFieldValid()) {
+			JOptionPane.showMessageDialog(null, "Field not valid!");
+			return;
+		}
+
+		Restaurant.types type = null;
+
+		// Getting data from the form
+		String name = this.nameField.getText();
+		Long phoneNumber = Long.valueOf(this.phoneField.getText());
+		String url = this.websiteField.getText();
+		String qualifier = String.valueOf(this.qualifierComboBox.getSelectedItem());
+		String street = this.streetNameField.getText();
+		Integer civicNumber = Integer.valueOf(this.civicNumberField.getText());
+		String city = this.cityField.getText();
+		String province = this.provinceField.getText();
+		Integer CAP = Integer.valueOf(this.capField.getText());
+		String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
+		if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
+
+		try {
+			// Check the restaurant in db
+			Database.getRestaurant(name);
+			JOptionPane.showMessageDialog(null, "Restaurant already exists!");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbException) {
+			// Saving the restaurant in the database
+			Database.insertRestaurant(owner, name, phoneNumber, qualifier, street, civicNumber, city, province, CAP, url, type);
+			JOptionPane.showMessageDialog(null, "Registration successful");
+			dispose();
+		}
 	}
 
 	private boolean allFieldValid() {

@@ -23,7 +23,6 @@ public class RestaurantProfile extends JDialog {
 	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
 	private JButton sendButton;
-	private JScrollBar scrollBar;
 
 	public RestaurantProfile(Restaurant restaurant, boolean isEatAdvisor, String customerName) {
 		setContentPane(contentPane);
@@ -53,6 +52,7 @@ public class RestaurantProfile extends JDialog {
 		sendButton.setVisible(!isEatAdvisor);
 		//endregion
 
+		//@todo: add scrollbar
 		//region Initializing judgmentList
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		judgmentList.setModel(listModel);
@@ -60,24 +60,8 @@ public class RestaurantProfile extends JDialog {
 		//endregion
 
 		//region sendButton events
-		sendButton.addActionListener(e -> {
-			Integer rating = this.starsComboBox.getSelectedIndex() + 1;
-			String judgment = this.judgmentField.getText();
-			int jdgLength = judgment.length();
-			if (jdgLength < 3 || jdgLength > 254) {
-				String isToo = jdgLength < 3 ? "short" : "long";
-				JOptionPane.showMessageDialog(null, "The message is too " + isToo + "!");
-				return;
-			}
-
-			try {
-				Database.insertJudgment(customerName, nameLabel.getText(), rating, judgment);
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			}
-
-			printJudgment(listModel, restaurant);
-		});
+		sendButton.registerKeyboardAction(e -> send(listModel, restaurant, customerName), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		sendButton.addActionListener(e -> send(listModel, restaurant, customerName));
 		//endregion
 	}
 
@@ -88,6 +72,25 @@ public class RestaurantProfile extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Restaurant - Profile");
 		dialog.setVisible(true);
+	}
+
+	private void send(DefaultListModel<String> listModel, Restaurant restaurant, String customerName) {
+		Integer rating = this.starsComboBox.getSelectedIndex() + 1;
+		String judgment = this.judgmentField.getText();
+		int jdgLength = judgment.length();
+		if (jdgLength < 3 || jdgLength > 254) {
+			String isToo = jdgLength < 3 ? "short" : "long";
+			JOptionPane.showMessageDialog(null, "The message is too " + isToo + "!");
+			return;
+		}
+
+		try {
+			Database.insertJudgment(customerName, nameLabel.getText(), rating, judgment);
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		}
+
+		printJudgment(listModel, restaurant);
 	}
 
 	private void printJudgment(DefaultListModel<String> listModel, Restaurant restaurant) {
