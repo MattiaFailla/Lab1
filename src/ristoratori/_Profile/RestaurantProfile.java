@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class RestaurantProfile extends JDialog {
 	private JPanel contentPane;
@@ -67,11 +68,30 @@ public class RestaurantProfile extends JDialog {
 
 	public static void main(Restaurant restaurant, boolean isEatAdvisor, String customerName) {
 		RestaurantProfile dialog = new RestaurantProfile(restaurant, isEatAdvisor, customerName);
+
 		dialog.pack();
 		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Restaurant - Profile");
 		dialog.setVisible(true);
+	}
+
+	public String addLinebreaks(String raw_input, int maxLineLength) {
+		String input = "<html>" + raw_input + "</html>";
+		StringTokenizer tok = new StringTokenizer(input, " ");
+		StringBuilder output = new StringBuilder(input.length());
+		int lineLen = 0;
+		while (tok.hasMoreTokens()) {
+			String word = tok.nextToken() + " ";
+
+			if (lineLen + word.length() > maxLineLength) {
+				output.append("<br>");
+				lineLen = 0;
+			}
+			output.append(word);
+			lineLen += word.length();
+		}
+		return output.toString();
 	}
 
 	private void send(DefaultListModel<String> listModel, Restaurant restaurant, String customerName) {
@@ -100,7 +120,11 @@ public class RestaurantProfile extends JDialog {
 			result = Database.getJudgement(restaurant.name);
 			if (result.isEmpty())
 				JOptionPane.showMessageDialog(null, "No judgments found for this restaurant, be the first one!");
-			else for (Judgement jdg : result) listModel.addElement(jdg.toString());
+			else for (Judgement jdg : result) {
+				listModel.addElement(
+						addLinebreaks(jdg.toString(), 105)
+				);
+			}
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
 		} catch (DatabaseExceptions dbException) {

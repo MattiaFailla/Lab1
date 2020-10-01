@@ -3,14 +3,14 @@
   <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="854" height="480"/>
+      <xy x="20" y="20" width="854" height="500"/>
     </constraints>
     <properties>
       <background color="-1"/>
       <foreground color="-15658735"/>
       <maximumSize width="2560" height="1440"/>
-      <minimumSize width="854" height="480"/>
-      <preferredSize width="1920" height="1080"/>
+      <minimumSize width="500" height="500"/>
+      <preferredSize width="800" height="600"/>
     </properties>
     <border type="none"/>
     <children>
@@ -103,14 +103,12 @@
       </hspacer>
       <component id="e4785" class="javax.swing.JList" binding="judgmentList">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="6" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
           <foreground color="-15658735"/>
-          <layoutOrientation value="2"/>
+          <layoutOrientation value="1"/>
           <selectionMode value="0"/>
           <visibleRowCount value="0"/>
         </properties>
