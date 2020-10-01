@@ -102,7 +102,7 @@ public class RestaurantProfile extends JDialog {
 		Integer rating = this.starsComboBox.getSelectedIndex() + 1;
 		String judgment = this.judgmentField.getText();
 		int jdgLength = judgment.length();
-		if (jdgLength < 3 || jdgLength > 254) {
+		if (jdgLength < 3 || jdgLength > 256) {
 			String isToo = jdgLength < 3 ? "short" : "long";
 			JOptionPane.showMessageDialog(null, "The message is too " + isToo + "!");
 			return;
