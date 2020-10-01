@@ -155,8 +155,13 @@
             <constraints/>
             <properties>
               <background color="-1"/>
+              <fixedCellWidth value="1100"/>
+              <focusCycleRoot value="false"/>
               <foreground color="-15658735"/>
+              <inheritsPopupMenu value="false"/>
               <layoutOrientation value="2"/>
+              <maximumSize width="1200" height="0"/>
+              <minimumSize width="1200" height="0"/>
               <selectionMode value="0"/>
               <visibleRowCount value="0"/>
             </properties>
