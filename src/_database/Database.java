@@ -471,7 +471,7 @@ public class Database {
 
 	public static boolean regexProvince(String text) { return text.toUpperCase().matches("^[A-Z]{2}$"); } // uppercase letters {2}
 
-	public static boolean regexEmail(String text) { return text.matches("^([a-z0-9]+[\\.]?)+@[a-z0-9]+\\.[a-z0-9]{2,3}$"); } // (lowercase letters or number + .?) more times + @ + letters + . + lower letters {2,3}
+	public static boolean regexEmail(String text) { return text.matches("^([a-z0-9]+[\\.]?)+@([a-z]+[\\.]?){1,2}[a-z]{2,3}$"); } // (lowercase letters or number + .?) more times + @ + (lower letters + .?){1,2} + lower letters {2,3}
 
 	public static boolean regexNickname(String text) { return text.matches("^[a-z0-9_-]{3,15}$"); } // lowercase letters or number or _ or - {3,15}
 
