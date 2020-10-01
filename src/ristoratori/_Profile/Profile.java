@@ -29,10 +29,10 @@ public class Profile extends JDialog {
 				dispose();
 			}
 		});
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		//endregion
 
-		//region Information's client
+		//region Initializing client's info
 		welcomeLabel.setText(eatAdvisor.nickname);
 		//endregion
 
@@ -49,10 +49,14 @@ public class Profile extends JDialog {
 		printRestaurants(tableModel, eatAdvisor.nickname);
 		//endregion
 
+		//region restaurantButton events
 		restaurantButton.addActionListener(e -> {
 			RestaurantRegistration.main(eatAdvisor.nickname);
 			printRestaurants(tableModel, eatAdvisor.nickname);
 		});
+		//endregion
+
+		//region restaurantTable events
 		restaurantTable.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
@@ -88,6 +92,7 @@ public class Profile extends JDialog {
 
 			}
 		});
+		//endregion
 	}
 
 	public static void main(Customer eatAdvisor, boolean isEatAdvisor) {
@@ -104,7 +109,7 @@ public class Profile extends JDialog {
 		List<Restaurant> result;
 		try {
 			result = Database.getRestaurantByOwner(owner);
-			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "You have not registered any restaurants yet");
+			if (result.isEmpty()) JOptionPane.showMessageDialog(null, "You have not registered any restaurants yet.");
 			else for (Restaurant rst : result) tableModel.addRow(new Object[]{rst.name, rst.city, rst.type});
 		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
