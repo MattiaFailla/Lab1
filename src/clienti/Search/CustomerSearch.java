@@ -65,73 +65,7 @@ public class CustomerSearch extends JDialog {
 		printRestaurants(tableModel);
 		//endregion
 
-		//region researchButton events
-		researchButton.addActionListener(e -> {
-			Restaurant.types type = null;
-
-			String name = this.nameField.getText();
-			String city = this.cityField.getText();
-			String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
-			if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
-
-			try {
-				if (nameRadio.isSelected()) this.result = Database.getRestaurantByName(name);
-				else if (cityRadio.isSelected()) this.result = Database.getRestaurantByCity(city);
-				else if (typologyRadio.isSelected()) this.result = Database.getRestaurantByCategory(type);
-				else if (cityandtypologyRadio.isSelected()) this.result = Database.getRestaurantByCityAndType(city, type);
-				else {
-					this.result.clear();
-					printRestaurants(tableModel);
-				}
-
-				if (!this.result.isEmpty()) printRestaurants(tableModel);
-				else JOptionPane.showMessageDialog(null, "No result found");
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			}
-		});
-		//endregion
-
-		//region Switch windows
-		registerButton.addActionListener(e -> CustomerRegistration.main());
-		loginButton.addActionListener(e -> {
-			customerName = CustomerLogin.main();
-			loginButton.setEnabled(customerName.isEmpty());
-		});
-		searchTable.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2 && !e.isConsumed()) {
-					e.consume();
-					try {
-						int selectedRow = searchTable.getSelectedRow();
-						if (selectedRow > 0) {
-							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
-							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
-							RestaurantProfile.main(restaurant, false, customerName);
-						}
-					} catch (IOException | ClassNotFoundException ioException) {
-						ioException.printStackTrace();
-					} catch (DatabaseExceptions dbException) {
-						JOptionPane.showMessageDialog(null, "Restaurant not found.");
-					}
-				}
-			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-		});
-		//endregion
-
-		//region RadioButton events
+		//region Initializing radioButton
 		nameRadio.addActionListener(e -> {
 			nameRadio.setSelected(true);
 			cityRadio.setSelected(false);
@@ -173,6 +107,50 @@ public class CustomerSearch extends JDialog {
 		});
 		//endregion
 
+		//region researchButton events
+		researchButton.registerKeyboardAction(e -> search(tableModel), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		researchButton.addActionListener(e -> search(tableModel));
+		//endregion
+
+		//region Switch windows
+		registerButton.addActionListener(e -> CustomerRegistration.main());
+		loginButton.addActionListener(e -> {
+			this.customerName = CustomerLogin.main();
+			loginButton.setEnabled(customerName.isEmpty());
+		});
+		searchTable.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2 && !e.isConsumed()) {
+					e.consume();
+					try {
+						int selectedRow = searchTable.getSelectedRow();
+						if (selectedRow > 0) {
+							String nameRestaurant = String.valueOf(tableModel.getValueAt(selectedRow, 0));
+							Restaurant restaurant = Database.getRestaurant(nameRestaurant);
+							RestaurantProfile.main(restaurant, false, customerName);
+						}
+					} catch (IOException | ClassNotFoundException ioException) {
+						ioException.printStackTrace();
+					} catch (DatabaseExceptions dbException) {
+						JOptionPane.showMessageDialog(null, "Restaurant not found.");
+					}
+				}
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			public void mouseExited(MouseEvent e) {
+			}
+		});
+		//endregion
+
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -199,8 +177,6 @@ public class CustomerSearch extends JDialog {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
 			cityField.setBorder(new LineBorder(color));
 		});
-
-
 		//endregion
 	}
 
@@ -211,6 +187,31 @@ public class CustomerSearch extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Search");
 		dialog.setVisible(true);
+	}
+
+	private void search(DefaultTableModel tableModel) {
+		Restaurant.types type = null;
+
+		String name = this.nameField.getText();
+		String city = this.cityField.getText();
+		String typeStr = String.valueOf(this.typologyBox.getSelectedItem());
+		if (typeStr != null) type = Restaurant.types.valueOf(typeStr.toUpperCase());
+
+		try {
+			if (nameRadio.isSelected()) this.result = Database.getRestaurantByName(name);
+			else if (cityRadio.isSelected()) this.result = Database.getRestaurantByCity(city);
+			else if (typologyRadio.isSelected()) this.result = Database.getRestaurantByCategory(type);
+			else if (cityandtypologyRadio.isSelected()) this.result = Database.getRestaurantByCityAndType(city, type);
+			else {
+				this.result.clear();
+				printRestaurants(tableModel);
+			}
+
+			if (!this.result.isEmpty()) printRestaurants(tableModel);
+			else JOptionPane.showMessageDialog(null, "No result found");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		}
 	}
 
 	private void printRestaurants(DefaultTableModel tableModel) {
