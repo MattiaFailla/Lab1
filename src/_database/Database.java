@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * * junction between these two applications.
  */
 public final class Database {
-	private static final String restaurant_db = "./../data/EatAdvisor.dati";
-	private static final String client_db = "./../data/Utenti.dati";
+	private static final String restaurant_db = "./data/EatAdvisor.dati";
+	private static final String client_db = "./data/Utenti.dati";
 
 	/**
 	 * Initializes the files for the database. This method is implicitly called when a search is issued.
