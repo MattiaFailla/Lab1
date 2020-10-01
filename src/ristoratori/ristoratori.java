@@ -1,7 +1,7 @@
 /*
  * D'Angelo Lorenzo - 742577 - Varese
- * Failla Mattia - 742581 - Varese
- * Pedotti Samuel - 739897 - Varese
+ * Failla Mattia    - 742581 - Varese
+ * Pedotti Samuel   - 739897 - Varese
  * */
 
 package ristoratori;
@@ -23,8 +23,8 @@ public class ristoratori {
         // Init the database
         Database.init();
         System.out.println("App started");
-
-        //todo: auto-registrazione di un ristoratore (con verifica che non esista)
+        
+        // todo: auto-registrazione di un ristoratore (con verifica che non esista)
         String name = "Ristoratore";
         String surname = "Ristoratore";
         String city = "Milano";
