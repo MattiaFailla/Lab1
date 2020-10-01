@@ -386,6 +386,7 @@ public class Database {
 	//endregion
 
 	public static Object ReadObjectFromFile(String filepath) {
+		init();
 		try {
 			FileInputStream fileIn = new FileInputStream(filepath);
 			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
