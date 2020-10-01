@@ -87,8 +87,8 @@ public class CustomerLogin extends JDialog {
 		}
 
 		// Getting data from the form
-		String nickname = nicknameField.getText();
-		String password = String.valueOf(passwordField.getPassword());
+		String nickname = this.nicknameField.getText();
+		String password = String.valueOf(this.passwordField.getPassword());
 
 		try {
 			Customer customer = Database.getCustomer(nickname);
