@@ -66,13 +66,8 @@
         </constraints>
         <properties>
           <background color="-1"/>
-          <borderPainted value="true"/>
           <contentAreaFilled value="false"/>
-          <enabled value="false"/>
-          <focusPainted value="false"/>
           <foreground color="-15658735"/>
-          <opaque value="false"/>
-          <requestFocusEnabled value="true"/>
           <text value="Login"/>
         </properties>
       </component>

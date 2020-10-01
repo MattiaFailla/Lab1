@@ -30,7 +30,7 @@ public class EatAdvisorLogin extends JDialog {
 				dispose();
 			}
 		});
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		//endregion
 
 		//region setBorder to Color.red
@@ -39,49 +39,13 @@ public class EatAdvisorLogin extends JDialog {
 		//endregion
 
 		//region loginButton events
-		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				loginButton.setEnabled(allFieldValid());
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-		});
-		/*
-		loginButton.addActionListener(e -> {
-			// Getting data from the form
-			String nickname = nicknameField.getText();
-			String password = String.valueOf(passwordField.getPassword());
-
-			try {
-				Customer customer = Database.getCustomer(nickname);
-				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
-					JOptionPane.showMessageDialog(null, "Login successful");
-					Profile.clt = customer;
-					dispose();
-					Profile.main();
-				} else {
-					JOptionPane.showMessageDialog(null, "Customer not found");
-				}
-			} catch (IOException | ClassNotFoundException exception) {
-				exception.printStackTrace();
-			} catch (DatabaseExceptions databaseExceptions) {
-				JOptionPane.showMessageDialog(null, "Customer not found");
-			}
-		});
-		*/
+		loginButton.registerKeyboardAction(e -> login(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		loginButton.addActionListener(e -> login());
 		//endregion
 
+		//region registerButton events
 		registerButton.addActionListener(e -> EatAdvisorRegistration.main());
+		//endregion
 
 		//region Focus events
 		nicknameField.addFocusListener(new FocusListener() {
@@ -128,18 +92,47 @@ public class EatAdvisorLogin extends JDialog {
 		try {
 			Customer eatAdvisor = Database.getCustomer(nickname);
 			if (eatAdvisor.nickname.equals(nickname) && eatAdvisor.password.equals(password)) {
-				// JOptionPane.showMessageDialog(null, "Welcome back!");
 				Profile.main(eatAdvisor, true);
 			} else {
-				JOptionPane.showMessageDialog(null, "Customer not found");
+				JOptionPane.showMessageDialog(null, "Customer not found!");
 			}
-		} catch (IOException | ClassNotFoundException | DatabaseExceptions ioException) {
+		} catch (IOException | ClassNotFoundException ioException) {
 			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbExceptions) {
+			JOptionPane.showMessageDialog(null, "Customer not found!");
+		}
+	}
+
+	private void login() {
+		if (!allFieldValid()) {
+			JOptionPane.showMessageDialog(null, "Field not valid!");
+			return;
+		}
+
+		// Getting data from the form
+		String nickname = nicknameField.getText();
+		String password = String.valueOf(passwordField.getPassword());
+
+		try {
+			Customer eatAdvisor = Database.getCustomer(nickname);
+			if (eatAdvisor.nickname.equals(nickname) && eatAdvisor.password.equals(password)) {
+				JOptionPane.showMessageDialog(null, "Login successful");
+				Profile.main(eatAdvisor, true);
+			} else {
+				JOptionPane.showMessageDialog(null, "Customer not found!");
+			}
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbExceptions) {
+			JOptionPane.showMessageDialog(null, "Customer not found!");
 		}
 	}
 
 	private boolean allFieldValid() {
-		Color[] colorArray = {((LineBorder) nicknameField.getBorder()).getLineColor(), ((LineBorder) passwordField.getBorder()).getLineColor()};
+		Color[] colorArray = {
+				((LineBorder) nicknameField.getBorder()).getLineColor(),
+				((LineBorder) passwordField.getBorder()).getLineColor()
+		};
 
 		for (Color color : colorArray) if (color == Color.red) return false;
 		return true;

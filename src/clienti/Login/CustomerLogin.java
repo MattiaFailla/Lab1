@@ -28,7 +28,7 @@ public class CustomerLogin extends JDialog {
 				dispose();
 			}
 		});
-		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		//endregion
 
 		//region setBorder to Color.red
@@ -37,47 +37,8 @@ public class CustomerLogin extends JDialog {
 		//endregion
 
 		//region loginButton events
-		loginButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-
-			}
-
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				loginButton.setEnabled(allFieldValid());
-			}
-
-			public void mouseExited(MouseEvent e) {
-
-			}
-		});
-		loginButton.addActionListener(e -> {
-			// Getting data from the form
-			String nickname = nicknameField.getText();
-			String password = String.valueOf(passwordField.getPassword());
-
-			try {
-				Customer customer = Database.getCustomer(nickname);
-				if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
-					JOptionPane.showMessageDialog(null, "Login successful");
-					this.customerName = nickname;
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Customer not found");
-				}
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			} catch (DatabaseExceptions dbExceptions) {
-				JOptionPane.showMessageDialog(null, "Customer not found");
-			}
-		});
+		loginButton.registerKeyboardAction(e -> login(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		loginButton.addActionListener(e -> login());
 		//endregion
 
 		//region Focus events
@@ -117,6 +78,30 @@ public class CustomerLogin extends JDialog {
 		dialog.setTitle("Customer - Login");
 		dialog.setVisible(true);
 		return dialog.customerName;
+	}
+
+	private void login() {
+		if (!allFieldValid()) {
+			JOptionPane.showMessageDialog(null, "Field not valid!");
+			return;
+		}
+
+		// Getting data from the form
+		String nickname = nicknameField.getText();
+		String password = String.valueOf(passwordField.getPassword());
+
+		try {
+			Customer customer = Database.getCustomer(nickname);
+			if (customer.nickname.equals(nickname) && customer.password.equals(password)) {
+				this.customerName = nickname;
+				JOptionPane.showMessageDialog(null, "Login successful");
+				dispose();
+			} else JOptionPane.showMessageDialog(null, "Customer not found!");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbExceptions) {
+			JOptionPane.showMessageDialog(null, "Customer not found!");
+		}
 	}
 
 	private boolean allFieldValid() {
