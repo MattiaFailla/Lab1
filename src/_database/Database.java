@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * * priority is to make a powerful yet simple helper class to achieve a single point of
  * * junction between these two applications.
  */
-public class Database {
+public final class Database {
 	private static final String restaurant_db = "./data/EatAdvisor.dati";
 	private static final String client_db = "./data/Utenti.dati";
 
@@ -46,7 +46,7 @@ public class Database {
 			}
 			return success;
 		} catch (Exception e) {
-			System.out.println("Error:" + e.toString());
+			System.out.println("Error on db init:" + e.toString());
 			return false;
 		}
 	}
