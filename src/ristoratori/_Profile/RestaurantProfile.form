@@ -144,7 +144,7 @@
           <text value="Send"/>
         </properties>
       </component>
-      <scrollpane id="9acc4">
+      <scrollpane id="9acc4" binding="judgeScroll">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -156,7 +156,7 @@
             <properties>
               <background color="-1"/>
               <foreground color="-15658735"/>
-              <layoutOrientation value="1"/>
+              <layoutOrientation value="2"/>
               <selectionMode value="0"/>
               <visibleRowCount value="0"/>
             </properties>

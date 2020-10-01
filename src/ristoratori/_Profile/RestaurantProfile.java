@@ -20,12 +20,16 @@ public class RestaurantProfile extends JDialog {
 	private JLabel typeLabel;
 	private JLabel websiteLabel;
 	private JLabel fullAddressLabel;
+	private JScrollPane judgeScroll;
 	private JList<String> judgmentList;
 	private JComboBox<Byte> starsComboBox;
 	private JTextField judgmentField;
 	private JButton sendButton;
 
 	public RestaurantProfile(Restaurant restaurant, boolean isEatAdvisor, String customerName) {
+		//JScrollPane scrollPane = new JScrollPane(outputTextArea);
+		judgeScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -122,7 +126,7 @@ public class RestaurantProfile extends JDialog {
 				JOptionPane.showMessageDialog(null, "No judgments found for this restaurant, be the first one!");
 			else for (Judgement jdg : result) {
 				listModel.addElement(
-						addLinebreaks(jdg.toString(), 110)
+						addLinebreaks(jdg.toString(), 100)
 				);
 			}
 		} catch (IOException | ClassNotFoundException ioException) {
