@@ -9,8 +9,8 @@
       <background color="-1"/>
       <foreground color="-15658735"/>
       <maximumSize width="2560" height="1440"/>
-      <minimumSize width="854" height="480"/>
-      <preferredSize width="1920" height="1080"/>
+      <minimumSize width="300" height="300"/>
+      <preferredSize width="600" height="500"/>
     </properties>
     <border type="none">
       <title-color color="-15658735"/>
