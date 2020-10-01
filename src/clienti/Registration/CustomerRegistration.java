@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class CustomerRegistration extends JDialog{
+public class CustomerRegistration extends JDialog {
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField surnameField;
@@ -27,7 +27,9 @@ public class CustomerRegistration extends JDialog{
 		//region closing app events
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { dispose(); }
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
 		});
 		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT); // call onCancel() on ESCAPE
 		//endregiond
@@ -43,58 +45,18 @@ public class CustomerRegistration extends JDialog{
 		//endregion
 
 		// region registerButton events
-		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) { }
-			public void mousePressed(MouseEvent e) { }
-			public void mouseReleased(MouseEvent e) { }
-			public void mouseEntered(MouseEvent e) { registerButton.setEnabled(allFieldValid()); }
-			public void mouseExited(MouseEvent e) { }
-		});
-		registerButton.addActionListener(e -> {
-			// Getting data from the form
-			String name = this.nameField.getText();
-			String surname = this.surnameField.getText();
-			String city = this.cityField.getText();
-			String province = this.provinceField.getText();
-			String email = this.emailField.getText();
-			String nickname = this.nicknameField.getText();
-			String password = String.valueOf(this.passwordField.getPassword());
-
-			try {
-				// Check the customer in db
-				Database.getCustomer(nickname);
-				JOptionPane.showMessageDialog(null, "Customer already exists");
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			} catch (DatabaseExceptions dbExceptions) {
-				// Saving the customer in the database
-				Database.insertClient(name, surname, city, province, email, nickname, password);
-				JOptionPane.showMessageDialog(null, "Registration successful");
-				dispose();
-			}
-
-
-			/*try {
-				// Check the customer in the database
-				for(Customer cst : Database.getCustomers()) {
-					if(!cst.nickname.equals(nickname)) {
-						Database.insertClient(name, surname, city, province, email, nickname, password);
-						JOptionPane.showMessageDialog(null, "Registration successfull");
-						dispose();
-					}
-					else JOptionPane.showMessageDialog(null, "Eat advisor already exists");
-				}
-			}
-			catch (IOException | ClassNotFoundException ioException) { ioException.printStackTrace(); }
-
-			 */
-		});
+		registerButton.registerKeyboardAction(e -> register(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		registerButton.addActionListener(e -> register());
 		// endregion
 
 		//region Focus events
 		nameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { nameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				nameField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		nameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(nameField.getText()) ? Color.green : Color.red;
@@ -102,8 +64,12 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		surnameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { surnameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				surnameField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		surnameField.addCaretListener(e -> {
 			Color color = Database.regexStandard(surnameField.getText()) ? Color.green : Color.red;
@@ -111,8 +77,12 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		cityField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { cityField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				cityField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		cityField.addCaretListener(e -> {
 			Color color = Database.regexStandard(cityField.getText()) ? Color.green : Color.red;
@@ -120,8 +90,12 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		provinceField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { provinceField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				provinceField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		provinceField.addCaretListener(e -> {
 			Color color = Database.regexProvince(provinceField.getText()) ? Color.green : Color.red;
@@ -129,8 +103,12 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		emailField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { emailField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				emailField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		emailField.addCaretListener(e -> {
 			Color color = Database.regexEmail(emailField.getText()) ? Color.green : Color.red;
@@ -138,8 +116,12 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		nicknameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { nicknameField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				nicknameField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		nicknameField.addCaretListener(e -> {
 			Color color = Database.regexNickname(nicknameField.getText()) ? Color.green : Color.red;
@@ -147,29 +129,18 @@ public class CustomerRegistration extends JDialog{
 		});
 
 		passwordField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) { passwordField.selectAll(); }
-			public void focusLost(FocusEvent e) { }
+			public void focusGained(FocusEvent e) {
+				passwordField.selectAll();
+			}
+
+			public void focusLost(FocusEvent e) {
+			}
 		});
 		passwordField.addCaretListener(e -> {
 			Color color = Database.regexPassword(String.valueOf(passwordField.getPassword())) ? Color.green : Color.red;
 			passwordField.setBorder(new LineBorder(color));
 		});
 		//endregion
-	}
-
-	private boolean allFieldValid() {
-		Color[] colorArray = {
-				((LineBorder)nameField.getBorder()).getLineColor(),
-				((LineBorder)surnameField.getBorder()).getLineColor(),
-				((LineBorder)cityField.getBorder()).getLineColor(),
-				((LineBorder)provinceField.getBorder()).getLineColor(),
-				((LineBorder)emailField.getBorder()).getLineColor(),
-				((LineBorder)nicknameField.getBorder()).getLineColor(),
-				((LineBorder)passwordField.getBorder()).getLineColor()
-		};
-
-		for(Color color : colorArray) if(color == Color.red) return false;
-		return true;
 	}
 
 	public static void main() {
@@ -179,5 +150,49 @@ public class CustomerRegistration extends JDialog{
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Customer - Registration");
 		dialog.setVisible(true);
+	}
+
+	private void register() {
+		if (!allFieldValid()) {
+			JOptionPane.showMessageDialog(null, "Field not valid!");
+			return;
+		}
+
+		// Getting data from the form
+		String name = this.nameField.getText();
+		String surname = this.surnameField.getText();
+		String city = this.cityField.getText();
+		String province = this.provinceField.getText();
+		String email = this.emailField.getText();
+		String nickname = this.nicknameField.getText();
+		String password = String.valueOf(this.passwordField.getPassword());
+
+		try {
+			// Check the customer in db
+			Database.getCustomer(nickname);
+			JOptionPane.showMessageDialog(null, "Customer already exists!");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbExceptions) {
+			// Saving the customer in the database
+			Database.insertClient(name, surname, city, province, email, nickname, password);
+			JOptionPane.showMessageDialog(null, "Registration successful.");
+			dispose();
+		}
+	}
+
+	private boolean allFieldValid() {
+		Color[] colorArray = {
+				((LineBorder) nameField.getBorder()).getLineColor(),
+				((LineBorder) surnameField.getBorder()).getLineColor(),
+				((LineBorder) cityField.getBorder()).getLineColor(),
+				((LineBorder) provinceField.getBorder()).getLineColor(),
+				((LineBorder) emailField.getBorder()).getLineColor(),
+				((LineBorder) nicknameField.getBorder()).getLineColor(),
+				((LineBorder) passwordField.getBorder()).getLineColor()
+		};
+
+		for (Color color : colorArray) if (color == Color.red) return false;
+		return true;
 	}
 }

@@ -45,47 +45,8 @@ public class EatAdvisorRegistration extends JDialog {
 		//endregion
 
 		//region registerButton events
-		registerButton.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				registerButton.setEnabled(allFieldValid());
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-		});
-		registerButton.addActionListener(e -> {
-			// Getting data from the form
-			String name = this.nameField.getText();
-			String surname = this.surnameField.getText();
-			String city = this.cityField.getText();
-			String province = this.provinceField.getText();
-			String email = this.emailField.getText();
-			String nickname = this.nicknameField.getText();
-			String password = String.valueOf(this.passwordField.getPassword());
-
-			try {
-				// Check the customer in db
-				Database.getCustomer(nickname);
-				JOptionPane.showMessageDialog(null, "Eat advisor already exists");
-			} catch (IOException | ClassNotFoundException ioException) {
-				ioException.printStackTrace();
-			} catch (DatabaseExceptions dbExceptions) {
-				// Saving the customer in the database
-				Database.insertClient(name, surname, city, province, email, nickname, password);
-				JOptionPane.showMessageDialog(null, "Registration successful");
-				dispose();
-			}
-
-		});
+		registerButton.registerKeyboardAction(e -> register(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		registerButton.addActionListener(e -> register());
 		//endregion
 
 		//region Focus events
@@ -114,6 +75,7 @@ public class EatAdvisorRegistration extends JDialog {
 			Color color = Database.regexStandard(surnameField.getText()) ? Color.green : Color.red;
 			surnameField.setBorder(new LineBorder(color));
 		});
+
 		cityField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				cityField.selectAll();
@@ -188,6 +150,35 @@ public class EatAdvisorRegistration extends JDialog {
 		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("EatAdvisor - Registration");
 		dialog.setVisible(true);
+	}
+
+	private void register() {
+		if (!allFieldValid()) {
+			JOptionPane.showMessageDialog(null, "Field not valid!");
+			return;
+		}
+
+		// Getting data from the form
+		String name = this.nameField.getText();
+		String surname = this.surnameField.getText();
+		String city = this.cityField.getText();
+		String province = this.provinceField.getText();
+		String email = this.emailField.getText();
+		String nickname = this.nicknameField.getText();
+		String password = String.valueOf(this.passwordField.getPassword());
+
+		try {
+			// Check the customer in db
+			Database.getCustomer(nickname);
+			JOptionPane.showMessageDialog(null, "Customer already exists!");
+		} catch (IOException | ClassNotFoundException ioException) {
+			ioException.printStackTrace();
+		} catch (DatabaseExceptions dbExceptions) {
+			// Saving the customer in the database
+			Database.insertClient(name, surname, city, province, email, nickname, password);
+			JOptionPane.showMessageDialog(null, "Registration successful.");
+			dispose();
+		}
 	}
 
 	private boolean allFieldValid() {
